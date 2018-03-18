@@ -48,7 +48,8 @@ def main(infile, p2p_operator_name='mintos'):
                                            out_csv_fieldnames[2]: category,
                                            out_csv_fieldnames[3]: note}
                 logging.debug(formatted_account_entry)
-                writer.writerow(formatted_account_entry)
+                if category:
+                    writer.writerow(formatted_account_entry)
 
 
 if __name__ == "__main__":
