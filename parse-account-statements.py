@@ -1,55 +1,54 @@
 #!/usr/bin/python3
+# -*- coding: utf-8 -*-
 # Copyright 2018-03-17 ChrisRBe
 import argparse
-import csv
 import logging
 import os
-import re
-from datetime import datetime
+import sys
 
-relevant_invest_strings = "Incoming client"
-relevant_income_strings = "^Delayed interest.*|^Late payment.*|^Interest income.*|^Cashback.*"
+from src import mintos_parser, portfolio_performance_writer
+
+
+def platform_factory(operator_name='mintos'):
+    """
+    Return an object for the required Peer-to-Peer lending platform
+
+    :param operator_name: name of the P2P lending site, defaults to Mintos
+    :return: object for the actual lending platform parser, None if not supported
+    """
+    if operator_name == 'mintos':
+        return mintos_parser.MintosParser()
+    else:
+        logging.error('The provided platform {} is currently not supported'.format(operator_name))
+        return False
 
 
 def main(infile, p2p_operator_name='mintos'):
-    if os.path.exists(infile):
-        input_file = infile
+    """
+    Processes the provided input file with the rules defined for the given platform.
+    Outputs a CSV file readable by Portfolio Performance
+
+    :param infile: input file containing the account statements from a supported platform
+    :param p2p_operator_name: name of the Peer-to-Peer lending platform, defaults to Mintos
+    :return: True, False if an error occurred.
+    """
+    if not os.path.exists(infile):
+        logging.error('provided file {} does not exist'.format(infile))
+        return False
+
+    platform_parser = platform_factory(p2p_operator_name)
+    if platform_parser:
+        platform_parser.account_statement_file = infile
+        statement_list = platform_parser.parse_account_statement()
+
+        writer = portfolio_performance_writer.PortfolioPerformanceWriter()
+        writer.init_output()
+        for entry in statement_list:
+            writer.update_output(entry)
+        writer.write_pp_csv_file(os.path.join(os.path.dirname(infile),
+                                              'portfolio_performance__{}.csv'.format(p2p_operator_name)))
     else:
-        return
-
-    out_csv_fieldnames = ['Datum', 'Wert', 'Typ', 'Notiz']
-
-    with open(input_file, newline='') as csvfile:
-        dialect = csv.Sniffer().sniff(csvfile.read(1024))
-        csvfile.seek(0)
-        statement = csv.DictReader(csvfile, dialect=dialect)
-
-        logging.debug(statement.fieldnames)
-
-        relevant_income_regex = re.compile(relevant_income_strings)
-        relevant_invest_regex = re.compile(relevant_invest_strings)
-
-        with open(os.path.join(os.path.dirname(input_file), "portfolio_performance__{}.csv".format(p2p_operator_name)),
-                  'w') as outfile:
-            writer = csv.DictWriter(outfile, fieldnames=out_csv_fieldnames, dialect=dialect)
-            writer.writeheader()
-            for entry in statement:
-                category = ""
-                if relevant_income_regex.match(entry['Details']):
-                    category = "Zinsen"
-                elif relevant_invest_regex.match(entry['Details']):
-                    category = "Einlage"
-
-                date = datetime.strptime(entry['Date'], "%Y-%m-%d %H:%M:%S")
-                note = "{id}: {details}".format(id=entry['Transaction ID'], details=entry['Details'])
-
-                formatted_account_entry = {out_csv_fieldnames[0]: date.date(),
-                                           out_csv_fieldnames[1]: entry['Turnover'],
-                                           out_csv_fieldnames[2]: category,
-                                           out_csv_fieldnames[3]: note}
-                logging.debug(formatted_account_entry)
-                if category:
-                    writer.writerow(formatted_account_entry)
+        return False
 
 
 if __name__ == "__main__":
@@ -68,4 +67,4 @@ if __name__ == "__main__":
     if args.debug:
         logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
 
-    main(args.infile, args.type)
+    sys.exit(main(args.infile, args.type))
