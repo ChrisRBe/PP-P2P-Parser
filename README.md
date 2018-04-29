@@ -1,4 +1,7 @@
 # PP-P2P-Parser
+
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/23ae124125c9439b8bd8087cf8efda20)](https://app.codacy.com/app/chrisrbe/PP-P2P-Parser?utm_source=github.com&utm_medium=referral&utm_content=ChrisRBe/PP-P2P-Parser&utm_campaign=badger)
+
 Parser for P2P service Mintos.com for Portfolio Performance.
 
 # Requirements
