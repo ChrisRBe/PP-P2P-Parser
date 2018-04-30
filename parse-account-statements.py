@@ -1,6 +1,11 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
-# Copyright 2018-03-17 ChrisRBe
+"""
+Application to read account statement files from different peer to peer lending sites, e.g. Mintos.com and produce
+a Portfolio Performance readable csv file
+
+Copyright 2018-03-17 ChrisRBe
+"""
 import argparse
 import logging
 import os
@@ -52,7 +57,8 @@ def main(infile, p2p_operator_name='mintos'):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(description=__doc__,
+                                     formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument('infile',
                         type=str,
                         help='CSV file containing the downloaded data from the P2P site')

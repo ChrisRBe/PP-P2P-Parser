@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
-# Copyright 2018-04-29 ChrisRBe
+"""
+Unit test for the mintos parser module
 
+Copyright 2018-04-29 ChrisRBe
+"""
 import datetime
 import os
 from unittest import TestCase
@@ -9,11 +12,15 @@ from ..mintos_parser import MintosParser
 
 
 class TestMintosParser(TestCase):
-    def setUp(self):
-        self.m = MintosParser()
-        self.m.account_statement_file = os.path.join(os.path.dirname(__file__), 'testdata', 'mintos.csv')
+    """Test case implementation for MintosParser"""
 
-    def test_read_account_statement(self):
+    def setUp(self):
+        """test case setUp, run for each test case"""
+        self.mintos = MintosParser()
+        self.mintos.account_statement_file = os.path.join(os.path.dirname(__file__), 'testdata', 'mintos.csv')
+
+    def test_parse_account_statement(self):
+        """test parse_account_statement"""
         expected_statement = [
             {'Datum': datetime.date(2018, 1, 17),
              'Notiz': '236659674: Incoming client payment',
@@ -45,4 +52,4 @@ class TestMintosParser(TestCase):
              'Typ': 'Zinsen',
              'Wert': '0,3'}]
 
-        self.assertEqual(expected_statement, self.m.parse_account_statement())
+        self.assertEqual(expected_statement, self.mintos.parse_account_statement())

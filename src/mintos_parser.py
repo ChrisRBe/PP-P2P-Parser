@@ -1,5 +1,9 @@
-# Copyright 2018-04-29 ChrisRBe
 # -*- coding: utf-8 -*-
+"""
+Module for the Mintos account statement parser
+
+Copyright 2018-04-29 ChrisRBe
+"""
 import csv
 import logging
 import os
@@ -10,6 +14,9 @@ from .portfolio_performance_writer import PP_FIELDNAMES
 
 
 class MintosParser(object):
+    """
+    Implementation for the Mintos account statement parser
+    """
     def __init__(self):
         """
         Constructor for MintosParser
@@ -21,10 +28,12 @@ class MintosParser(object):
 
     @property
     def account_statement_file(self):
+        """account statement file property"""
         return self._account_statement_file
 
     @account_statement_file.setter
     def account_statement_file(self, value):
+        """account statement file property setter"""
         self._account_statement_file = value
 
     def parse_account_statement(self):
