@@ -2,7 +2,7 @@
 """
 Unit test for the estateguru parser module
 
-Copyright 2018-04-29 ChrisRBe
+Copyright 2018-04-30 ChrisRBe
 """
 import datetime
 import os
