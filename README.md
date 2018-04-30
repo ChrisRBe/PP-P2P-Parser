@@ -18,7 +18,6 @@ Currently supported provider: Mintos, Estateguru
 
 Python 3 (implemented with python 3.6.4)
 
-
 ## Usage
 
 parse-account-statements.py --help
