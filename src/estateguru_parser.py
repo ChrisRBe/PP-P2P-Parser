@@ -65,7 +65,7 @@ class EstateguruParser(object):
                     note = "{id}: {details}".format(id=statement['UniqueId'], details=statement['Projektname'])
 
                     formatted_account_entry = {PP_FIELDNAMES[0]: date.date(),
-                                               PP_FIELDNAMES[1]: statement['Betrag'],
+                                               PP_FIELDNAMES[1]: statement['Betrag'].replace('.', ','),
                                                PP_FIELDNAMES[2]: category,
                                                PP_FIELDNAMES[3]: note}
                     if category:
