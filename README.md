@@ -1,6 +1,6 @@
 # PP-P2P-Parser
 
-## Status
+## Code Status
 
 [![Build Status](https://travis-ci.org/ChrisRBe/PP-P2P-Parser.svg?branch=master)](https://travis-ci.org/ChrisRBe/PP-P2P-Parser)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/23ae124125c9439b8bd8087cf8efda20)](https://app.codacy.com/app/chrisrbe/PP-P2P-Parser?utm_source=github.com&utm_medium=referral&utm_content=ChrisRBe/PP-P2P-Parser&utm_campaign=badger)
@@ -12,7 +12,7 @@
 Application to read account statement files from different peer to peer lending sites,
 e.g. Mintos.com and produce a Portfolio Performance readable csv file
 
-Currently supported provider: Mintos, Estateguru
+Currently supported providers: Mintos, Estateguru
 
 ## Requirements
 
