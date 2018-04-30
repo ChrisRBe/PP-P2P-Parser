@@ -1,11 +1,14 @@
+"""
+setup.py for creating packages
+"""
 from setuptools import setup
 
 setup(
     name='PP-P2P-Parser',
-    version='0.2',
+    version='0.3',
     packages=['src', 'src.test'],
     url='https://github.com/ChrisRBe/PP-P2P-Parser',
-    license='GPL-v3',
+    license='GPL-3.0',
     author='ChrisRBe',
     author_email='chrisrbe@outlook.com',
     description='Parser for P2P services like mintos.com for Portfolio Performance.'

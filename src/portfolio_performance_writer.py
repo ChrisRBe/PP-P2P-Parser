@@ -1,5 +1,9 @@
-# Copyright 2018-04-29 ChrisRBe
 # -*- coding: utf-8 -*-
+"""
+Module for the portfolio performance writer
+
+Copyright 2018-04-29 ChrisRBe
+"""
 import csv
 import io
 import logging
