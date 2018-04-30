@@ -20,21 +20,21 @@ Python 3 (implemented with python 3.6.4)
 
 ## Usage
 
-parse-account-statements.py --help
-usage: parse-account-statements.py [-h] [--type TYPE] [--debug] infile
+    parse-account-statements.py --help
+    usage: parse-account-statements.py [-h] [--type TYPE] [--debug] infile
+    
+    positional arguments:
+      infile       CSV file containing the downloaded data from the P2P site
+    
+    optional arguments:
+      -h, --help   show this help message and exit
+      --type TYPE  Specifies the p2p lending operator
+      --debug      enables debug level logging if set
 
-positional arguments:
-  infile       CSV file containing the downloaded data from the P2P site
+## Currently supported formats
 
-optional arguments:
-  -h, --help   show this help message and exit
-  --type TYPE  Specifies the p2p lending operator
-  --debug      enables debug level logging if set
-
-## Currently supported types
-
-mintos - Supports current account-statement.csv file format
-estateguru - Supports current German layout account statement csv file format
+* mintos - Supports current account-statement.csv file format
+* estateguru - Supports current German layout account statement csv file format
 
 ## Output
 
