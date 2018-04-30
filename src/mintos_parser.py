@@ -35,7 +35,7 @@ class MintosParser(object):
         """
         if os.path.exists(self._account_statement_file):
             with open(self._account_statement_file, 'r', newline='') as infile:
-                dialect = csv.Sniffer().sniff(infile.read(1024))
+                dialect = csv.Sniffer().sniff(infile.readline())
                 infile.seek(0)
                 account_statement = csv.DictReader(infile, dialect=dialect)
                 for statement in account_statement:
