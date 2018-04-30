@@ -4,6 +4,8 @@
 Application to read account statement files from different peer to peer lending sites, e.g. Mintos.com and produce
 a Portfolio Performance readable csv file
 
+Currently supported provider: Mintos, Estateguru
+
 Copyright 2018-03-17 ChrisRBe
 """
 import argparse
@@ -11,7 +13,7 @@ import logging
 import os
 import sys
 
-from src import mintos_parser, portfolio_performance_writer
+from src import estateguru_parser, mintos_parser, portfolio_performance_writer
 
 
 def platform_factory(operator_name='mintos'):
@@ -23,6 +25,8 @@ def platform_factory(operator_name='mintos'):
     """
     if operator_name == 'mintos':
         return mintos_parser.MintosParser()
+    elif operator_name == 'estateguru':
+        return estateguru_parser.EstateguruParser()
     else:
         logging.error('The provided platform {} is currently not supported'.format(operator_name))
         return False
@@ -64,7 +68,7 @@ if __name__ == "__main__":
                             help='CSV file containing the downloaded data from the P2P site')
     ARG_PARSER.add_argument('--type',
                             type=str,
-                            help='Specifies the format of the input file (different for each P2P service)')
+                            help='Specifies the p2p lending operator')
     ARG_PARSER.add_argument('--debug',
                             action='store_true',
                             help='enables debug level logging if set')
