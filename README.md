@@ -20,16 +20,22 @@ Python 3 (implemented with python 3.6.4)
 
 ## Usage
 
-    parse-account-statements.py --help
-    usage: parse-account-statements.py [-h] [--type TYPE] [--debug] infile
-    
-    positional arguments:
-      infile       CSV file containing the downloaded data from the P2P site
-    
-    optional arguments:
-      -h, --help   show this help message and exit
-      --type TYPE  Specifies the p2p lending operator
-      --debug      enables debug level logging if set
+```
+parse-account-statements.py --help
+usage: parse-account-statements.py [-h] [--type TYPE] [--debug] infile
+
+positional arguments:
+  infile       CSV file containing the downloaded data from the P2P site
+
+optional arguments:
+  -h, --help   show this help message and exit
+  --type TYPE  Specifies the p2p lending operator
+  --debug      enables debug level logging if set
+```
+
+```
+parse-account-statements.py  --type mintos src/test/testdata/mintos.csv
+```
 
 ## Currently supported formats
 
