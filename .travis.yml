@@ -13,5 +13,5 @@ script:
   - pytest --cov=src
   - coverage xml
   - python-codacy-coverage -r coverage.xml
-  after_script:
+after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
