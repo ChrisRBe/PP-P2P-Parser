@@ -34,6 +34,16 @@ class TestPortfolioPerformanceWriter(TestCase):
         self.assertEqual('Datum,Wert,Typ,Notiz\r\ndate,profit,category,note',
                          self.pp_writer.out_string_stream.getvalue().strip())
 
+    def test_update_output_umlaut(self):
+        """test update_output with umlauts"""
+        test_entry = {PP_FIELDNAMES[0]: 'date',
+                      PP_FIELDNAMES[1]: 'profit',
+                      PP_FIELDNAMES[2]: 'category',
+                      PP_FIELDNAMES[3]: 'Laiamäe Pärnaõie Užutekio'}
+        self.pp_writer.update_output(test_entry)
+        self.assertEqual('Datum,Wert,Typ,Notiz\r\ndate,profit,category,Laiamäe Pärnaõie Užutekio',
+                         self.pp_writer.out_string_stream.getvalue().strip())
+
     def test_write_pp_csv_file(self):
         """test write_pp_csv_file"""
         with tempfile.TemporaryDirectory() as tmpdirname:

@@ -4,6 +4,7 @@ Module for the portfolio performance writer
 
 Copyright 2018-04-29 ChrisRBe
 """
+import codecs
 import csv
 import io
 import logging
@@ -57,7 +58,7 @@ class PortfolioPerformanceWriter(object):
         :param outfile: specifies the path and name of the output file, defaults to portfolio_performance.csv
         :return:
         """
-        with open(outfile, 'w', newline='') as csv_output:
+        with codecs.open(outfile, 'w', encoding='utf-8') as csv_output:
             stream_content = self.out_string_stream.getvalue()
             logging.debug(stream_content)
             csv_output.write(stream_content.strip())
