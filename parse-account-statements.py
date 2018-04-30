@@ -57,20 +57,20 @@ def main(infile, p2p_operator_name='mintos'):
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description=__doc__,
-                                     formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument('infile',
-                        type=str,
-                        help='CSV file containing the downloaded data from the P2P site')
-    parser.add_argument('--type',
-                        type=str,
-                        help='Specifies the format of the input file (different for each P2P service)')
-    parser.add_argument('--debug',
-                        action='store_true',
-                        help='enables debug level logging if set')
-    args = parser.parse_args()
+    ARG_PARSER = argparse.ArgumentParser(description=__doc__,
+                                         formatter_class=argparse.RawDescriptionHelpFormatter)
+    ARG_PARSER.add_argument('infile',
+                            type=str,
+                            help='CSV file containing the downloaded data from the P2P site')
+    ARG_PARSER.add_argument('--type',
+                            type=str,
+                            help='Specifies the format of the input file (different for each P2P service)')
+    ARG_PARSER.add_argument('--debug',
+                            action='store_true',
+                            help='enables debug level logging if set')
+    CMD_ARGS = ARG_PARSER.parse_args()
 
-    if args.debug:
+    if CMD_ARGS.debug:
         logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
 
-    sys.exit(main(args.infile, args.type))
+    sys.exit(main(CMD_ARGS.infile, CMD_ARGS.type))
