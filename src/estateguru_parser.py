@@ -4,12 +4,12 @@ Module for the Estateguru account statement parser
 
 Copyright 2018-04-30 ChrisRBe
 """
-import re
+import os
 
-from .base_parser import BaseParser
+from .p2p_account_statement_parser import PeerToPeerPlatformParser
 
 
-class EstateguruParser(BaseParser):
+class EstateguruParser(PeerToPeerPlatformParser):
     """
     Implementation for the Estateguru account statement parser
     """
@@ -18,13 +18,5 @@ class EstateguruParser(BaseParser):
         Constructor for EstateguruParser
         """
         super().__init__()
-        self.relevant_invest_regex = re.compile("^Einzahlung.*")
-        self.relevant_payment_regex = re.compile("^Auszahlung.*")
-        self.relevant_income_regex = re.compile("^Empfehlungsbonus.*|^Zins.*|^Sondervergütung.*")
 
-        self.booking_date = 'Zahlungsdatum'
-        self.booking_date_format = '%d/%m/%Y %H:%M'
-        self.booking_details = 'Projektname'
-        self.booking_id = 'UniqueId'
-        self.booking_type = 'Cashflow-Typ'
-        self.booking_value = 'Betrag'
+        self.config_file = os.path.join(os.path.dirname(__file__), os.pardir, 'config', 'estateguru.yml')

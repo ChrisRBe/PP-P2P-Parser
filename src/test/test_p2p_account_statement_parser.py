@@ -1,39 +1,37 @@
 # -*- coding: utf-8 -*-
 """
-Unit test for the base parser module
+Unit test for the p2p account statement parser module
 
 Copyright 2018-05-01 ChrisRBe
 """
 import datetime
 import os
-import re
 from unittest import TestCase
 
-from ..base_parser import BaseParser
+from ..p2p_account_statement_parser import PeerToPeerPlatformParser
 
 
 class TestBaseParser(TestCase):
-    """Test case implementation for BaseParser"""
+    """Test case implementation for PeerToPeerPlatformParser"""
     def setUp(self):
         """test case setUp, run for each test case"""
-        self.base_parser = BaseParser()
+        self.base_parser = PeerToPeerPlatformParser()
         self.base_parser.account_statement_file = os.path.join(os.path.dirname(__file__), 'testdata', 'mintos.csv')
-
-        self.base_parser.relevant_invest_regex = re.compile("Incoming client")
-        self.base_parser.relevant_payment_regex = re.compile("^Withdraw application.*")
-        self.base_parser.relevant_income_regex = re.compile("(^Delayed interest.*)|(^Late payment.*)|"
-                                                            "(^Interest income.*)|(^Cashback.*)")
-
-        self.base_parser.booking_date = 'Date'
-        self.base_parser.booking_date_format = '%Y-%m-%d %H:%M:%S'
-        self.base_parser.booking_details = 'Details'
-        self.base_parser.booking_id = 'Transaction ID'
-        self.base_parser.booking_type = 'Details'
-        self.base_parser.booking_value = 'Turnover'
+        self.base_parser.config_file = os.path.join(os.path.dirname(__file__),
+                                                    os.pardir,
+                                                    os.pardir,
+                                                    'config',
+                                                    'mintos.yml')
 
     def test_account_statement_file(self):
+        """test account statement file property"""
         self.assertEqual(os.path.join(os.path.dirname(__file__), 'testdata', 'mintos.csv'),
                          self.base_parser.account_statement_file)
+
+    def test_config_file(self):
+        """test config file property"""
+        self.assertEqual(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'config', 'mintos.yml'),
+                         self.base_parser.config_file)
 
     def test_parse_account_statement(self):
         """test parse_account_statement"""

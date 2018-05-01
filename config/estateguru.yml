@@ -1,0 +1,13 @@
+---
+type_regex: !!map
+  deposit: "^Einzahlung.*"
+  withdraw: "^Auszahlung.*"
+  interest: "(^Empfehlungsbonus.*)|(^Zins.*)|(^Sondervergütung.*)"
+
+csv_fieldnames: !!map
+  booking_date: 'Zahlungsdatum'
+  booking_date_format: '%d/%m/%Y %H:%M'
+  booking_details: 'Projektname'
+  booking_id: 'UniqueId'
+  booking_type: 'Cashflow-Typ'
+  booking_value: 'Betrag'
