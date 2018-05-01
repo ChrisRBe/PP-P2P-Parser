@@ -18,6 +18,14 @@ Currently supported providers: Mintos, Estateguru
 
 Python 3 (implemented with python 3.6.4)
 
+## Dependencies
+
+The configuration for this application is stored in yaml files. The module used for
+loading yaml files is [ruamel.yaml](https://yaml.readthedocs.io/en/latest/). 
+Install via:
+
+`pip install ruamel.yaml`
+
 ## Usage
 
 ```
@@ -41,6 +49,30 @@ parse-account-statements.py  --type mintos src/test/testdata/mintos.csv
 
 * mintos - Supports current account-statement.csv file format
 * estateguru - Supports current German layout account statement csv file format
+
+## Configuration files
+
+Configuration for this script is stored in yaml files located under the config subdirectory. 
+The content directly reflects the format of the source account statement files.
+
+Example:
+
+```
+---
+type_regex: !!map
+  deposit: "^Incoming client.*"
+  withdraw: "^Withdraw application.*"
+  interest: "(^Delayed interest.*)|(^Late payment.*)|(^Interest income.*)|(^Cashback.*)"
+
+csv_fieldnames:
+  booking_date: 'Date'
+  booking_date_format: '%Y-%m-%d %H:%M:%S'
+  booking_details: 'Details'
+  booking_id: 'Transaction ID'
+  booking_type: 'Details'
+  booking_value: 'Turnover'
+
+```
 
 ## Output
 
