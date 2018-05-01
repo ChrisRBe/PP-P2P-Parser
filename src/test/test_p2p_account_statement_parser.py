@@ -143,3 +143,29 @@ class TestBaseParser(TestCase):
                                'Typ': 'Zinsen',
                                'Wert': '0,003835616'}]
         self.assertEqual(expected_statement, self.base_parser.parse_account_statement())
+
+    def test_swaper_parsing(self):
+        """test parse_account_statement for swaper"""
+        self.base_parser.account_statement_file = os.path.join(os.path.dirname(__file__), 'testdata', 'swaper.csv')
+        self.base_parser.config_file = os.path.join(os.path.dirname(__file__),
+                                                    os.pardir,
+                                                    os.pardir,
+                                                    'config',
+                                                    'swaper.yml')
+        expected_statement = [{'Datum': datetime.date(2018, 5, 1),
+                               'Notiz': 'PL-84587: 119113',
+                               'Typ': 'Zinsen',
+                               'Wert': '0,1'},
+                              {'Datum': datetime.date(2018, 4, 30),
+                               'Notiz': 'PL-82794: 116800',
+                               'Typ': 'Zinsen',
+                               'Wert': '0,12'},
+                              {'Datum': datetime.date(2018, 4, 26),
+                               'Notiz': 'GL-22989301: 117251',
+                               'Typ': 'Zinsen',
+                               'Wert': '0,11'},
+                              {'Datum': datetime.date(2018, 1, 24),
+                               'Notiz': ': ',
+                               'Typ': 'Einlage',
+                               'Wert': '2000'}]
+        self.assertEqual(expected_statement, self.base_parser.parse_account_statement())
