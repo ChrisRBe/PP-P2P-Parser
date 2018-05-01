@@ -1,23 +1,37 @@
 # -*- coding: utf-8 -*-
 """
-Unit test for the mintos parser module
+Unit test for the p2p account statement parser module
 
-Copyright 2018-04-29 ChrisRBe
+Copyright 2018-05-01 ChrisRBe
 """
 import datetime
 import os
 from unittest import TestCase
 
-from ..mintos_parser import MintosParser
+from ..p2p_account_statement_parser import PeerToPeerPlatformParser
 
 
-class TestMintosParser(TestCase):
-    """Test case implementation for MintosParser"""
-
+class TestBaseParser(TestCase):
+    """Test case implementation for PeerToPeerPlatformParser"""
     def setUp(self):
         """test case setUp, run for each test case"""
-        self.mintos = MintosParser()
-        self.mintos.account_statement_file = os.path.join(os.path.dirname(__file__), 'testdata', 'mintos.csv')
+        self.base_parser = PeerToPeerPlatformParser()
+        self.base_parser.account_statement_file = os.path.join(os.path.dirname(__file__), 'testdata', 'mintos.csv')
+        self.base_parser.config_file = os.path.join(os.path.dirname(__file__),
+                                                    os.pardir,
+                                                    os.pardir,
+                                                    'config',
+                                                    'mintos.yml')
+
+    def test_account_statement_file(self):
+        """test account statement file property"""
+        self.assertEqual(os.path.join(os.path.dirname(__file__), 'testdata', 'mintos.csv'),
+                         self.base_parser.account_statement_file)
+
+    def test_config_file(self):
+        """test config file property"""
+        self.assertEqual(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'config', 'mintos.yml'),
+                         self.base_parser.config_file)
 
     def test_parse_account_statement(self):
         """test parse_account_statement"""
@@ -56,4 +70,9 @@ class TestMintosParser(TestCase):
              'Typ': 'Entnahme',
              'Wert': '-20'}]
 
-        self.assertEqual(expected_statement, self.mintos.parse_account_statement())
+        self.assertEqual(expected_statement, self.base_parser.parse_account_statement())
+
+    def test_no_statement_file(self):
+        """test parse_account_statement with non existent file"""
+        self.base_parser.account_statement_file = os.path.join(os.path.dirname(__file__), 'not_existing.csv')
+        self.assertFalse(self.base_parser.parse_account_statement())
