@@ -90,7 +90,7 @@ class PeerToPeerPlatformParser(object):
         """
         if os.path.exists(self._account_statement_file):
             self.__parse_service_config()
-            with codecs.open(self._account_statement_file, 'r', encoding='utf-8') as infile:
+            with codecs.open(self._account_statement_file, 'r', encoding='utf-8-sig') as infile:
                 dialect = csv.Sniffer().sniff(infile.readline())
                 infile.seek(0)
                 account_statement = csv.DictReader(infile, dialect=dialect)

@@ -1,0 +1,6 @@
+﻿Transaction ID;Date and time;Operation type;Operation;Credit part ID;Sender ID;Receiver ID;Amount;Investor's balance (3246);"""baloon"" balance (3262)";"""baloon"" loans (3262)"
+2438244;2018-02-15 09:52:35;0;Adding funds;;;3246;2000;2000;0;0
+2442794;2018-02-15 15:13:37;2;Creating a portfolio;;3246;3262;2000;0;2000;0
+2443032;2018-02-15 15:35:33;5;Purchasing a loan;856832;3262;1;10;0;1990;10
+2458794;2018-02-16 15:43:20;6;Returning a loan;856836;1;3262;10;0;1690;310
+2458795;2018-02-16 15:43:20;16;Paying interest;856836;1;3262;0,003835616;0;1690,003836;310

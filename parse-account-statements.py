@@ -27,6 +27,8 @@ def platform_factory(operator_name='mintos'):
         config = os.path.join(os.path.dirname(__file__), 'config', 'mintos.yml')
     elif operator_name == 'estateguru':
         config = os.path.join(os.path.dirname(__file__), 'config', 'estateguru.yml')
+    elif operator_name == 'robocash':
+        config = os.path.join(os.path.dirname(__file__), 'config', 'robocash.yml')
     else:
         logging.error('The provided platform {} is currently not supported'.format(operator_name))
         return False
