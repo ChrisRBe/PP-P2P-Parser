@@ -1,23 +1,39 @@
 # -*- coding: utf-8 -*-
 """
-Unit test for the mintos parser module
+Unit test for the base parser module
 
-Copyright 2018-04-29 ChrisRBe
+Copyright 2018-05-01 ChrisRBe
 """
 import datetime
 import os
+import re
 from unittest import TestCase
 
-from ..mintos_parser import MintosParser
+from ..base_parser import BaseParser
 
 
-class TestMintosParser(TestCase):
-    """Test case implementation for MintosParser"""
-
+class TestBaseParser(TestCase):
+    """Test case implementation for BaseParser"""
     def setUp(self):
         """test case setUp, run for each test case"""
-        self.mintos = MintosParser()
-        self.mintos.account_statement_file = os.path.join(os.path.dirname(__file__), 'testdata', 'mintos.csv')
+        self.base_parser = BaseParser()
+        self.base_parser.account_statement_file = os.path.join(os.path.dirname(__file__), 'testdata', 'mintos.csv')
+
+        self.base_parser.relevant_invest_regex = re.compile("Incoming client")
+        self.base_parser.relevant_payment_regex = re.compile("^Withdraw application.*")
+        self.base_parser.relevant_income_regex = re.compile("(^Delayed interest.*)|(^Late payment.*)|"
+                                                            "(^Interest income.*)|(^Cashback.*)")
+
+        self.base_parser.booking_date = 'Date'
+        self.base_parser.booking_date_format = '%Y-%m-%d %H:%M:%S'
+        self.base_parser.booking_details = 'Details'
+        self.base_parser.booking_id = 'Transaction ID'
+        self.base_parser.booking_type = 'Details'
+        self.base_parser.booking_value = 'Turnover'
+
+    def test_account_statement_file(self):
+        self.assertEqual(os.path.join(os.path.dirname(__file__), 'testdata', 'mintos.csv'),
+                         self.base_parser.account_statement_file)
 
     def test_parse_account_statement(self):
         """test parse_account_statement"""
@@ -56,4 +72,9 @@ class TestMintosParser(TestCase):
              'Typ': 'Entnahme',
              'Wert': '-20'}]
 
-        self.assertEqual(expected_statement, self.mintos.parse_account_statement())
+        self.assertEqual(expected_statement, self.base_parser.parse_account_statement())
+
+    def test_no_statement_file(self):
+        """test parse_account_statement with non existent file"""
+        self.base_parser.account_statement_file = os.path.join(os.path.dirname(__file__), 'not_existing.csv')
+        self.assertFalse(self.base_parser.parse_account_statement())
