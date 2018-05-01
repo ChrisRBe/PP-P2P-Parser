@@ -23,18 +23,14 @@ def platform_factory(operator_name='mintos'):
     :param operator_name: name of the P2P lending site, defaults to Mintos
     :return: object for the actual lending platform parser, None if not supported
     """
-    if operator_name == 'mintos':
-        config = os.path.join(os.path.dirname(__file__), 'config', 'mintos.yml')
-    elif operator_name == 'estateguru':
-        config = os.path.join(os.path.dirname(__file__), 'config', 'estateguru.yml')
-    elif operator_name == 'robocash':
-        config = os.path.join(os.path.dirname(__file__), 'config', 'robocash.yml')
+    config = os.path.join(os.path.dirname(__file__), 'config', '{op}.yml'.format(op=operator_name))
+    if os.path.exists(config):
+        platform_parser = p2p_account_statement_parser.PeerToPeerPlatformParser()
+        platform_parser.config_file = config
+        return platform_parser
     else:
         logging.error('The provided platform {} is currently not supported'.format(operator_name))
-        return False
-    platform_parser = p2p_account_statement_parser.PeerToPeerPlatformParser()
-    platform_parser.config_file = config
-    return platform_parser
+        return None
 
 
 def main(infile, p2p_operator_name='mintos'):
