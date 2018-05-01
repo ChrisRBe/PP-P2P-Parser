@@ -13,7 +13,7 @@ import logging
 import os
 import sys
 
-from src import estateguru_parser, mintos_parser, portfolio_performance_writer
+from src import p2p_account_statement_parser, portfolio_performance_writer
 
 
 def platform_factory(operator_name='mintos'):
@@ -24,12 +24,15 @@ def platform_factory(operator_name='mintos'):
     :return: object for the actual lending platform parser, None if not supported
     """
     if operator_name == 'mintos':
-        return mintos_parser.MintosParser()
+        config = os.path.join(os.path.dirname(__file__), 'config', 'mintos.yml')
     elif operator_name == 'estateguru':
-        return estateguru_parser.EstateguruParser()
+        config = os.path.join(os.path.dirname(__file__), 'config', 'estateguru.yml')
     else:
         logging.error('The provided platform {} is currently not supported'.format(operator_name))
         return False
+    platform_parser = p2p_account_statement_parser.PeerToPeerPlatformParser()
+    platform_parser.config_file = config
+    return platform_parser
 
 
 def main(infile, p2p_operator_name='mintos'):
