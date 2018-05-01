@@ -1,0 +1,13 @@
+---
+type_regex: !!map
+  deposit: "^FUNDING.*"
+  withdraw: "^Withdraw application.*"
+  interest: "(^EXTENSION_INTEREST.*)|(^REPAYMENT_INTEREST.*)|(^BUYBACK_INTEREST.*)"
+
+csv_fieldnames:
+  booking_date: 'Booking date'
+  booking_date_format: '%d.%m.%Y'
+  booking_details: 'Loan id'
+  booking_id: 'Loan number'
+  booking_type: 'Transaction type'
+  booking_value: 'Amount'
