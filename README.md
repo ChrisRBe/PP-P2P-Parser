@@ -49,6 +49,8 @@ parse-account-statements.py  --type mintos src/test/testdata/mintos.csv
 
 * mintos - Supports current account-statement.csv file format
 * estateguru - Supports current German layout account statement csv file format
+* robocash - Supports current account statement format (as of 2018-05-01) exported to csv
+* swaper - Supports current account statement format (as of 2018-05-01) exported to csv
 
 ## Configuration files
 
