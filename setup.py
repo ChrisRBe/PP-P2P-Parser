@@ -5,7 +5,7 @@ from setuptools import setup
 
 setup(
     name='PP-P2P-Parser',
-    version='0.3',
+    version='1.0',
     packages=['src', 'src.test'],
     url='https://github.com/ChrisRBe/PP-P2P-Parser',
     license='GPL-3.0',
