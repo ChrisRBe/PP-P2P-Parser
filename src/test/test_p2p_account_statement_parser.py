@@ -33,8 +33,58 @@ class TestBaseParser(TestCase):
         self.assertEqual(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'config', 'mintos.yml'),
                          self.base_parser.config_file)
 
-    def test_parse_account_statement(self):
-        """test parse_account_statement"""
+    def test_estateguru_parsing(self):
+        """test parse_account_statement for estateguru"""
+        self.base_parser.account_statement_file = os.path.join(os.path.dirname(__file__), 'testdata', 'estateguru.csv')
+        self.base_parser.config_file = os.path.join(os.path.dirname(__file__),
+                                                    os.pardir,
+                                                    os.pardir,
+                                                    'config',
+                                                    'estateguru.yml')
+        expected_statement = [{'Datum': datetime.date(2018, 1, 18),
+                               'Notiz': '18012018204714DEP: ',
+                               'Typ': 'Einlage',
+                               'Wert': '1000,0'},
+                              {'Datum': datetime.date(2018, 1, 23),
+                               'Notiz': '23012018092020DEP: ',
+                               'Typ': 'Einlage',
+                               'Wert': '1000,0'},
+                              {'Datum': datetime.date(2018, 1, 24),
+                               'Notiz': '24012018000000REFEE5975: Kaerepere business loan 2. stage',
+                               'Typ': 'Zinsen',
+                               'Wert': '0,25'},
+                              {'Datum': datetime.date(2018, 1, 24),
+                               'Notiz': '24012018000346WIT: ',
+                               'Typ': 'Entnahme',
+                               'Wert': '-1000,0'},
+                              {'Datum': datetime.date(2018, 1, 30),
+                               'Notiz': '30012018000000REFEE4182: Laiamäe bridge loan',
+                               'Typ': 'Zinsen',
+                               'Wert': '0,5'},
+                              {'Datum': datetime.date(2018, 2, 24),
+                               'Notiz': '24022018000000INTEE5975: Kaerepere business loan 2. stage',
+                               'Typ': 'Zinsen',
+                               'Wert': '0,46'},
+                              {'Datum': datetime.date(2018, 2, 27),
+                               'Notiz': '27022018225240DEP: ',
+                               'Typ': 'Einlage',
+                               'Wert': '1000,0'},
+                              {'Datum': datetime.date(2018, 3, 1),
+                               'Notiz': '01032018000000BONLT2293: Grevitas construction loan',
+                               'Typ': 'Zinsen',
+                               'Wert': '0,47'},
+                              {'Datum': datetime.date(2018, 3, 15),
+                               'Notiz': '15032018000000INTLT0689: Užutekio bridge loan',
+                               'Typ': 'Zinsen',
+                               'Wert': '0,59'},
+                              {'Datum': datetime.date(2018, 4, 8),
+                               'Notiz': '08042018000000INTEE3186: Pärnaõie st bridge loan',
+                               'Typ': 'Zinsen',
+                               'Wert': '0,46'}]
+        self.assertEqual(expected_statement, self.base_parser.parse_account_statement())
+
+    def test_mintos_parsing(self):
+        """test parse_account_statement for mintos"""
         expected_statement = [
             {'Datum': datetime.date(2018, 1, 17),
              'Notiz': '236659674: Incoming client payment',
@@ -69,10 +119,27 @@ class TestBaseParser(TestCase):
              'Notiz': '115013710: Withdraw application',
              'Typ': 'Entnahme',
              'Wert': '-20'}]
-
         self.assertEqual(expected_statement, self.base_parser.parse_account_statement())
 
     def test_no_statement_file(self):
         """test parse_account_statement with non existent file"""
         self.base_parser.account_statement_file = os.path.join(os.path.dirname(__file__), 'not_existing.csv')
         self.assertFalse(self.base_parser.parse_account_statement())
+
+    def test_robocash_parsing(self):
+        """test parse_account_statement for robocash"""
+        self.base_parser.account_statement_file = os.path.join(os.path.dirname(__file__), 'testdata', 'robocash.csv')
+        self.base_parser.config_file = os.path.join(os.path.dirname(__file__),
+                                                    os.pardir,
+                                                    os.pardir,
+                                                    'config',
+                                                    'robocash.yml')
+        expected_statement = [{'Datum': datetime.date(2018, 2, 15),
+                               'Notiz': '2438244: ',
+                               'Typ': 'Einlage',
+                               'Wert': '2000'},
+                              {'Datum': datetime.date(2018, 2, 16),
+                               'Notiz': '2458795: 856836',
+                               'Typ': 'Zinsen',
+                               'Wert': '0,003835616'}]
+        self.assertEqual(expected_statement, self.base_parser.parse_account_statement())

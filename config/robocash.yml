@@ -1,0 +1,13 @@
+---
+type_regex: !!map
+  deposit: "^Adding funds.*"
+  withdraw: "^Withdraw application.*"
+  interest: "(^Paying interest.*)"
+
+csv_fieldnames: !!map
+  booking_date: 'Date and time'
+  booking_date_format: '%Y-%m-%d %H:%M:%S'
+  booking_details: 'Credit part ID'
+  booking_id: 'Transaction ID'
+  booking_type: 'Operation'
+  booking_value: 'Amount'
