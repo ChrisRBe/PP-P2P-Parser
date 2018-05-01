@@ -9,7 +9,6 @@ import csv
 import logging
 import os
 import re
-from builtins import property
 
 from datetime import datetime
 
