@@ -81,6 +81,7 @@ class PeerToPeerPlatformParser(object):
             self.booking_id = config['csv_fieldnames']['booking_id']
             self.booking_type = config['csv_fieldnames']['booking_type']
             self.booking_value = config['csv_fieldnames']['booking_value']
+            self.booking_currency = config['csv_fieldnames']['booking_currency']
 
     def parse_account_statement(self):
         """
@@ -111,8 +112,9 @@ class PeerToPeerPlatformParser(object):
 
                     formatted_account_entry = {PP_FIELDNAMES[0]: booking_date.date(),
                                                PP_FIELDNAMES[1]: statement[self.booking_value].replace('.', ','),
-                                               PP_FIELDNAMES[2]: category,
-                                               PP_FIELDNAMES[3]: note}
+                                               PP_FIELDNAMES[2]: statement[self.booking_currency],
+                                               PP_FIELDNAMES[3]: category,
+                                               PP_FIELDNAMES[4]: note}
                     self.output_list.append(formatted_account_entry)
         else:
             logging.error("Account statement file {} does not exist.".format(self.account_statement_file))

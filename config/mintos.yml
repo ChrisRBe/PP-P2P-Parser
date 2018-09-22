@@ -1,7 +1,7 @@
 ---
 type_regex: !!map
-  deposit: "^Incoming client.*"
-  withdraw: "^Withdraw application.*"
+  deposit: "(^Incoming client.*)|(^Incoming currency exchange.*)"
+  withdraw: "(^Withdraw application.*)|(Outgoing currency.*)"
   interest: "(^Delayed interest.*)|(^Late payment.*)|(^Interest income.*)|(^Cashback.*)"
 
 csv_fieldnames:
@@ -11,3 +11,4 @@ csv_fieldnames:
   booking_id: 'Transaction ID'
   booking_type: 'Details'
   booking_value: 'Turnover'
+  booking_currency: 'Currency'

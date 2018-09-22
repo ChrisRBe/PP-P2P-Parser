@@ -9,7 +9,7 @@ import csv
 import io
 import logging
 
-PP_FIELDNAMES = ['Datum', 'Wert', 'Typ', 'Notiz']
+PP_FIELDNAMES = ['Datum', 'Wert', 'Buchungswährung', 'Typ', 'Notiz']
 
 
 class PortfolioPerformanceWriter(object):
