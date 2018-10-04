@@ -3,6 +3,7 @@ type_regex: !!map
   deposit: "(^Incoming client.*)|(^Incoming currency exchange.*)"
   withdraw: "(^Withdraw application.*)|(Outgoing currency.*)"
   interest: "(^Delayed interest.*)|(^Late payment.*)|(^Interest income.*)|(^Cashback.*)"
+  fee: "(^FX commission)"
 
 csv_fieldnames:
   booking_date: 'Date'

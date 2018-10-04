@@ -40,6 +40,7 @@ class PeerToPeerPlatformParser(object):
         self.relevant_invest_regex = None
         self.relevant_payment_regex = None
         self.relevant_income_regex = None
+        self.relevant_fee_regex = None
 
     @property
     def account_statement_file(self):
@@ -74,6 +75,7 @@ class PeerToPeerPlatformParser(object):
             self.relevant_invest_regex = re.compile(config['type_regex']['deposit'])
             self.relevant_payment_regex = re.compile(config['type_regex']['withdraw'])
             self.relevant_income_regex = re.compile(config['type_regex']['interest'])
+            self.relevant_fee_regex = re.compile(config['type_regex']['fee'])
 
             self.booking_date = config['csv_fieldnames']['booking_date']
             self.booking_date_format = config['csv_fieldnames']['booking_date_format']
@@ -102,6 +104,8 @@ class PeerToPeerPlatformParser(object):
                         category = 'Einlage'
                     elif self.relevant_payment_regex.match(statement[self.booking_type]):
                         category = 'Entnahme'
+                    elif self.relevant_fee_regex.match(statement[self.booking_type]):
+                        category = 'Gebühren'
                     else:
                         logging.debug(statement)
                         continue
