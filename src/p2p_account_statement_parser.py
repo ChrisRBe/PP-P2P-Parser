@@ -36,6 +36,7 @@ class PeerToPeerPlatformParser(object):
         self.booking_id = ''
         self.booking_type = ''
         self.booking_value = ''
+        self.booking_currency = ''
 
         self.relevant_invest_regex = None
         self.relevant_payment_regex = None
