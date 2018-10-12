@@ -88,6 +88,26 @@ class PeerToPeerPlatformParser(object):
             if 'booking_currency' in config['csv_fieldnames']:
                 self.booking_currency = config['csv_fieldnames']['booking_currency']
 
+    def get_category(self, statement):
+        """
+        Take single statement and check the category of the given statement.
+
+        :param statement: line from the account statement file
+        :return: category of the statement; if unkown return the empty string
+        """
+        category = ""
+        if self.relevant_income_regex.match(statement[self.booking_type]):
+            category = "Zinsen"
+        elif self.relevant_invest_regex.match(statement[self.booking_type]):
+            category = 'Einlage'
+        elif self.relevant_payment_regex.match(statement[self.booking_type]):
+            category = 'Entnahme'
+        elif self.relevant_fee_regex and self.relevant_fee_regex.match(statement[self.booking_type]):
+            category = 'Gebühren'
+        else:
+            logging.debug(statement)
+        return category
+
     def parse_account_statement(self):
         """
         read a Estateguru account statement csv file and filter the content according to the defined strings
@@ -101,16 +121,8 @@ class PeerToPeerPlatformParser(object):
                 infile.seek(0)
                 account_statement = csv.DictReader(infile, dialect=dialect)
                 for statement in account_statement:
-                    if self.relevant_income_regex.match(statement[self.booking_type]):
-                        category = "Zinsen"
-                    elif self.relevant_invest_regex.match(statement[self.booking_type]):
-                        category = 'Einlage'
-                    elif self.relevant_payment_regex.match(statement[self.booking_type]):
-                        category = 'Entnahme'
-                    elif self.relevant_fee_regex and self.relevant_fee_regex.match(statement[self.booking_type]):
-                        category = 'Gebühren'
-                    else:
-                        logging.debug(statement)
+                    category = self.get_category(statement)
+                    if not category:
                         continue
 
                     booking_date = datetime.strptime(statement[self.booking_date], self.booking_date_format)
