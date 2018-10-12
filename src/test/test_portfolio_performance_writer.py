@@ -4,6 +4,7 @@ Unit test for the portfolio performance writer module
 
 Copyright 2018-04-29 ChrisRBe
 """
+import codecs
 import os
 import tempfile
 from unittest import TestCase
@@ -43,7 +44,8 @@ class TestPortfolioPerformanceWriter(TestCase):
                       PP_FIELDNAMES[3]: 'category',
                       PP_FIELDNAMES[4]: 'Laiamäe Pärnaõie Užutekio'}
         self.pp_writer.update_output(test_entry)
-        self.assertEqual('Datum,Wert,Buchungswährung,Typ,Notiz\r\ndate,profit,currency,category,Laiamäe Pärnaõie Užutekio',
+        self.assertEqual('Datum,Wert,Buchungswährung,Typ,Notiz\r\n'
+                         'date,profit,currency,category,Laiamäe Pärnaõie Užutekio',
                          self.pp_writer.out_string_stream.getvalue().strip())
 
     def test_write_pp_csv_file(self):
@@ -51,5 +53,5 @@ class TestPortfolioPerformanceWriter(TestCase):
         with tempfile.TemporaryDirectory() as tmpdirname:
             fname = os.path.join(tmpdirname, 'output')
             self.pp_writer.write_pp_csv_file(fname)
-            with open(fname, 'r') as testfile:
+            with codecs.open(fname, 'r', encoding='utf-8') as testfile:
                 self.assertEqual(','.join(PP_FIELDNAMES), testfile.read().strip())
