@@ -3,7 +3,6 @@ type_regex: !!map
   deposit: "^FUNDING.*"
   withdraw: "^Withdraw application.*"
   interest: "(^EXTENSION_INTEREST.*)|(^REPAYMENT_INTEREST.*)|(^BUYBACK_INTEREST.*)"
-  fee: ""
 
 csv_fieldnames:
   booking_date: 'Booking date'

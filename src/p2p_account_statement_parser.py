@@ -76,7 +76,8 @@ class PeerToPeerPlatformParser(object):
             self.relevant_invest_regex = re.compile(config['type_regex']['deposit'])
             self.relevant_payment_regex = re.compile(config['type_regex']['withdraw'])
             self.relevant_income_regex = re.compile(config['type_regex']['interest'])
-            self.relevant_fee_regex = re.compile(config['type_regex']['fee'])
+            if 'fee' in config['type_regex']:
+                self.relevant_fee_regex = re.compile(config['type_regex']['fee'])
 
             self.booking_date = config['csv_fieldnames']['booking_date']
             self.booking_date_format = config['csv_fieldnames']['booking_date_format']
@@ -84,7 +85,8 @@ class PeerToPeerPlatformParser(object):
             self.booking_id = config['csv_fieldnames']['booking_id']
             self.booking_type = config['csv_fieldnames']['booking_type']
             self.booking_value = config['csv_fieldnames']['booking_value']
-            self.booking_currency = config['csv_fieldnames']['booking_currency']
+            if 'booking_currency' in config['csv_fieldnames']:
+                self.booking_currency = config['csv_fieldnames']['booking_currency']
 
     def parse_account_statement(self):
         """
@@ -105,7 +107,7 @@ class PeerToPeerPlatformParser(object):
                         category = 'Einlage'
                     elif self.relevant_payment_regex.match(statement[self.booking_type]):
                         category = 'Entnahme'
-                    elif self.relevant_fee_regex.match(statement[self.booking_type]):
+                    elif self.relevant_fee_regex and self.relevant_fee_regex.match(statement[self.booking_type]):
                         category = 'Gebühren'
                     else:
                         logging.debug(statement)
@@ -114,10 +116,14 @@ class PeerToPeerPlatformParser(object):
                     booking_date = datetime.strptime(statement[self.booking_date], self.booking_date_format)
                     note = "{id}: {details}".format(id=statement[self.booking_id],
                                                     details=statement[self.booking_details])
+                    if self.booking_currency:
+                        currency = statement[self.booking_currency]
+                    else:
+                        currency = 'EUR'
 
                     formatted_account_entry = {PP_FIELDNAMES[0]: booking_date.date(),
                                                PP_FIELDNAMES[1]: statement[self.booking_value].replace('.', ','),
-                                               PP_FIELDNAMES[2]: statement[self.booking_currency],
+                                               PP_FIELDNAMES[2]: currency,
                                                PP_FIELDNAMES[3]: category,
                                                PP_FIELDNAMES[4]: note}
                     self.output_list.append(formatted_account_entry)

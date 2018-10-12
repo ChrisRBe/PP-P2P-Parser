@@ -3,7 +3,6 @@ type_regex: !!map
   deposit: "^Einzahlung.*"
   withdraw: "^Auszahlung.*"
   interest: "(^Empfehlungsbonus.*)|(^Zins.*)|(^Sondervergütung.*)"
-  fee: ""
 
 csv_fieldnames: !!map
   booking_date: 'Zahlungsdatum'
