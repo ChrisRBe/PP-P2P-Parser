@@ -16,6 +16,7 @@ from ruamel.yaml import YAML
 
 from .portfolio_performance_writer import PP_FIELDNAMES
 
+
 class PeerToPeerPlatformParser(object):
     """
     Implementation of a generic p2p investment platform account statement parser.
@@ -89,6 +90,7 @@ class PeerToPeerPlatformParser(object):
             logging.error("Account statement file {} does not exist.".format(self.account_statement_file))
         return self.output_list
 
+
 class Config():
     def __init__(self, config):
         """
@@ -113,6 +115,7 @@ class Config():
             self.booking_currency = config['csv_fieldnames']['booking_currency']
         else:
             self.booking_currency = ''
+
 
 class Statement():
     def __init__(self, config, statement):
@@ -157,7 +160,7 @@ class Statement():
     def get_note(self):
         """ get the note of the statement """
         return "{id}: {details}".format(id=self.statement[self.config.booking_id],
-                                details=self.statement[self.config.booking_details])
+                                        details=self.statement[self.config.booking_details])
 
     def get_currency(self):
         """
