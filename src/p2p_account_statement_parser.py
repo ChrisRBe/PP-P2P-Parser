@@ -92,6 +92,9 @@ class PeerToPeerPlatformParser(object):
 
 
 class Config():
+    """
+    Implementation of the configuration
+    """
     def __init__(self, config):
         """
         Constructor for Config
@@ -118,6 +121,9 @@ class Config():
 
 
 class Statement():
+    """
+    Implementation of the statement
+    """
     def __init__(self, config, statement):
         """
         Constructor for Statement
