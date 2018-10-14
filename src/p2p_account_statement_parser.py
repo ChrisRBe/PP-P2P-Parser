@@ -129,7 +129,7 @@ class Statement():
         Constructor for Statement
         """
         self.config = config
-        self.statement = statement
+        self._statement = statement
 
     def get_category(self):
         """
@@ -137,7 +137,7 @@ class Statement():
 
         :return: category of the statement; if unkown return the empty string
         """
-        booking_type = self.statement[self.config.booking_type]
+        booking_type = self._statement[self.config.booking_type]
         category = ""
         if self.config.relevant_income_regex.match(booking_type):
             category = 'Zinsen'
@@ -148,7 +148,7 @@ class Statement():
         elif self.is_fee(booking_type):
             category = 'Gebühren'
         else:
-            logging.debug(self.statement)
+            logging.debug(self._statement)
         return category
 
     def is_fee(self, booking_type):
@@ -157,16 +157,16 @@ class Statement():
 
     def get_date(self):
         """ get the date of the statement """
-        return datetime.strptime(self.statement[self.config.booking_date], self.config.booking_date_format).date()
+        return datetime.strptime(self._statement[self.config.booking_date], self.config.booking_date_format).date()
 
     def get_value(self):
         """ get the value of the statement """
-        return self.statement[self.config.booking_value].replace('.', ',')
+        return self._statement[self.config.booking_value].replace('.', ',')
 
     def get_note(self):
         """ get the note of the statement """
-        return "{id}: {details}".format(id=self.statement[self.config.booking_id],
-                                        details=self.statement[self.config.booking_details])
+        return "{id}: {details}".format(id=self._statement[self.config.booking_id],
+                                        details=self._statement[self.config.booking_details])
 
     def get_currency(self):
         """
@@ -175,6 +175,6 @@ class Statement():
         :return: currency of the statement; if unkown return 'EUR'
         """
         if self.config.booking_currency:
-            return self.statement[self.config.booking_currency]
+            return self._statement[self.config.booking_currency]
         else:
             return 'EUR'
