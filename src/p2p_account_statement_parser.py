@@ -28,6 +28,7 @@ class PeerToPeerPlatformParser(object):
         self._account_statement_file = None
         self._config_file = None
         self.output_list = []
+        self.config = None
 
     @property
     def account_statement_file(self):
