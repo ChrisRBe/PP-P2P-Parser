@@ -8,13 +8,12 @@ import codecs
 import csv
 import logging
 import os
-import re
-
-from datetime import datetime
 
 from ruamel.yaml import YAML
 
 from .portfolio_performance_writer import PP_FIELDNAMES
+from .Config import Config
+from .Statement import Statement
 
 
 class PeerToPeerPlatformParser(object):
@@ -89,92 +88,3 @@ class PeerToPeerPlatformParser(object):
         else:
             logging.error("Account statement file {} does not exist.".format(self.account_statement_file))
         return self.output_list
-
-
-class Config():
-    """
-    Implementation of the configuration
-    """
-    def __init__(self, config):
-        """
-        Constructor for Config
-        """
-        logging.info("Config ini")
-        self.relevant_invest_regex = re.compile(config['type_regex']['deposit'])
-        self.relevant_payment_regex = re.compile(config['type_regex']['withdraw'])
-        self.relevant_income_regex = re.compile(config['type_regex']['interest'])
-        if 'fee' in config['type_regex']:
-            self.relevant_fee_regex = re.compile(config['type_regex']['fee'])
-        else:
-            self.relevant_fee_regex = None
-
-        self.booking_date = config['csv_fieldnames']['booking_date']
-        self.booking_date_format = config['csv_fieldnames']['booking_date_format']
-        self.booking_details = config['csv_fieldnames']['booking_details']
-        self.booking_id = config['csv_fieldnames']['booking_id']
-        self.booking_type = config['csv_fieldnames']['booking_type']
-        self.booking_value = config['csv_fieldnames']['booking_value']
-        if 'booking_currency' in config['csv_fieldnames']:
-            self.booking_currency = config['csv_fieldnames']['booking_currency']
-        else:
-            self.booking_currency = ''
-
-
-class Statement():
-    """
-    Implementation of the statement
-    """
-    def __init__(self, config, statement):
-        """
-        Constructor for Statement
-        """
-        self.config = config
-        self.statement = statement
-
-    def get_category(self):
-        """
-        Check the category of the given statement.
-
-        :return: category of the statement; if unkown return the empty string
-        """
-        booking_type = self.statement[self.config.booking_type]
-        category = ""
-        if self.config.relevant_income_regex.match(booking_type):
-            category = 'Zinsen'
-        elif self.config.relevant_invest_regex.match(booking_type):
-            category = 'Einlage'
-        elif self.config.relevant_payment_regex.match(booking_type):
-            category = 'Entnahme'
-        elif self.is_fee(booking_type):
-            category = 'Gebühren'
-        else:
-            logging.debug(self.statement)
-        return category
-
-    def is_fee(self, booking_type):
-        """ check if it is a statement with a fee"""
-        return self.config.relevant_fee_regex and self.config.relevant_fee_regex.match(booking_type)
-
-    def get_date(self):
-        """ get the date of the statement """
-        return datetime.strptime(self.statement[self.config.booking_date], self.config.booking_date_format).date()
-
-    def get_value(self):
-        """ get the value of the statement """
-        return self.statement[self.config.booking_value].replace('.', ',')
-
-    def get_note(self):
-        """ get the note of the statement """
-        return "{id}: {details}".format(id=self.statement[self.config.booking_id],
-                                        details=self.statement[self.config.booking_details])
-
-    def get_currency(self):
-        """
-        Check the currency of the given statement.
-
-        :return: currency of the statement; if unkown return 'EUR'
-        """
-        if self.config.booking_currency:
-            return self.statement[self.config.booking_currency]
-        else:
-            return 'EUR'
