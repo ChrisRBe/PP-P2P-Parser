@@ -2,7 +2,7 @@
 """
 Module for holding a platform account statement.
 
-Copyright 2018-04-29 ChrisRBe
+Copyright 2018-10-16 ChrisRBe
 """
 import logging
 from datetime import datetime
