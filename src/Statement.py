@@ -45,7 +45,7 @@ class Statement():
 
     def get_date(self):
         """ get the date of the statement """
-        return datetime.strptime(self._statement[self._config.get_booking_date()], 
+        return datetime.strptime(self._statement[self._config.get_booking_date()],
                                  self._config.get_booking_date_format()).date()
 
     def get_value(self):
