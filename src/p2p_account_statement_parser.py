@@ -8,13 +8,12 @@ import codecs
 import csv
 import logging
 import os
-import re
-
-from datetime import datetime
 
 from ruamel.yaml import YAML
 
 from .portfolio_performance_writer import PP_FIELDNAMES
+from .Config import Config
+from .Statement import Statement
 
 
 class PeerToPeerPlatformParser(object):
@@ -29,17 +28,7 @@ class PeerToPeerPlatformParser(object):
         self._account_statement_file = None
         self._config_file = None
         self.output_list = []
-
-        self.booking_date = ''
-        self.booking_date_format = ''
-        self.booking_details = ''
-        self.booking_id = ''
-        self.booking_type = ''
-        self.booking_value = ''
-
-        self.relevant_invest_regex = None
-        self.relevant_payment_regex = None
-        self.relevant_income_regex = None
+        self.config = None
 
     @property
     def account_statement_file(self):
@@ -63,28 +52,18 @@ class PeerToPeerPlatformParser(object):
 
     def __parse_service_config(self):
         """
-        Parse the YAML configuration file containing specific settings for the individual peer to peer loan provider
+        Parse the YAML configuration file containing specific settings for the individual p2p loan platform
 
         :return:
         """
         with open(self.config_file, 'r', encoding='utf-8') as ymlconfig:
             yaml = YAML(typ='safe')
             config = yaml.load(ymlconfig)
-
-            self.relevant_invest_regex = re.compile(config['type_regex']['deposit'])
-            self.relevant_payment_regex = re.compile(config['type_regex']['withdraw'])
-            self.relevant_income_regex = re.compile(config['type_regex']['interest'])
-
-            self.booking_date = config['csv_fieldnames']['booking_date']
-            self.booking_date_format = config['csv_fieldnames']['booking_date_format']
-            self.booking_details = config['csv_fieldnames']['booking_details']
-            self.booking_id = config['csv_fieldnames']['booking_id']
-            self.booking_type = config['csv_fieldnames']['booking_type']
-            self.booking_value = config['csv_fieldnames']['booking_value']
+            self.config = Config(config)
 
     def parse_account_statement(self):
         """
-        read a Estateguru account statement csv file and filter the content according to the defined strings
+        read a platform account statement csv file and filter the content according to the defined strings
 
         :return:
         """
@@ -95,24 +74,16 @@ class PeerToPeerPlatformParser(object):
                 infile.seek(0)
                 account_statement = csv.DictReader(infile, dialect=dialect)
                 for statement in account_statement:
-                    if self.relevant_income_regex.match(statement[self.booking_type]):
-                        category = "Zinsen"
-                    elif self.relevant_invest_regex.match(statement[self.booking_type]):
-                        category = 'Einlage'
-                    elif self.relevant_payment_regex.match(statement[self.booking_type]):
-                        category = 'Entnahme'
-                    else:
-                        logging.debug(statement)
+                    sttmnt = Statement(self.config, statement)
+                    category = sttmnt.get_category()
+                    if not category:
                         continue
 
-                    booking_date = datetime.strptime(statement[self.booking_date], self.booking_date_format)
-                    note = "{id}: {details}".format(id=statement[self.booking_id],
-                                                    details=statement[self.booking_details])
-
-                    formatted_account_entry = {PP_FIELDNAMES[0]: booking_date.date(),
-                                               PP_FIELDNAMES[1]: statement[self.booking_value].replace('.', ','),
-                                               PP_FIELDNAMES[2]: category,
-                                               PP_FIELDNAMES[3]: note}
+                    formatted_account_entry = {PP_FIELDNAMES[0]: sttmnt.get_date(),
+                                               PP_FIELDNAMES[1]: sttmnt.get_value(),
+                                               PP_FIELDNAMES[2]: sttmnt.get_currency(),
+                                               PP_FIELDNAMES[3]: category,
+                                               PP_FIELDNAMES[4]: sttmnt.get_note()}
                     self.output_list.append(formatted_account_entry)
         else:
             logging.error("Account statement file {} does not exist.".format(self.account_statement_file))

@@ -11,3 +11,4 @@ csv_fieldnames: !!map
   booking_id: 'UniqueId'
   booking_type: 'Cashflow-Typ'
   booking_value: 'Betrag'
+  booking_currency: 'Währung'
