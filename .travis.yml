@@ -12,6 +12,6 @@ before_script:
 script:
   - pytest --cov=src
   - coverage xml
-  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash python-codacy-coverage -r coverage.xml; fi'
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then python-codacy-coverage -r coverage.xml; fi'
 after_script:
   - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
