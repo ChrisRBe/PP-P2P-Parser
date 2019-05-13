@@ -7,7 +7,7 @@ colorama==0.4.1
 coverage==4.5.3
 idna==2.8
 isort==4.3.19
-lazy-object-proxy==1.4.0
+lazy-object-proxy==1.4.1
 mccabe==0.6.1
 more-itertools==7.0.0
 pluggy==0.11.0
