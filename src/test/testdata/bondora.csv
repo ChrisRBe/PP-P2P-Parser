@@ -1,0 +1,6 @@
+TransferDate;Currency;Amount;Number;Description;LoanNumber;Counterparty;BalanceAfterPayment
+01.01.2019 00:01;EUR;100;1000000001;TransferDeposit|DE1111000000111111;;InvestorTrustly;100
+02.01.2019 00:02;EUR;-100;1000000002;TransferGoGrow;;GoGrow;0
+03.01.2019 00:03;EUR;100;1000000003;TransferDeposit|Wirecard;;Wirecard;100
+04.01.2019 00:04;EUR;0,0067920792;1000000004;TransferInterestRepaiment;1111111-111111112;Bondora Capital;100,0067920792
+05.01.2019 00:05;EUR;7,05883E-05;1000000005;TransferExtraInterestRepaiment;1111111-111111113;Bondora Capital;100,0068626675

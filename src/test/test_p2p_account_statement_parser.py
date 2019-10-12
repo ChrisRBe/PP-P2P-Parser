@@ -34,6 +34,56 @@ class TestBaseParser(TestCase):
         self.assertEqual(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, 'config', 'mintos.yml'),
                          self.base_parser.config_file)
 
+    def test_bondora_parsing(self):
+        """test parse_account_statement for bondora"""
+        self.base_parser.account_statement_file = os.path.join(os.path.dirname(__file__), 'testdata', 'bondora.csv')
+        self.base_parser.config_file = os.path.join(os.path.dirname(__file__),
+                                                    os.pardir,
+                                                    os.pardir,
+                                                    'config',
+                                                    'bondora.yml')
+        expected_statement = [{'Datum': datetime.date(2019, 1, 1),
+                               'Notiz': ': TransferDeposit|DE1111000000111111',
+                               'Typ': 'Einlage',
+                               'Wert': '100',
+                               'Buchungswährung': 'EUR'},
+                              {'Datum': datetime.date(2019, 1, 2),
+                               'Notiz': ': TransferGoGrow',
+                               'Typ': 'Entnahme',
+                               'Wert': '-100',
+                               'Buchungswährung': 'EUR'},
+                              {'Datum': datetime.date(2019, 1, 3),
+                               'Notiz': ': TransferDeposit|Wirecard',
+                               'Typ': 'Einlage',
+                               'Wert': '100',
+                               'Buchungswährung': 'EUR'},
+                              {'Datum': datetime.date(2019, 1, 4),
+                               'Notiz': '1111111-111111112: TransferInterestRepaiment',
+                               'Typ': 'Zinsen',
+                               'Wert': '0,0067920792',
+                               'Buchungswährung': 'EUR'},
+                              {'Datum': datetime.date(2019, 1, 5),
+                               'Notiz': '1111111-111111113: TransferExtraInterestRepaiment',
+                               'Typ': 'Zinsen',
+                               'Wert': '7,05883E-05',
+                               'Buchungswährung': 'EUR'}]
+        self.assertEqual(expected_statement, self.base_parser.parse_account_statement())
+
+    def test_bondora_go_grow_parsing(self):
+        """test parse_account_statement for bondora"""
+        self.base_parser.account_statement_file = os.path.join(os.path.dirname(__file__), 'testdata', 'bondora.csv')
+        self.base_parser.config_file = os.path.join(os.path.dirname(__file__),
+                                                    os.pardir,
+                                                    os.pardir,
+                                                    'config',
+                                                    'bondora_go_grow.yml')
+        expected_statement = [{'Datum': datetime.date(2019, 1, 2),
+                               'Notiz': ': TransferGoGrow',
+                               'Typ': 'Einlage',
+                               'Wert': '-100',
+                               'Buchungswährung': 'EUR'}]
+        self.assertEqual(expected_statement, self.base_parser.parse_account_statement())
+
     def test_estateguru_parsing(self):
         """test parse_account_statement for estateguru"""
         self.base_parser.account_statement_file = os.path.join(os.path.dirname(__file__), 'testdata', 'estateguru.csv')
