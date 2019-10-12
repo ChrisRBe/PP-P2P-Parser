@@ -10,9 +10,8 @@
 ## Overview
 
 Application to read account statement files from different peer to peer lending sites,
-e.g. Mintos.com and produce a Portfolio Performance readable csv file
+e.g. Mintos.com and produce a Portfolio Performance readable csv file. Input format needs to be csv!
 
-Currently supported providers: Mintos, Estateguru
 
 ## Requirements
 
@@ -51,6 +50,8 @@ parse-account-statements.py  --type mintos src/test/testdata/mintos.csv
 * estateguru - Supports current German layout account statement csv file format
 * robocash - Supports current account statement format (as of 2018-05-01) exported to csv
 * swaper - Supports current account statement format (as of 2018-05-01) exported to csv
+* bondora - Supports current account statement format (as of 2019-10-12); exported to csv
+* bondora go & grow - Supports current account statement format (as of 2019-10-12); exported to csv
 
 ## Configuration files
 
