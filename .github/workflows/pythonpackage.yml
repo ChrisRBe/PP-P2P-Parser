@@ -37,6 +37,8 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Code Climate Coverage Action
       uses: paambaati/codeclimate-action@v2.5.6
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
       with:
         coverageCommand: |
           pytest -v --doctest-modules --cov=src --cov-report=xml
