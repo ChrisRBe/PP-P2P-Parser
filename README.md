@@ -3,7 +3,6 @@
 ## Code Status
 
 [![Build Status](https://travis-ci.org/ChrisRBe/PP-P2P-Parser.svg?branch=master)](https://travis-ci.org/ChrisRBe/PP-P2P-Parser)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/23ae124125c9439b8bd8087cf8efda20)](https://app.codacy.com/app/chrisrbe/PP-P2P-Parser?utm_source=github.com&utm_medium=referral&utm_content=ChrisRBe/PP-P2P-Parser&utm_campaign=badger)
 [![Maintainability](https://api.codeclimate.com/v1/badges/f3bad303efd4200ebee2/maintainability)](https://codeclimate.com/github/ChrisRBe/PP-P2P-Parser/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/f3bad303efd4200ebee2/test_coverage)](https://codeclimate.com/github/ChrisRBe/PP-P2P-Parser/test_coverage)
 
