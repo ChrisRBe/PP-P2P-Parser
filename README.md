@@ -2,7 +2,7 @@
 
 ## Code Status
 
-![](https://github.com/ChrisRBe/PP-P2P-Parser/workflows/Integration/badge.svg)
+![](https://github.com/ChrisRBe/PP-P2P-Parser/workflows/Integration/badge.svg?branch=master)
 [![Maintainability](https://api.codeclimate.com/v1/badges/f3bad303efd4200ebee2/maintainability)](https://codeclimate.com/github/ChrisRBe/PP-P2P-Parser/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/f3bad303efd4200ebee2/test_coverage)](https://codeclimate.com/github/ChrisRBe/PP-P2P-Parser/test_coverage)
 
