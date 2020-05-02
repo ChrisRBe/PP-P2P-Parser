@@ -52,6 +52,9 @@ parse-account-statements.py  --type mintos src/test/testdata/mintos.csv
 * bondora - Supports current account statement format (as of 2019-10-12); exported to csv
 * bondora go & grow - Supports current account statement format (as of 2019-10-12); exported to csv
 
+### Alternative solution for Auxmoney
+Unfortunately, the output file of Auxmoney's reports is not suitable for being parsed by PP-P2P-Parser in a senseful way. As an alternative, you can check out the [PP-Auxmoney-Parser](https://github.com/StegSchreck/PP-Auxmoney-Parser) project.
+
 ## Configuration files
 
 Configuration for this script is stored in yaml files located under the config subdirectory. 
