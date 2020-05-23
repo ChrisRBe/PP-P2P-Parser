@@ -11,9 +11,9 @@ import os
 
 from ruamel.yaml import YAML
 
-from .portfolio_performance_writer import PP_FIELDNAMES
-from .Config import Config
-from .Statement import Statement
+from src.portfolio_performance_writer import PP_FIELDNAMES
+from src.Config import Config
+from src.Statement import Statement
 
 
 class PeerToPeerPlatformParser(object):

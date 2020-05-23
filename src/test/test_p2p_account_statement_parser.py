@@ -8,7 +8,7 @@ import datetime
 import os
 from unittest import TestCase
 
-from ..p2p_account_statement_parser import PeerToPeerPlatformParser
+from src.p2p_account_statement_parser import PeerToPeerPlatformParser
 
 
 class TestBaseParser(TestCase):

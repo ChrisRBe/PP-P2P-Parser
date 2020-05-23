@@ -1,0 +1,16 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+codacy-coverage = "*"
+pylint = "*"
+pytest = "*"
+pytest-cov = "*"
+
+[packages]
+"ruamel.yaml" = "==0.16.10"
+
+[requires]
+python_version = "3.8"

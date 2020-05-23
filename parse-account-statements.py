@@ -1,10 +1,18 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 """
-Application to read account statement files from different peer to peer lending sites, e.g. Mintos.com and produce
-a Portfolio Performance readable csv file
+An application to read account statement files from different peer to peer lending sites, e.g. Mintos.com and creates
+a Portfolio Performance readable csv file.
 
-Currently supported provider: Mintos, Estateguru
+NOTE: The output only contains interest and interest like payments received. No other statements are currently parsed.
+
+List of currently supported providers:
+    - Bondora
+    - Bondora Grow Go
+    - Estateguru
+    - Mintos
+    - Robocash
+    - Swaper
 
 Copyright 2018-03-17 ChrisRBe
 """
