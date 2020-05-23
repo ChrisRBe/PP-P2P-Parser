@@ -8,7 +8,7 @@ import logging
 from datetime import datetime
 
 
-class Statement():
+class Statement:
     """
     Implementation of the statement
     """
