@@ -3,7 +3,7 @@ type_regex: !!map
   deposit: "(^TransferGoGrow.*)"
   withdraw: "(^TransferWithdraw*)"
   interest: "(^TransferGoGrowInterestRepaiment$)"
-  fee: "(^GoGrowWithdrawalFee$)" 
+  fee: "(^GoGrowWithdrawalFee$)"
 
 csv_fieldnames:
   booking_date: 'TransferDate'
