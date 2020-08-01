@@ -1,13 +1,13 @@
 ---
 type_regex: !!map
   deposit: "(^TransferGoGrow.*)"
-  withdraw: "(^$)"
-  interest: "(^$)"
-  fee: "(^$)"
+  withdraw: "(^TransferWithdraw*)"
+  interest: "(^TransferGoGrowInterestRepaiment$)"
+  fee: "(^GoGrowWithdrawalFee$)" 
 
 csv_fieldnames:
   booking_date: 'TransferDate'
-  booking_date_format: '%d.%m.%Y %H:%M'
+  booking_date_format: '%Y-%m-%dT%H:%M:%SZ'
   booking_details: 'Description'
   booking_id: 'LoanNumber'
   booking_type: 'Description'
