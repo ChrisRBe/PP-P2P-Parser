@@ -1,6 +1,6 @@
 ---
 type_regex: !!map
-  deposit: "(^Incoming client.*)|(^Incoming currency exchange.*)"
+  deposit: "(Deposits)|(^Incoming client.*)|(^Incoming currency exchange.*)"
   withdraw: "(^Withdraw application.*)|(Outgoing currency.*)"
   interest: "(^Delayed interest.*)|(^Late payment.*)|(^Interest income.*)|(^Cashback.*)|(^.*interest received$)|(^.*late fees received$)"
   fee: "(^FX commission.*)"
