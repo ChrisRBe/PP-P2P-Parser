@@ -1,5 +1,5 @@
 Datum,Wert,Buchungswährung,Typ,Notiz
-2020-01-20,"1,00",EUR,Einlage,: TransferGoGrowMainRepaiment
-2020-01-20,"1,00",EUR,Zinsen,: TransferGoGrowInterestRepaiment
-2020-01-20,"-1,00",EUR,Gebühren,: GoGrowWithdrawalFee
-2020-01-20,"-2,00",EUR,Entnahme,: TransferWithdraw
+2020-01-20,1,EUR,Einlage,: TransferGoGrowMainRepaiment
+2020-01-20,1,EUR,Zinsen,: TransferGoGrowInterestRepaiment
+2020-01-20,-1,EUR,Gebühren,: GoGrowWithdrawalFee
+2020-01-20,-1,EUR,Entnahme,: TransferWithdraw
