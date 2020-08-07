@@ -77,10 +77,25 @@ class TestBaseParser(TestCase):
                                                     os.pardir,
                                                     'config',
                                                     'bondora_go_grow.yml')
-        expected_statement = [{'Datum': datetime.date(2019, 1, 2),
-                               'Notiz': ': TransferGoGrow',
+        expected_statement = [{'Datum': datetime.date(2020, 7, 20),
+                               'Notiz': ': TransferGoGrowMainRepaiment',
                                'Typ': 'Einlage',
-                               'Wert': '-100',
+                               'Wert': '1',
+                               'Buchungswährung': 'EUR'},
+                              {'Datum': datetime.date(2020, 7, 20),
+                               'Notiz': ': TransferGoGrowInterestRepaiment',
+                               'Typ': 'Zinsen',
+                               'Wert': '1',
+                               'Buchungswährung': 'EUR'},
+                               {'Datum': datetime.date(2020, 7, 20),
+                               'Notiz': ': GoGrowWithdrawalFee',
+                               'Typ': 'Gebühren',
+                               'Wert': '-1',
+                               'Buchungswährung': 'EUR'},
+                               {'Datum': datetime.date(2020, 7, 20),
+                               'Notiz': ': TransferWithdraw',
+                               'Typ': 'Entnahme',
+                               'Wert': '-2',
                                'Buchungswährung': 'EUR'}]
         self.assertEqual(expected_statement, self.base_parser.parse_account_statement())
 
