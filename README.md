@@ -19,7 +19,7 @@ Python 3 (implemented with python 3.6.4)
 ## Dependencies
 
 The configuration for this application is stored in yaml files. The module used for
-loading yaml files is [ruamel.yaml](https://yaml.readthedocs.io/en/latest/). 
+loading yaml files is [ruamel.yaml](https://yaml.readthedocs.io/en/latest/).
 Install via:
 
 `pip install ruamel.yaml`
@@ -51,13 +51,14 @@ parse-account-statements.py  --type mintos src/test/testdata/mintos.csv
 * swaper - Supports current account statement format (as of 2018-05-01) exported to csv
 * bondora - Supports current account statement format (as of 2019-10-12); exported to csv
 * bondora go & grow - Supports current account statement format (as of 2019-10-12); exported to csv
+* debitumnetwork - Supports current account statement format (as of 2020-09-08) exported to csv
 
 ### Alternative solution for Auxmoney
 Unfortunately, the output file of Auxmoney's reports is not suitable for being parsed by PP-P2P-Parser in a senseful way. As an alternative, you can check out the [PP-Auxmoney-Parser](https://github.com/StegSchreck/PP-Auxmoney-Parser) project.
 
 ## Configuration files
 
-Configuration for this script is stored in yaml files located under the config subdirectory. 
+Configuration for this script is stored in yaml files located under the config subdirectory.
 The content directly reflects the format of the source account statement files.
 
 Example:
