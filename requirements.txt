@@ -16,7 +16,7 @@ pylint==2.5.2
 pytest==5.4.2
 pytest-cov==2.8.1
 requests>=2.20.0
-ruamel.yaml==0.16.10
+ruamel.yaml==0.16.12
 six==1.15.0
 urllib3>=1.23
 wrapt==1.12.1
