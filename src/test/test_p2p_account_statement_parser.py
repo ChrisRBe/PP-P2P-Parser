@@ -265,7 +265,7 @@ class TestBaseParser(TestCase):
                                'Notiz': 'b9da7662-de61-43d1-a179-c300d5695587: 6c4a6d93-faea-4d96-856c-7cdd3fb3023b'},
                               {'Datum': datetime.date(2020, 9, 7),
                                'Wert': '10',
-                               'Buchungswährung': 'EUR'}
+                               'Buchungswährung': 'EUR',
                                'Typ': 'Einlage',
                                'Notiz': '7260c567-fdb4-44d4-84ce-4256c7d7fb80: NA'}],
         self.assertEqual(expected_statement, self.base_parser.parse_account_statement())
