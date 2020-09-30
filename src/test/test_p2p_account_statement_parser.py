@@ -245,7 +245,7 @@ class TestBaseParser(TestCase):
                                'Buchungswährung': 'EUR'}]
         self.assertEqual(expected_statement, self.base_parser.parse_account_statement())
 
-   def test_debitumnetwork_parsing(self):
+    def test_debitumnetwork_parsing(self):
         """test parse_account_statement for debitum network"""
         self.base_parser.account_statement_file = os.path.join(os.path.dirname(__file__), 'testdata', 'debitum.csv')
         self.base_parser.config_file = os.path.join(os.path.dirname(__file__),
