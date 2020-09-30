@@ -1,6 +1,6 @@
 ---
 type_regex: !!map
-  deposit: "^DEPOSIT"
+  deposit: "^DEPOSIT|^INVITED_REFERRAL_REWARD"
   withdraw: "^WITHDRAW"
   interest: "^REPAYMENT"
 
