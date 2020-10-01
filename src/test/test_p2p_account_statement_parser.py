@@ -244,3 +244,28 @@ class TestBaseParser(TestCase):
                                'Wert': '2000',
                                'Buchungswährung': 'EUR'}]
         self.assertEqual(expected_statement, self.base_parser.parse_account_statement())
+
+    def test_debitumnetwork_parsing(self):
+        """test parse_account_statement for debitum network"""
+        self.base_parser.account_statement_file = os.path.join(os.path.dirname(__file__), 'testdata', 'debitum.csv')
+        self.base_parser.config_file = os.path.join(os.path.dirname(__file__),
+                                                    os.pardir,
+                                                    os.pardir,
+                                                    'config',
+                                                    'debitumnetwork.yml')
+        expected_statement = [{'Datum': datetime.date(2020, 8, 25),
+                               'Wert': '121,91',
+                               'Buchungswährung': 'EUR',
+                               'Typ': 'Einlage',
+                               'Notiz': '405eea2a-7745-4588-8f08-5c1512987324: NA'},
+                              {'Datum': datetime.date(2020, 9, 7),
+                               'Wert': '10,03',
+                               'Buchungswährung': 'EUR',
+                               'Typ': 'Zinsen',
+                               'Notiz': 'b9da7662-de61-43d1-a179-c300d5695587: 6c4a6d93-faea-4d96-856c-7cdd3fb3023b'},
+                              {'Datum': datetime.date(2020, 9, 7),
+                               'Wert': '10',
+                               'Buchungswährung': 'EUR',
+                               'Typ': 'Einlage',
+                               'Notiz': '7260c567-fdb4-44d4-84ce-4256c7d7fb80: NA'}]
+        self.assertEqual(expected_statement, self.base_parser.parse_account_statement())

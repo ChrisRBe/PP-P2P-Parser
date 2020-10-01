@@ -13,6 +13,7 @@ List of currently supported providers:
     - Mintos
     - Robocash
     - Swaper
+    - Debitum Network
 
 Copyright 2018-03-17 ChrisRBe
 """
