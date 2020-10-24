@@ -9,7 +9,7 @@ csv_fieldnames:
   booking_date: 'Date'
   booking_date_format: '%Y-%m-%d %H:%M:%S'
   booking_details: 'Details'
-  booking_id: 'Transaction ID'
+  booking_id: 'Transaction ID:'
   booking_type: 'Details'
   booking_value: 'Turnover'
   booking_currency: 'Currency'
