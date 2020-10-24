@@ -43,8 +43,3 @@ jobs:
           pytest -v --doctest-modules --cov=src --cov-report=xml
         coverageLocations: 'coverage.xml:coverage.py'
         debug: true
-    - name: Autograding Actions Plugin
-      uses: uhafner/autograding-github-action@v1.1.0
-      with:
-        TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        HEAD_SHA: ${{github.event.pull_request.head.sha}}
