@@ -8,33 +8,34 @@ import logging
 import re
 
 
-class Config():
+class Config:
     """
     Implementation of the configuration
     """
+
     def __init__(self, config):
         """
         Constructor for Config
         """
         logging.info("Config ini")
-        self._relevant_invest_regex = re.compile(config['type_regex']['deposit'])
-        self._relevant_payment_regex = re.compile(config['type_regex']['withdraw'])
-        self._relevant_income_regex = re.compile(config['type_regex']['interest'])
-        if 'fee' in config['type_regex']:
-            self._relevant_fee_regex = re.compile(config['type_regex']['fee'])
+        self._relevant_invest_regex = re.compile(config["type_regex"]["deposit"])
+        self._relevant_payment_regex = re.compile(config["type_regex"]["withdraw"])
+        self._relevant_income_regex = re.compile(config["type_regex"]["interest"])
+        if "fee" in config["type_regex"]:
+            self._relevant_fee_regex = re.compile(config["type_regex"]["fee"])
         else:
             self._relevant_fee_regex = None
 
-        self._booking_date = config['csv_fieldnames']['booking_date']
-        self._booking_date_format = config['csv_fieldnames']['booking_date_format']
-        self._booking_details = config['csv_fieldnames']['booking_details']
-        self._booking_id = config['csv_fieldnames']['booking_id']
-        self._booking_type = config['csv_fieldnames']['booking_type']
-        self._booking_value = config['csv_fieldnames']['booking_value']
-        if 'booking_currency' in config['csv_fieldnames']:
-            self._booking_currency = config['csv_fieldnames']['booking_currency']
+        self._booking_date = config["csv_fieldnames"]["booking_date"]
+        self._booking_date_format = config["csv_fieldnames"]["booking_date_format"]
+        self._booking_details = config["csv_fieldnames"]["booking_details"]
+        self._booking_id = config["csv_fieldnames"]["booking_id"]
+        self._booking_type = config["csv_fieldnames"]["booking_type"]
+        self._booking_value = config["csv_fieldnames"]["booking_value"]
+        if "booking_currency" in config["csv_fieldnames"]:
+            self._booking_currency = config["csv_fieldnames"]["booking_currency"]
         else:
-            self._booking_currency = ''
+            self._booking_currency = ""
 
     def get_relevant_invest_regex(self):
         """ get the relevant_invest_regex """

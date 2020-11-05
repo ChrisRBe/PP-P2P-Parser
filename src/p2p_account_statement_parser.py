@@ -21,6 +21,7 @@ class PeerToPeerPlatformParser(object):
     Implementation of a generic p2p investment platform account statement parser.
     Actual configuration for the individual services is done via a yml config file.
     """
+
     def __init__(self):
         """
         Constructor for PeerToPeerPlatformParser
@@ -56,8 +57,8 @@ class PeerToPeerPlatformParser(object):
 
         :return:
         """
-        with open(self.config_file, 'r', encoding='utf-8') as ymlconfig:
-            yaml = YAML(typ='safe')
+        with open(self.config_file, "r", encoding="utf-8") as ymlconfig:
+            yaml = YAML(typ="safe")
             config = yaml.load(ymlconfig)
             self.config = Config(config)
 
@@ -69,7 +70,7 @@ class PeerToPeerPlatformParser(object):
         """
         if os.path.exists(self._account_statement_file):
             self.__parse_service_config()
-            with codecs.open(self._account_statement_file, 'r', encoding='utf-8-sig') as infile:
+            with codecs.open(self._account_statement_file, "r", encoding="utf-8-sig") as infile:
                 dialect = csv.Sniffer().sniff(infile.readline())
                 infile.seek(0)
                 account_statement = csv.DictReader(infile, dialect=dialect)
@@ -79,11 +80,13 @@ class PeerToPeerPlatformParser(object):
                     if not category:
                         continue
 
-                    formatted_account_entry = {PP_FIELDNAMES[0]: sttmnt.get_date(),
-                                               PP_FIELDNAMES[1]: sttmnt.get_value(),
-                                               PP_FIELDNAMES[2]: sttmnt.get_currency(),
-                                               PP_FIELDNAMES[3]: category,
-                                               PP_FIELDNAMES[4]: sttmnt.get_note()}
+                    formatted_account_entry = {
+                        PP_FIELDNAMES[0]: sttmnt.get_date(),
+                        PP_FIELDNAMES[1]: sttmnt.get_value(),
+                        PP_FIELDNAMES[2]: sttmnt.get_currency(),
+                        PP_FIELDNAMES[3]: category,
+                        PP_FIELDNAMES[4]: sttmnt.get_note(),
+                    }
                     self.output_list.append(formatted_account_entry)
         else:
             logging.error("Account statement file {} does not exist.".format(self.account_statement_file))
