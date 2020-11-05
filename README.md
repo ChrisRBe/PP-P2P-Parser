@@ -3,6 +3,7 @@
 ## Code Status
 
 ![](https://github.com/ChrisRBe/PP-P2P-Parser/workflows/Integration/badge.svg?branch=master)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Maintainability](https://api.codeclimate.com/v1/badges/f3bad303efd4200ebee2/maintainability)](https://codeclimate.com/github/ChrisRBe/PP-P2P-Parser/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/f3bad303efd4200ebee2/test_coverage)](https://codeclimate.com/github/ChrisRBe/PP-P2P-Parser/test_coverage)
 
@@ -10,7 +11,6 @@
 
 Application to read account statement files from different peer to peer lending sites,
 e.g. Mintos.com and produce a Portfolio Performance readable csv file. Input format needs to be csv!
-
 
 ## Requirements
 
