@@ -13,6 +13,3 @@ pytest-cov = "==2.10.1"
 
 [packages]
 "ruamel.yaml" = "==0.16.12"
-
-[requires]
-python_version = "3.8"
