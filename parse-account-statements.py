@@ -25,24 +25,24 @@ import sys
 from src import p2p_account_statement_parser, portfolio_performance_writer
 
 
-def platform_factory(operator_name='mintos'):
+def platform_factory(operator_name="mintos"):
     """
     Return an object for the required Peer-to-Peer lending platform
 
     :param operator_name: name of the P2P lending site, defaults to Mintos
     :return: object for the actual lending platform parser, None if not supported
     """
-    config = os.path.join(os.path.dirname(__file__), 'config', '{op}.yml'.format(op=operator_name))
+    config = os.path.join(os.path.dirname(__file__), "config", "{op}.yml".format(op=operator_name))
     if os.path.exists(config):
         platform_parser = p2p_account_statement_parser.PeerToPeerPlatformParser()
         platform_parser.config_file = config
         return platform_parser
     else:
-        logging.error('The provided platform {} is currently not supported'.format(operator_name))
+        logging.error("The provided platform {} is currently not supported".format(operator_name))
         return None
 
 
-def main(infile, p2p_operator_name='mintos'):
+def main(infile, p2p_operator_name="mintos"):
     """
     Processes the provided input file with the rules defined for the given platform.
     Outputs a CSV file readable by Portfolio Performance
@@ -52,7 +52,7 @@ def main(infile, p2p_operator_name='mintos'):
     :return: True, False if an error occurred.
     """
     if not os.path.exists(infile):
-        logging.error('provided file {} does not exist'.format(infile))
+        logging.error("provided file {} does not exist".format(infile))
         return False
 
     platform_parser = platform_factory(p2p_operator_name)
@@ -64,27 +64,28 @@ def main(infile, p2p_operator_name='mintos'):
         writer.init_output()
         for entry in statement_list:
             writer.update_output(entry)
-        writer.write_pp_csv_file(os.path.join(os.path.dirname(infile),
-                                              'portfolio_performance__{}.csv'.format(p2p_operator_name)))
+        writer.write_pp_csv_file(
+            os.path.join(
+                os.path.dirname(infile),
+                "portfolio_performance__{}.csv".format(p2p_operator_name),
+            )
+        )
     else:
         return False
 
 
 if __name__ == "__main__":
-    ARG_PARSER = argparse.ArgumentParser(description=__doc__,
-                                         formatter_class=argparse.RawDescriptionHelpFormatter)
-    ARG_PARSER.add_argument('infile',
-                            type=str,
-                            help='CSV file containing the downloaded data from the P2P site')
-    ARG_PARSER.add_argument('--type',
-                            type=str,
-                            help='Specifies the p2p lending operator')
-    ARG_PARSER.add_argument('--debug',
-                            action='store_true',
-                            help='enables debug level logging if set')
+    ARG_PARSER = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ARG_PARSER.add_argument(
+        "infile",
+        type=str,
+        help="CSV file containing the downloaded data from the P2P site",
+    )
+    ARG_PARSER.add_argument("--type", type=str, help="Specifies the p2p lending operator")
+    ARG_PARSER.add_argument("--debug", action="store_true", help="enables debug level logging if set")
     CMD_ARGS = ARG_PARSER.parse_args()
 
     if CMD_ARGS.debug:
-        logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
+        logging.basicConfig(format="%(levelname)s:%(message)s", level=logging.DEBUG)
 
     sys.exit(main(CMD_ARGS.infile, CMD_ARGS.type))

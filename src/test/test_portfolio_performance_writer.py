@@ -23,35 +23,42 @@ class TestPortfolioPerformanceWriter(TestCase):
 
     def test_init_output(self):
         """test init_output"""
-        self.assertEqual(','.join(PP_FIELDNAMES), self.pp_writer.out_string_stream.getvalue().strip())
+        self.assertEqual(",".join(PP_FIELDNAMES), self.pp_writer.out_string_stream.getvalue().strip())
 
     def test_update_output(self):
         """test update_output"""
-        test_entry = {PP_FIELDNAMES[0]: 'date',
-                      PP_FIELDNAMES[1]: 'profit',
-                      PP_FIELDNAMES[2]: 'currency',
-                      PP_FIELDNAMES[3]: 'category',
-                      PP_FIELDNAMES[4]: 'note'}
+        test_entry = {
+            PP_FIELDNAMES[0]: "date",
+            PP_FIELDNAMES[1]: "profit",
+            PP_FIELDNAMES[2]: "currency",
+            PP_FIELDNAMES[3]: "category",
+            PP_FIELDNAMES[4]: "note",
+        }
         self.pp_writer.update_output(test_entry)
-        self.assertEqual('Datum,Wert,Buchungswährung,Typ,Notiz\r\ndate,profit,currency,category,note',
-                         self.pp_writer.out_string_stream.getvalue().strip())
+        self.assertEqual(
+            "Datum,Wert,Buchungswährung,Typ,Notiz\r\ndate,profit,currency,category,note",
+            self.pp_writer.out_string_stream.getvalue().strip(),
+        )
 
     def test_update_output_umlaut(self):
         """test update_output with umlauts"""
-        test_entry = {PP_FIELDNAMES[0]: 'date',
-                      PP_FIELDNAMES[1]: 'profit',
-                      PP_FIELDNAMES[2]: 'currency',
-                      PP_FIELDNAMES[3]: 'category',
-                      PP_FIELDNAMES[4]: 'Laiamäe Pärnaõie Užutekio'}
+        test_entry = {
+            PP_FIELDNAMES[0]: "date",
+            PP_FIELDNAMES[1]: "profit",
+            PP_FIELDNAMES[2]: "currency",
+            PP_FIELDNAMES[3]: "category",
+            PP_FIELDNAMES[4]: "Laiamäe Pärnaõie Užutekio",
+        }
         self.pp_writer.update_output(test_entry)
-        self.assertEqual('Datum,Wert,Buchungswährung,Typ,Notiz\r\n'
-                         'date,profit,currency,category,Laiamäe Pärnaõie Užutekio',
-                         self.pp_writer.out_string_stream.getvalue().strip())
+        self.assertEqual(
+            "Datum,Wert,Buchungswährung,Typ,Notiz\r\n" "date,profit,currency,category,Laiamäe Pärnaõie Užutekio",
+            self.pp_writer.out_string_stream.getvalue().strip(),
+        )
 
     def test_write_pp_csv_file(self):
         """test write_pp_csv_file"""
         with tempfile.TemporaryDirectory() as tmpdirname:
-            fname = os.path.join(tmpdirname, 'output')
+            fname = os.path.join(tmpdirname, "output")
             self.pp_writer.write_pp_csv_file(fname)
-            with codecs.open(fname, 'r', encoding='utf-8') as testfile:
-                self.assertEqual(','.join(PP_FIELDNAMES), testfile.read().strip())
+            with codecs.open(fname, "r", encoding="utf-8") as testfile:
+                self.assertEqual(",".join(PP_FIELDNAMES), testfile.read().strip())

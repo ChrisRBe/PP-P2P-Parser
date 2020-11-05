@@ -9,14 +9,15 @@ import csv
 import io
 import logging
 
-PP_FIELDNAMES = ['Datum', 'Wert', 'Buchungswährung', 'Typ', 'Notiz']
+PP_FIELDNAMES = ["Datum", "Wert", "Buchungswährung", "Typ", "Notiz"]
 
 
 class PortfolioPerformanceWriter(object):
     """
     Writing parsed Peer-to-Peer lending account statements to Portfolio Performance compatible format
     """
-    def __init__(self, dialect='excel'):
+
+    def __init__(self, dialect="excel"):
         """
         constructor for class
 
@@ -34,9 +35,11 @@ class PortfolioPerformanceWriter(object):
         :return:
         """
         if not self.out_csv_writer:
-            self.out_csv_writer = csv.DictWriter(f=self.out_string_stream,
-                                                 fieldnames=self.out_csv_fieldnames,
-                                                 dialect=self.dialect)
+            self.out_csv_writer = csv.DictWriter(
+                f=self.out_string_stream,
+                fieldnames=self.out_csv_fieldnames,
+                dialect=self.dialect,
+            )
             self.out_csv_writer.writeheader()
 
     def update_output(self, statement_dict):
@@ -50,7 +53,7 @@ class PortfolioPerformanceWriter(object):
         if statement_dict:
             self.out_csv_writer.writerow(statement_dict)
 
-    def write_pp_csv_file(self, outfile='portfolio_performance.csv'):
+    def write_pp_csv_file(self, outfile="portfolio_performance.csv"):
         """
         Write the content of the complete string stream into the actual output file.
         Should be called after the parsed account statement has been written to the stream.
@@ -58,7 +61,7 @@ class PortfolioPerformanceWriter(object):
         :param outfile: specifies the path and name of the output file, defaults to portfolio_performance.csv
         :return:
         """
-        with codecs.open(outfile, 'w', encoding='utf-8') as csv_output:
+        with codecs.open(outfile, "w", encoding="utf-8") as csv_output:
             stream_content = self.out_string_stream.getvalue()
             logging.debug(stream_content)
             csv_output.write(stream_content.strip())

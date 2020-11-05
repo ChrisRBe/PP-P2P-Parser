@@ -12,6 +12,7 @@ class Statement:
     """
     Implementation of the statement
     """
+
     def __init__(self, config, statement):
         """
         Constructor for Statement
@@ -28,13 +29,13 @@ class Statement:
         booking_type = self._statement[self._config.get_booking_type()]
         category = ""
         if self._config.get_relevant_income_regex().match(booking_type):
-            category = 'Zinsen'
+            category = "Zinsen"
         elif self._config.get_relevant_invest_regex().match(booking_type):
-            category = 'Einlage'
+            category = "Einlage"
         elif self._config.get_relevant_payment_regex().match(booking_type):
-            category = 'Entnahme'
+            category = "Entnahme"
         elif self.is_fee(booking_type):
-            category = 'Gebühren'
+            category = "Gebühren"
         else:
             logging.debug(self._statement)
         return category
@@ -45,17 +46,21 @@ class Statement:
 
     def get_date(self):
         """ get the date of the statement """
-        return datetime.strptime(self._statement[self._config.get_booking_date()],
-                                 self._config.get_booking_date_format()).date()
+        return datetime.strptime(
+            self._statement[self._config.get_booking_date()],
+            self._config.get_booking_date_format(),
+        ).date()
 
     def get_value(self):
         """ get the value of the statement """
-        return self._statement[self._config.get_booking_value()].replace('.', ',')
+        return self._statement[self._config.get_booking_value()].replace(".", ",")
 
     def get_note(self):
         """ get the note of the statement """
-        return "{id}: {details}".format(id=self._statement[self._config.get_booking_id()],
-                                        details=self._statement[self._config.get_booking_details()])
+        return "{id}: {details}".format(
+            id=self._statement[self._config.get_booking_id()],
+            details=self._statement[self._config.get_booking_details()],
+        )
 
     def get_currency(self):
         """
@@ -66,4 +71,4 @@ class Statement:
         if self._config.get_booking_currency():
             return self._statement[self._config.get_booking_currency()]
         else:
-            return 'EUR'
+            return "EUR"
