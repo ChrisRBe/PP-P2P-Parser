@@ -22,7 +22,8 @@ import logging
 import os
 import sys
 
-from src import p2p_account_statement_parser, portfolio_performance_writer
+from src import p2p_account_statement_parser
+from src import portfolio_performance_writer
 
 
 def platform_factory(operator_name="mintos"):
@@ -75,7 +76,9 @@ def main(infile, p2p_operator_name="mintos"):
 
 
 if __name__ == "__main__":
-    ARG_PARSER = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ARG_PARSER = argparse.ArgumentParser(
+        usage=__doc__,
+    )
     ARG_PARSER.add_argument(
         "infile",
         type=str,

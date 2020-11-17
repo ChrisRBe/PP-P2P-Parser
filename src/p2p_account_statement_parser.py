@@ -11,8 +11,8 @@ import os
 
 from ruamel.yaml import YAML
 
-from src.portfolio_performance_writer import PP_FIELDNAMES
 from src.Config import Config
+from src.portfolio_performance_writer import PP_FIELDNAMES
 from src.Statement import Statement
 
 
