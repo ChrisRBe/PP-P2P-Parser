@@ -51,6 +51,28 @@ class PeerToPeerPlatformParser(object):
         """config file property setter"""
         self._config_file = value
 
+    def __format_statement(self, statement):
+        """
+        Formats a given statement into a dictionary containing the relevant data for Portfolio Performance.
+
+        :param statement: contains a line from the given CSV file
+
+        :returns: dictionary containing the formatted account entry
+        """
+        statement = Statement(self.config, statement)
+        category = statement.get_category()
+        if not category:
+            return
+
+        formatted_account_entry = {
+            PP_FIELDNAMES[0]: statement.get_date(),
+            PP_FIELDNAMES[1]: statement.get_value(),
+            PP_FIELDNAMES[2]: statement.get_currency(),
+            PP_FIELDNAMES[3]: category,
+            PP_FIELDNAMES[4]: statement.get_note(),
+        }
+        return formatted_account_entry
+
     def __parse_service_config(self):
         """
         Parse the YAML configuration file containing specific settings for the individual p2p loan platform
@@ -75,19 +97,9 @@ class PeerToPeerPlatformParser(object):
                 infile.seek(0)
                 account_statement = csv.DictReader(infile, dialect=dialect)
                 for statement in account_statement:
-                    sttmnt = Statement(self.config, statement)
-                    category = sttmnt.get_category()
-                    if not category:
-                        continue
-
-                    formatted_account_entry = {
-                        PP_FIELDNAMES[0]: sttmnt.get_date(),
-                        PP_FIELDNAMES[1]: sttmnt.get_value(),
-                        PP_FIELDNAMES[2]: sttmnt.get_currency(),
-                        PP_FIELDNAMES[3]: category,
-                        PP_FIELDNAMES[4]: sttmnt.get_note(),
-                    }
-                    self.output_list.append(formatted_account_entry)
+                    formatted_account_entry = self.__format_statement(statement)
+                    if formatted_account_entry:
+                        self.output_list.append(formatted_account_entry)
         else:
             logging.error("Account statement file {} does not exist.".format(self.account_statement_file))
         return self.output_list
