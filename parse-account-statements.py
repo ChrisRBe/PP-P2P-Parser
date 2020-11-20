@@ -31,6 +31,7 @@ def platform_factory(operator_name="mintos"):
     Return an object for the required Peer-to-Peer lending platform
 
     :param operator_name: name of the P2P lending site, defaults to Mintos
+
     :return: object for the actual lending platform parser, None if not supported
     """
     config = os.path.join(os.path.dirname(__file__), "config", "{op}.yml".format(op=operator_name))
@@ -50,6 +51,7 @@ def main(infile, p2p_operator_name="mintos"):
 
     :param infile: input file containing the account statements from a supported platform
     :param p2p_operator_name: name of the Peer-to-Peer lending platform, defaults to Mintos
+
     :return: True, False if an error occurred.
     """
     if not os.path.exists(infile):

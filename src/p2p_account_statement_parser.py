@@ -57,7 +57,7 @@ class PeerToPeerPlatformParser(object):
 
         :param statement: contains a line from the given CSV file
 
-        :returns: dictionary containing the formatted account entry
+        :return: dictionary containing the formatted account entry
         """
         statement = Statement(self.config, statement)
         category = statement.get_category()
@@ -76,19 +76,18 @@ class PeerToPeerPlatformParser(object):
     def __parse_service_config(self):
         """
         Parse the YAML configuration file containing specific settings for the individual p2p loan platform
-
-        :return:
         """
         with open(self.config_file, "r", encoding="utf-8") as ymlconfig:
             yaml = YAML(typ="safe")
             config = yaml.load(ymlconfig)
             self.config = Config(config)
 
-    def parse_account_statement(self):
+    def parse_account_statement(self, aggregate="monthly"):
         """
         read a platform account statement csv file and filter the content according to the defined strings
 
-        :return:
+        :param aggregate: specifies the aggregation period. defaults to monthly.
+        :return: list of account statement entries ready for use in Portfolio Performance
         """
         if os.path.exists(self._account_statement_file):
             self.__parse_service_config()

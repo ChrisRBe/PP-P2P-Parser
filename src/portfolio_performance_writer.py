@@ -31,8 +31,6 @@ class PortfolioPerformanceWriter(object):
     def init_output(self):
         """
         Initialize output csv file
-
-        :return:
         """
         if not self.out_csv_writer:
             self.out_csv_writer = csv.DictWriter(
