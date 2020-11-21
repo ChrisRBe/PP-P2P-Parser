@@ -246,6 +246,116 @@ class TestBaseParser(TestCase):
         ]
         self.assertEqual(expected_statement, self.base_parser.parse_account_statement())
 
+    def test_mintos_parsing_daily_aggregation(self):
+        """test parse_account_statement for mintos"""
+        expected_statement = [
+            {
+                "Datum": datetime.date(2018, 1, 17),
+                "Notiz": "236659674: Incoming client payment",
+                "Typ": "Einlage",
+                "Wert": "20",
+                "Buchungswährung": "EUR",
+            },
+            {
+                "Datum": datetime.date(2018, 1, 18),
+                "Notiz": "237974500: Interest income Loan ID: 2049443-01",
+                "Typ": "Zinsen",
+                "Wert": "0,005555556",
+                "Buchungswährung": "EUR",
+            },
+            {
+                "Datum": datetime.date(2018, 1, 19),
+                "Notiz": "238112163: Interest income on rebuy Rebuy purpose: agreement_amendment Loan ID: 2198495-01",
+                "Typ": "Zinsen",
+                "Wert": "0,003777778",
+                "Buchungswährung": "EUR",
+            },
+            {
+                "Datum": datetime.date(2018, 1, 19),
+                "Notiz": "238112984: Interest income on rebuy Rebuy purpose: early_repayment Loan ID: 2202538-01",
+                "Typ": "Zinsen",
+                "Wert": "0,003083333",
+                "Buchungswährung": "EUR",
+            },
+            {
+                "Datum": datetime.date(2018, 1, 25),
+                "Notiz": "241699935: Late payment fee income Loan ID: 1529173-01",
+                "Typ": "Zinsen",
+                "Wert": "0,001214211",
+                "Buchungswährung": "EUR",
+            },
+            {
+                "Datum": datetime.date(2018, 1, 29),
+                "Notiz": "243559685: Delayed interest income on rebuy Rebuy purpose: "
+                "agreement_amendment Loan ID: 2198503-01",
+                "Typ": "Zinsen",
+                "Wert": "0,000342077",
+                "Buchungswährung": "EUR",
+            },
+            {
+                "Datum": datetime.date(2018, 2, 27),
+                "Notiz": "260918485: Cashback bonus",
+                "Typ": "Zinsen",
+                "Wert": "0,3",
+                "Buchungswährung": "EUR",
+            },
+            {
+                "Datum": datetime.date(2016, 9, 28),
+                "Notiz": "115013710: Withdraw application",
+                "Typ": "Entnahme",
+                "Wert": "-20",
+                "Buchungswährung": "EUR",
+            },
+        ]
+        self.assertEqual(expected_statement, self.base_parser.parse_account_statement(aggregate="daily"))
+
+    def test_mintos_parsing_monthly_aggregation(self):
+        """test parse_account_statement for mintos"""
+        self.base_parser.account_statement_file = os.path.join(
+            os.path.dirname(__file__), "testdata", "mintos_several_months.csv"
+        )
+        self.base_parser.config_file = os.path.join(
+            os.path.dirname(__file__), os.pardir, os.pardir, "config", "mintos.yml"
+        )
+        expected_statement = [
+            {
+                "Datum": datetime.date(2018, 2, 28),
+                "Notiz": "Monatszusammenfassung",
+                "Typ": "Einlage",
+                "Wert": "20",
+                "Buchungswährung": "EUR",
+            },
+            {
+                "Datum": datetime.date(2018, 2, 28),
+                "Notiz": "Monatszusammenfassung",
+                "Typ": "Zinsen",
+                "Wert": "0,3",
+                "Buchungswährung": "EUR",
+            },
+            {
+                "Datum": datetime.date(2018, 1, 31),
+                "Notiz": "Monatszusammenfassung",
+                "Typ": "Einlage",
+                "Wert": "20",
+                "Buchungswährung": "EUR",
+            },
+            {
+                "Datum": datetime.date(2018, 1, 31),
+                "Notiz": "Monatszusammenfassung",
+                "Typ": "Zinsen",
+                "Wert": "0,013972955",
+                "Buchungswährung": "EUR",
+            },
+            {
+                "Datum": datetime.date(2016, 9, 30),
+                "Notiz": "Monatszusammenfassung",
+                "Typ": "Entnahme",
+                "Wert": "-20",
+                "Buchungswährung": "EUR",
+            },
+        ]
+        self.assertEqual(expected_statement, self.base_parser.parse_account_statement(aggregate="monthly"))
+
     def test_no_statement_file(self):
         """test parse_account_statement with non existent file"""
         self.base_parser.account_statement_file = os.path.join(os.path.dirname(__file__), "not_existing.csv")

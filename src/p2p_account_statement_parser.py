@@ -4,6 +4,7 @@ Module for a generic peer to peer loan account statement parser.
 
 Copyright 2018-04-29 ChrisRBe
 """
+import calendar
 import codecs
 import csv
 import logging
@@ -28,8 +29,10 @@ class PeerToPeerPlatformParser(object):
         """
         self._account_statement_file = None
         self._config_file = None
-        self.output_list = []
+
         self.config = None
+        self.output_list = []
+        self.aggregation_data = {}
 
     @property
     def account_statement_file(self):
@@ -50,6 +53,28 @@ class PeerToPeerPlatformParser(object):
     def config_file(self, value):
         """config file property setter"""
         self._config_file = value
+
+    def __aggregate_statements_monthly(self, formatted_account_entry):
+        entry_date = formatted_account_entry[PP_FIELDNAMES[0]]
+        last_day = calendar.monthrange(entry_date.year, entry_date.month)[1]
+        entry_date = entry_date.replace(day=last_day)
+        entry_type = formatted_account_entry[PP_FIELDNAMES[3]]
+        logging.debug("entry type is {}. new entry date is {}".format(entry_type, entry_date))
+        if entry_date not in self.aggregation_data:
+            self.aggregation_data[entry_date] = {}
+        if entry_type in self.aggregation_data[entry_date]:
+            logging.debug("add to existing entry")
+            self.aggregation_data[entry_date][entry_type][PP_FIELDNAMES[1]] += formatted_account_entry[
+                PP_FIELDNAMES[1]
+            ]
+        else:
+            self.aggregation_data[entry_date][entry_type] = {
+                PP_FIELDNAMES[0]: entry_date,
+                PP_FIELDNAMES[1]: formatted_account_entry[PP_FIELDNAMES[1]],
+                PP_FIELDNAMES[2]: formatted_account_entry[PP_FIELDNAMES[2]],
+                PP_FIELDNAMES[3]: entry_type,
+                PP_FIELDNAMES[4]: "Monatszusammenfassung",
+            }
 
     def __format_statement(self, statement):
         """
@@ -94,6 +119,12 @@ class PeerToPeerPlatformParser(object):
         :param aggregate: specifies the aggregation period. defaults to daily.
         :return: list of account statement entries ready for use in Portfolio Performance
         """
+        if aggregate == "daily" or aggregate == "monthly":
+            logging.info("Aggregating data on a {} basis".format(aggregate))
+        else:
+            logging.error("Aggregating data on a {} basis not supported.".format(aggregate))
+            return
+
         if os.path.exists(self._account_statement_file):
             self.__parse_service_config()
             with codecs.open(self._account_statement_file, "r", encoding="utf-8-sig") as infile:
@@ -103,11 +134,16 @@ class PeerToPeerPlatformParser(object):
                 for statement in account_statement:
                     formatted_account_entry = self.__format_statement(statement)
                     if formatted_account_entry:
-                        self.output_list.append(formatted_account_entry)
+                        if aggregate == "daily":
+                            self.output_list.append(formatted_account_entry)
+                        elif aggregate == "monthly":
+                            self.__aggregate_statements_monthly(formatted_account_entry)
         else:
             logging.error("Account statement file {} does not exist.".format(self.account_statement_file))
 
-        if aggregate == "daily":
-            return self.output_list
-        else:
-            logging.error("Aggregation mode '{}' not supported.".format(aggregate))
+        if aggregate == "monthly":
+            for _, booking_type in self.aggregation_data.items():
+                for _, entry in booking_type.items():
+                    entry[PP_FIELDNAMES[1]] = round(entry[PP_FIELDNAMES[1]], 9)
+                    self.output_list.append(entry)
+        return self.output_list

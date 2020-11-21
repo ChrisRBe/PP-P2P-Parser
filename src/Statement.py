@@ -53,7 +53,7 @@ class Statement:
 
     def get_value(self):
         """ get the value of the statement """
-        return self._statement[self._config.get_booking_value()].replace(".", ",")
+        return float(self._statement[self._config.get_booking_value()].replace(",", "."))
 
     def get_note(self):
         """ get the note of the statement """
