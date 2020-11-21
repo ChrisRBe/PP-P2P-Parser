@@ -97,6 +97,16 @@ class PeerToPeerPlatformParser(object):
         }
         return formatted_account_entry
 
+    def __migrate_data_to_output(self):
+        """
+        Iterates over the data collected for the aggregation of account statement data and adds it to the output list.
+        :return:
+        """
+        for _, booking_type in self.aggregation_data.items():
+            for _, entry in booking_type.items():
+                entry[PP_FIELDNAMES[1]] = round(entry[PP_FIELDNAMES[1]], 9)
+                self.output_list.append(entry)
+
     def __parse_service_config(self):
         """
         Parse the YAML configuration file containing specific settings for the individual p2p loan platform
@@ -139,8 +149,5 @@ class PeerToPeerPlatformParser(object):
                         self.__aggregate_statements_monthly(formatted_account_entry)
 
         if aggregate == "monthly":
-            for _, booking_type in self.aggregation_data.items():
-                for _, entry in booking_type.items():
-                    entry[PP_FIELDNAMES[1]] = round(entry[PP_FIELDNAMES[1]], 9)
-                    self.output_list.append(entry)
+            self.__migrate_data_to_output()
         return self.output_list
