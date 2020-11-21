@@ -458,3 +458,7 @@ class TestBaseParser(unittest.TestCase):
             },
         ]
         self.assertEqual(expected_statement, self.base_parser.parse_account_statement())
+
+    def test_aggregation_not_supported(self):
+        """test if unsopported aggregation is correctly handled"""
+        self.assertFalse(self.base_parser.parse_account_statement(aggregate="yearly"))
