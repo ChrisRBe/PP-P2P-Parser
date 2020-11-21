@@ -8,7 +8,6 @@ import calendar
 import codecs
 import csv
 import logging
-import os
 
 from yaml import safe_load
 
@@ -122,10 +121,6 @@ class PeerToPeerPlatformParser(object):
             logging.info("Aggregating data on a {} basis".format(aggregate))
         else:
             logging.error("Aggregating data on a {} basis not supported.".format(aggregate))
-            return
-
-        if not os.path.exists(self._account_statement_file):
-            logging.error("Account statement file {} does not exist.".format(self.account_statement_file))
             return
 
         self.__parse_service_config()
