@@ -91,7 +91,7 @@ class PeerToPeerPlatformParser(object):
 
         formatted_account_entry = {
             PP_FIELDNAMES[0]: statement.get_date(),
-            PP_FIELDNAMES[1]: statement.get_value(),
+            PP_FIELDNAMES[1]: round(statement.get_value(), 9),
             PP_FIELDNAMES[2]: statement.get_currency(),
             PP_FIELDNAMES[3]: category,
             PP_FIELDNAMES[4]: statement.get_note(),
