@@ -115,6 +115,26 @@ class PeerToPeerPlatformParser(object):
             config = safe_load(ymlconfig)
             self.config = Config(config)
 
+    def __process_statement(self, statement, aggregate="daily"):
+        """
+        Processes each statement read from the account statement file. First, format in into the dictionary.
+        Then check what aggregation should be applied.
+
+            - daily: add directly to the output list.
+            - monthly: add it to intermediate aggregation collection.
+
+        :param statement: Contains one line from the account statement file
+        :param aggregate: specify the aggregation format; e.g. daily or monthly. Defaults to daily.
+
+        :return:
+        """
+        formatted_account_entry = self.__format_statement(statement)
+        if formatted_account_entry:
+            if aggregate == "daily":
+                self.output_list.append(formatted_account_entry)
+            elif aggregate == "monthly":
+                self.__aggregate_statements_monthly(formatted_account_entry)
+
     def parse_account_statement(self, aggregate="daily"):
         """
         read a platform account statement csv file and filter the content according to the given configuration file.
@@ -141,12 +161,7 @@ class PeerToPeerPlatformParser(object):
             account_statement = csv.DictReader(infile, dialect=dialect)
 
             for statement in account_statement:
-                formatted_account_entry = self.__format_statement(statement)
-                if formatted_account_entry:
-                    if aggregate == "daily":
-                        self.output_list.append(formatted_account_entry)
-                    elif aggregate == "monthly":
-                        self.__aggregate_statements_monthly(formatted_account_entry)
+                self.__process_statement(aggregate=aggregate, statement=statement)
 
         if aggregate == "monthly":
             self.__migrate_data_to_output()
