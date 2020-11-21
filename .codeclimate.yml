@@ -13,3 +13,5 @@ plugins:
     config:
       tests_patterns:
         - src/test/**
+exclude_patterns:
+  - "src/test/"
