@@ -10,7 +10,7 @@ import csv
 import logging
 import os
 
-from ruamel.yaml import YAML
+from yaml import safe_load
 
 from src.Config import Config
 from src.portfolio_performance_writer import PP_FIELDNAMES
@@ -103,8 +103,7 @@ class PeerToPeerPlatformParser(object):
         Parse the YAML configuration file containing specific settings for the individual p2p loan platform
         """
         with open(self.config_file, "r", encoding="utf-8") as ymlconfig:
-            yaml = YAML(typ="safe")
-            config = yaml.load(ymlconfig)
+            config = safe_load(ymlconfig)
             self.config = Config(config)
 
     def parse_account_statement(self, aggregate="daily"):
