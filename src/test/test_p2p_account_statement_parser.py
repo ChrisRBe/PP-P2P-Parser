@@ -16,11 +16,9 @@ class TestBaseParser(TestCase):
 
     def setUp(self):
         """test case setUp, run for each test case"""
-        self.base_parser = PeerToPeerPlatformParser()
-        self.base_parser.account_statement_file = os.path.join(os.path.dirname(__file__), "testdata", "mintos.csv")
-        self.base_parser.config_file = os.path.join(
-            os.path.dirname(__file__), os.pardir, os.pardir, "config", "mintos.yml"
-        )
+        self.account_statement_file = os.path.join(os.path.dirname(__file__), "testdata", "mintos.csv")
+        self.config_file = os.path.join(os.path.dirname(__file__), os.pardir, os.pardir, "config", "mintos.yml")
+        self.base_parser = PeerToPeerPlatformParser(infile=self.account_statement_file, config=self.config_file)
         self.maxDiff = None
 
     def test_account_statement_file(self):

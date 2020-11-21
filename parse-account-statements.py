@@ -33,7 +33,7 @@ from src import p2p_account_statement_parser
 from src import portfolio_performance_writer
 
 
-def platform_factory(operator_name="mintos"):
+def platform_factory(infile, operator_name="mintos"):
     """
     Return an object for the required Peer-to-Peer lending platform
 
@@ -43,8 +43,7 @@ def platform_factory(operator_name="mintos"):
     """
     config = os.path.join(os.path.dirname(__file__), "config", "{op}.yml".format(op=operator_name))
     if os.path.exists(config):
-        platform_parser = p2p_account_statement_parser.PeerToPeerPlatformParser()
-        platform_parser.config_file = config
+        platform_parser = p2p_account_statement_parser.PeerToPeerPlatformParser(config, infile)
         return platform_parser
     else:
         logging.error("The provided platform {} is currently not supported".format(operator_name))
@@ -66,27 +65,26 @@ def main(infile, p2p_operator_name="mintos", aggregate="daily"):
         logging.error("provided file {} does not exist".format(infile))
         return False
 
-    platform_parser = platform_factory(p2p_operator_name)
-    if platform_parser:
-        platform_parser.account_statement_file = infile
-        statement_list = platform_parser.parse_account_statement(aggregate=aggregate)
-
-        if not statement_list:
-            return False
-
-        writer = portfolio_performance_writer.PortfolioPerformanceWriter()
-        writer.init_output()
-        for entry in statement_list:
-            writer.update_output(entry)
-        writer.write_pp_csv_file(
-            os.path.join(
-                os.path.dirname(infile),
-                "portfolio_performance__{}.csv".format(p2p_operator_name),
-            )
-        )
-        return True
-    else:
+    platform_parser = platform_factory(infile, p2p_operator_name)
+    if not platform_parser:
         return False
+
+    statement_list = platform_parser.parse_account_statement(aggregate=aggregate)
+
+    if not statement_list:
+        return False
+
+    writer = portfolio_performance_writer.PortfolioPerformanceWriter()
+    writer.init_output()
+    for entry in statement_list:
+        writer.update_output(entry)
+    writer.write_pp_csv_file(
+        os.path.join(
+            os.path.dirname(infile),
+            "portfolio_performance__{}.csv".format(p2p_operator_name),
+        )
+    )
+    return True
 
 
 if __name__ == "__main__":

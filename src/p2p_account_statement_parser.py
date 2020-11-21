@@ -23,12 +23,12 @@ class PeerToPeerPlatformParser(object):
     Actual configuration for the individual services is done via a yml config file.
     """
 
-    def __init__(self):
+    def __init__(self, config, infile):
         """
         Constructor for PeerToPeerPlatformParser
         """
-        self._account_statement_file = None
-        self._config_file = None
+        self._account_statement_file = infile
+        self._config_file = config
 
         self.config = None
         self.output_list = []
@@ -124,21 +124,24 @@ class PeerToPeerPlatformParser(object):
             logging.error("Aggregating data on a {} basis not supported.".format(aggregate))
             return
 
-        if os.path.exists(self._account_statement_file):
-            self.__parse_service_config()
-            with codecs.open(self._account_statement_file, "r", encoding="utf-8-sig") as infile:
-                dialect = csv.Sniffer().sniff(infile.readline())
-                infile.seek(0)
-                account_statement = csv.DictReader(infile, dialect=dialect)
-                for statement in account_statement:
-                    formatted_account_entry = self.__format_statement(statement)
-                    if formatted_account_entry:
-                        if aggregate == "daily":
-                            self.output_list.append(formatted_account_entry)
-                        elif aggregate == "monthly":
-                            self.__aggregate_statements_monthly(formatted_account_entry)
-        else:
+        if not os.path.exists(self._account_statement_file):
             logging.error("Account statement file {} does not exist.".format(self.account_statement_file))
+            return
+
+        self.__parse_service_config()
+
+        with codecs.open(self._account_statement_file, "r", encoding="utf-8-sig") as infile:
+            dialect = csv.Sniffer().sniff(infile.readline())
+            infile.seek(0)
+            account_statement = csv.DictReader(infile, dialect=dialect)
+
+            for statement in account_statement:
+                formatted_account_entry = self.__format_statement(statement)
+                if formatted_account_entry:
+                    if aggregate == "daily":
+                        self.output_list.append(formatted_account_entry)
+                    elif aggregate == "monthly":
+                        self.__aggregate_statements_monthly(formatted_account_entry)
 
         if aggregate == "monthly":
             for _, booking_type in self.aggregation_data.items():
