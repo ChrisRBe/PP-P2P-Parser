@@ -31,8 +31,6 @@ class PortfolioPerformanceWriter(object):
     def init_output(self):
         """
         Initialize output csv file
-
-        :return:
         """
         if not self.out_csv_writer:
             self.out_csv_writer = csv.DictWriter(
@@ -51,6 +49,7 @@ class PortfolioPerformanceWriter(object):
         :return:
         """
         if statement_dict:
+            statement_dict[PP_FIELDNAMES[1]] = str(statement_dict[PP_FIELDNAMES[1]]).replace(".", ",")
             self.out_csv_writer.writerow(statement_dict)
 
     def write_pp_csv_file(self, outfile="portfolio_performance.csv"):

@@ -1,0 +1,17 @@
+version: "2"
+plugins:
+  fixme:
+    enabled: true
+  git-legal:
+    enabled: true
+  radon:
+    enabled: true
+    config:
+      threshold: "C"
+  sonar-python:
+    enabled: true
+    config:
+      tests_patterns:
+        - src/test/**
+exclude_patterns:
+  - "src/test/"

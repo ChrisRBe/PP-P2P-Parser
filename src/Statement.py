@@ -24,7 +24,7 @@ class Statement:
         """
         Check the category of the given statement.
 
-        :return: category of the statement; if unkown return the empty string
+        :return: category of the statement; if unknown return the empty string
         """
         booking_type = self._statement[self._config.get_booking_type()]
         category = ""
@@ -53,7 +53,7 @@ class Statement:
 
     def get_value(self):
         """ get the value of the statement """
-        return self._statement[self._config.get_booking_value()].replace(".", ",")
+        return float(self._statement[self._config.get_booking_value()].replace(",", "."))
 
     def get_note(self):
         """ get the note of the statement """
@@ -66,7 +66,7 @@ class Statement:
         """
         Check the currency of the given statement.
 
-        :return: currency of the statement; if unkown return 'EUR'
+        :return: currency of the statement; if unknown return 'EUR'
         """
         if self._config.get_booking_currency():
             return self._statement[self._config.get_booking_currency()]
