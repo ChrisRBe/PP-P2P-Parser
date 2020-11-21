@@ -63,6 +63,9 @@ def main(infile, p2p_operator_name="mintos"):
         platform_parser.account_statement_file = infile
         statement_list = platform_parser.parse_account_statement()
 
+        if not statement_list:
+            return False
+
         writer = portfolio_performance_writer.PortfolioPerformanceWriter()
         writer.init_output()
         for entry in statement_list:
@@ -73,6 +76,7 @@ def main(infile, p2p_operator_name="mintos"):
                 "portfolio_performance__{}.csv".format(p2p_operator_name),
             )
         )
+        return True
     else:
         return False
 

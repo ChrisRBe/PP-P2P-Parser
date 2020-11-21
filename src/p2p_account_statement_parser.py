@@ -82,11 +82,16 @@ class PeerToPeerPlatformParser(object):
             config = yaml.load(ymlconfig)
             self.config = Config(config)
 
-    def parse_account_statement(self, aggregate="monthly"):
+    def parse_account_statement(self, aggregate="daily"):
         """
-        read a platform account statement csv file and filter the content according to the defined strings
+        read a platform account statement csv file and filter the content according to the given configuration file.
+        If aggregation is selected the output data will be post processed in the following way:
 
-        :param aggregate: specifies the aggregation period. defaults to monthly.
+        - aggregate="daily": return the list of processed statements as is.
+        - aggregate="monthly": return a list of post-processed statements aggregating on monthly basis for each
+          booking type.
+
+        :param aggregate: specifies the aggregation period. defaults to daily.
         :return: list of account statement entries ready for use in Portfolio Performance
         """
         if os.path.exists(self._account_statement_file):
@@ -101,4 +106,8 @@ class PeerToPeerPlatformParser(object):
                         self.output_list.append(formatted_account_entry)
         else:
             logging.error("Account statement file {} does not exist.".format(self.account_statement_file))
-        return self.output_list
+
+        if aggregate == "daily":
+            return self.output_list
+        else:
+            logging.error("Aggregation mode '{}' not supported.".format(aggregate))
