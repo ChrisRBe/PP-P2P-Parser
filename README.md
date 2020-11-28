@@ -8,41 +8,66 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/f3bad303efd4200ebee2/test_coverage)](https://codeclimate.com/github/ChrisRBe/PP-P2P-Parser/test_coverage)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 
-## Overview
+## Introduction
 
 Application to read account statement files from different peer to peer lending sites,
-e.g. Mintos.com and produce a Portfolio Performance readable csv file. Input format needs to be csv!
+e.g. mintos.com, and produces a Portfolio Performance readable csv file.
 
-## Requirements
-
-Python 3 (implemented with python 3.6.4)
-
-## Dependencies
-
-The configuration for this application is stored in yaml files. The module used for
-loading yaml files is [ruamel.yaml](https://yaml.readthedocs.io/en/latest/).
-Install via:
-
-`pip install ruamel.yaml`
+Input format needs to be a csv file as well!
 
 ## Usage
 
 ```
 parse-account-statements.py --help
-usage: parse-account-statements.py [-h] [--type TYPE] [--debug] infile
+usage:
+An application to read account statement files from different peer to peer lending sites, e.g. Mintos.com and creates
+a Portfolio Performance readable csv file.
+
+NOTE: The output only contains interest and interest like payments received. No other statements are currently parsed.
+
+List of currently supported providers:
+    - Bondora
+    - Bondora Grow Go
+    - Estateguru
+    - Mintos
+    - Robocash
+    - Swaper
+    - Debitum Network
+
+Control the way how account statements are processed via the aggregate parameter:
+    - daily: Currently does not process the input data beyond making it Portfolio Performance compatible.
+    - monthly: This aggregates all bookings of the same type into one statement per type and month. Sets
+            the last day of the month as transaction date.
+
+Default behaviour for now is 'daily'.
+
+Copyright 2018-03-17 ChrisRBe
 
 positional arguments:
-  infile       CSV file containing the downloaded data from the P2P site
+  infile                CSV file containing the downloaded data from the P2P site
 
 optional arguments:
-  -h, --help   show this help message and exit
-  --type TYPE  Specifies the p2p lending operator
-  --debug      enables debug level logging if set
+  -h, --help            show this help message and exit
+  --aggregate {daily,monthly}
+                        specify how account statements should be summarized
+  --type TYPE           Specifies the p2p lending operator
+  --debug               enables debug level logging if set
 ```
 
 ```
 parse-account-statements.py  --type mintos src/test/testdata/mintos.csv
 ```
+
+> &#x26a0; If you are using the --aggregate=monthly option, please note that this application aggregates always on the
+> last day of the month. This can lead to import issues in Portfolio Performance when importing data for
+> the current month.
+>
+> E.g. import date is the 15th of a July, the account statement contains data with a date of 31st of July.
+>
+> Account activity for a "future date" will be ignored/ not imported by Portfolio Performance.
+>
+> Please note, that this behaviour on this application side is intentional to avoid importing account activity multiple
+> times in Portfolio Performance.
 
 ## Currently supported formats
 
@@ -55,7 +80,9 @@ parse-account-statements.py  --type mintos src/test/testdata/mintos.csv
 * debitumnetwork - Supports current account statement format (as of 2020-09-08) exported to csv
 
 ### Alternative solution for Auxmoney
-Unfortunately, the output file of Auxmoney's reports is not suitable for being parsed by PP-P2P-Parser in a senseful way. As an alternative, you can check out the [PP-Auxmoney-Parser](https://github.com/StegSchreck/PP-Auxmoney-Parser) project.
+
+Unfortunately, the output file of Auxmoney's reports is not suitable for being parsed by PP-P2P-Parser in a meaningful way.
+As an alternative, you can check out the [PP-Auxmoney-Parser](https://github.com/StegSchreck/PP-Auxmoney-Parser) project.
 
 ## Configuration files
 
@@ -83,7 +110,22 @@ csv_fieldnames:
 
 ## Output
 
-CSV file format compatible with Performance Portfolio (German language setting)
+CSV file format compatible with Performance Portfolio (German language setting).
+
+## Dependencies
+
+To use this application the following dependencies need to be installed:
+
+* Python 3.6+ (unit test are run against Python 3.6, 3.7, 3.8, 3.9)
+* PyYaml
+
+Installation of Python dependencies can be handled in two ways:
+
+*   Install dependencies via `pip install -r requirements.txt`
+*   Create a virtual environment using pipenv
+
+        pipenv install
+        pipenv shell
 
 ## Legal
 
