@@ -251,6 +251,61 @@ class TestBaseParser(unittest.TestCase):
             {
                 "Buchungswährung": "EUR",
                 "Datum": datetime.date(2018, 1, 17),
+                "Notiz": "Tageszusammenfassung",
+                "Typ": "Einlage",
+                "Wert": 20.0,
+            },
+            {
+                "Buchungswährung": "EUR",
+                "Datum": datetime.date(2018, 1, 18),
+                "Notiz": "Tageszusammenfassung",
+                "Typ": "Zinsen",
+                "Wert": 0.005555556,
+            },
+            {
+                "Buchungswährung": "EUR",
+                "Datum": datetime.date(2018, 1, 19),
+                "Notiz": "Tageszusammenfassung",
+                "Typ": "Zinsen",
+                "Wert": 0.006861111,
+            },
+            {
+                "Buchungswährung": "EUR",
+                "Datum": datetime.date(2018, 1, 25),
+                "Notiz": "Tageszusammenfassung",
+                "Typ": "Zinsen",
+                "Wert": 0.001214211,
+            },
+            {
+                "Buchungswährung": "EUR",
+                "Datum": datetime.date(2018, 1, 29),
+                "Notiz": "Tageszusammenfassung",
+                "Typ": "Zinsen",
+                "Wert": 0.000342077,
+            },
+            {
+                "Buchungswährung": "EUR",
+                "Datum": datetime.date(2018, 2, 27),
+                "Notiz": "Tageszusammenfassung",
+                "Typ": "Zinsen",
+                "Wert": 0.3,
+            },
+            {
+                "Buchungswährung": "EUR",
+                "Datum": datetime.date(2016, 9, 28),
+                "Notiz": "Tageszusammenfassung",
+                "Typ": "Entnahme",
+                "Wert": -20.0,
+            },
+        ]
+        self.assertEqual(expected_statement, self.base_parser.parse_account_statement(aggregate="daily"))
+
+    def test_mintos_parsing_transaction_aggregation(self):
+        """test parse_account_statement for mintos"""
+        expected_statement = [
+            {
+                "Buchungswährung": "EUR",
+                "Datum": datetime.date(2018, 1, 17),
                 "Notiz": "236659674: Incoming client payment",
                 "Typ": "Einlage",
                 "Wert": 20.0,
