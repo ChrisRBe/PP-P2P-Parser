@@ -307,7 +307,7 @@ class TestBaseParser(unittest.TestCase):
                 "Wert": -20.0,
             },
         ]
-        self.assertEqual(expected_statement, self.base_parser.parse_account_statement(aggregate="daily"))
+        self.assertEqual(expected_statement, self.base_parser.parse_account_statement(aggregate="transaction"))
 
     def test_mintos_parsing_monthly_aggregation(self):
         """test parse_account_statement for mintos"""
