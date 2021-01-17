@@ -36,7 +36,7 @@ class TestPortfolioPerformanceWriter(TestCase):
         }
         self.pp_writer.update_output(test_entry)
         self.assertEqual(
-            "Datum,Wert,Buchungswährung,Typ,Notiz\r\ndate,\"0,00000000\",currency,category,note",
+            'Datum,Wert,Buchungswährung,Typ,Notiz\r\ndate,"0,00000000",currency,category,note',
             self.pp_writer.out_string_stream.getvalue().strip(),
         )
 
@@ -51,7 +51,7 @@ class TestPortfolioPerformanceWriter(TestCase):
         }
         self.pp_writer.update_output(test_entry)
         self.assertEqual(
-            "Datum,Wert,Buchungswährung,Typ,Notiz\r\n" "date,\"0,00000000\",currency,category,Laiamäe Pärnaõie Užutekio",
+            'Datum,Wert,Buchungswährung,Typ,Notiz\r\ndate,"0,00000000",currency,category,Laiamäe Pärnaõie Užutekio',
             self.pp_writer.out_string_stream.getvalue().strip(),
         )
 
