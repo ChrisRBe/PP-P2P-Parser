@@ -49,7 +49,7 @@ class PortfolioPerformanceWriter(object):
         :return:
         """
         if statement_dict:
-            statement_dict[PP_FIELDNAMES[1]] = "{0:.9f}".format(statement_dict[PP_FIELDNAMES[1]]).replace(".", ",")
+            statement_dict[PP_FIELDNAMES[1]] = "{0:.8f}".format(statement_dict[PP_FIELDNAMES[1]]).replace(".", ",")
             self.out_csv_writer.writerow(statement_dict)
 
     def write_pp_csv_file(self, outfile="portfolio_performance.csv"):
