@@ -35,11 +35,12 @@ List of currently supported providers:
     - Debitum Network
 
 Control the way how account statements are processed via the aggregate parameter:
-    - daily: Currently does not process the input data beyond making it Portfolio Performance compatible.
+    - transaction: Currently does not process the input data beyond making it Portfolio Performance compatible.
+    - daily: This aggregates all bookings of the same type into one statement per type and day.
     - monthly: This aggregates all bookings of the same type into one statement per type and month. Sets
             the last day of the month as transaction date.
 
-Default behaviour for now is 'daily'.
+Default behaviour for now is 'transaction'.
 
 Copyright 2018-03-17 ChrisRBe
 
@@ -48,7 +49,7 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
-  --aggregate {daily,monthly}
+  --aggregate {transaction,daily,monthly}
                         specify how account statements should be summarized
   --type TYPE           Specifies the p2p lending operator
   --debug               enables debug level logging if set

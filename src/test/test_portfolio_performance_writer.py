@@ -29,14 +29,14 @@ class TestPortfolioPerformanceWriter(TestCase):
         """test update_output"""
         test_entry = {
             PP_FIELDNAMES[0]: "date",
-            PP_FIELDNAMES[1]: "profit",
+            PP_FIELDNAMES[1]: 0,
             PP_FIELDNAMES[2]: "currency",
             PP_FIELDNAMES[3]: "category",
             PP_FIELDNAMES[4]: "note",
         }
         self.pp_writer.update_output(test_entry)
         self.assertEqual(
-            "Datum,Wert,Buchungswährung,Typ,Notiz\r\ndate,profit,currency,category,note",
+            'Datum,Wert,Buchungswährung,Typ,Notiz\r\ndate,"0,00000000",currency,category,note',
             self.pp_writer.out_string_stream.getvalue().strip(),
         )
 
@@ -44,14 +44,14 @@ class TestPortfolioPerformanceWriter(TestCase):
         """test update_output with umlauts"""
         test_entry = {
             PP_FIELDNAMES[0]: "date",
-            PP_FIELDNAMES[1]: "profit",
+            PP_FIELDNAMES[1]: 0,
             PP_FIELDNAMES[2]: "currency",
             PP_FIELDNAMES[3]: "category",
             PP_FIELDNAMES[4]: "Laiamäe Pärnaõie Užutekio",
         }
         self.pp_writer.update_output(test_entry)
         self.assertEqual(
-            "Datum,Wert,Buchungswährung,Typ,Notiz\r\n" "date,profit,currency,category,Laiamäe Pärnaõie Užutekio",
+            'Datum,Wert,Buchungswährung,Typ,Notiz\r\ndate,"0,00000000",currency,category,Laiamäe Pärnaõie Užutekio',
             self.pp_writer.out_string_stream.getvalue().strip(),
         )
 
