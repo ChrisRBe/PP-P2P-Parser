@@ -53,6 +53,26 @@ class PeerToPeerPlatformParser(object):
         """config file property setter"""
         self._config_file = value
 
+    def __aggregate_statements_daily(self, formatted_account_entry):
+        entry_date = formatted_account_entry[PP_FIELDNAMES[0]]
+        entry_type = formatted_account_entry[PP_FIELDNAMES[3]]
+        logging.debug("entry type is {}. new entry date is {}".format(entry_type, entry_date))
+        if entry_date not in self.aggregation_data:
+            self.aggregation_data[entry_date] = {}
+        if entry_type in self.aggregation_data[entry_date]:
+            logging.debug("add to existing entry")
+            self.aggregation_data[entry_date][entry_type][PP_FIELDNAMES[1]] += formatted_account_entry[
+                PP_FIELDNAMES[1]
+            ]
+        else:
+            self.aggregation_data[entry_date][entry_type] = {
+                PP_FIELDNAMES[0]: entry_date,
+                PP_FIELDNAMES[1]: formatted_account_entry[PP_FIELDNAMES[1]],
+                PP_FIELDNAMES[2]: formatted_account_entry[PP_FIELDNAMES[2]],
+                PP_FIELDNAMES[3]: entry_type,
+                PP_FIELDNAMES[4]: "Tageszusammenfassung",
+            }
+
     def __aggregate_statements_monthly(self, formatted_account_entry):
         entry_date = formatted_account_entry[PP_FIELDNAMES[0]]
         last_day = calendar.monthrange(entry_date.year, entry_date.month)[1]
@@ -115,39 +135,44 @@ class PeerToPeerPlatformParser(object):
             config = safe_load(ymlconfig)
             self.config = Config(config)
 
-    def __process_statement(self, statement, aggregate="daily"):
+    def __process_statement(self, statement, aggregate="transaction"):
         """
         Processes each statement read from the account statement file. First, format in into the dictionary.
         Then check what aggregation should be applied.
 
-            - daily: add directly to the output list.
+            - transaction: add directly to the output list.
+            - daily: add it to intermediate aggregation collection.
             - monthly: add it to intermediate aggregation collection.
 
         :param statement: Contains one line from the account statement file
-        :param aggregate: specify the aggregation format; e.g. daily or monthly. Defaults to daily.
+        :param aggregate: specify the aggregation format; e.g. daily or monthly. Defaults to transaction.
 
         :return:
         """
         formatted_account_entry = self.__format_statement(statement)
         if formatted_account_entry:
-            if aggregate == "daily":
+            if aggregate == "transaction":
                 self.output_list.append(formatted_account_entry)
+            elif aggregate == "daily":
+                self.__aggregate_statements_daily(formatted_account_entry)
             elif aggregate == "monthly":
                 self.__aggregate_statements_monthly(formatted_account_entry)
 
-    def parse_account_statement(self, aggregate="daily"):
+    def parse_account_statement(self, aggregate="transaction"):
         """
         read a platform account statement csv file and filter the content according to the given configuration file.
         If aggregation is selected the output data will be post processed in the following way:
 
-        - aggregate="daily": return the list of processed statements as is.
+        - aggregate="transaction": return the list of processed statements as is.
+        - aggregate="daily": return a list of post-processed statements aggregating on daily basis for each
+          booking type.
         - aggregate="monthly": return a list of post-processed statements aggregating on monthly basis for each
           booking type.
 
         :param aggregate: specifies the aggregation period. defaults to daily.
         :return: list of account statement entries ready for use in Portfolio Performance
         """
-        if aggregate == "daily" or aggregate == "monthly":
+        if aggregate == "transaction" or aggregate == "daily" or aggregate == "monthly":
             logging.info("Aggregating data on a {} basis".format(aggregate))
         else:
             logging.error("Aggregating data on a {} basis not supported.".format(aggregate))
@@ -163,6 +188,6 @@ class PeerToPeerPlatformParser(object):
             for statement in account_statement:
                 self.__process_statement(aggregate=aggregate, statement=statement)
 
-        if aggregate == "monthly":
+        if aggregate == "daily" or aggregate == "monthly":
             self.__migrate_data_to_output()
         return self.output_list

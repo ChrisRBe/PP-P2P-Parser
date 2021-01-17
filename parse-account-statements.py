@@ -16,11 +16,12 @@ List of currently supported providers:
     - Debitum Network
 
 Control the way how account statements are processed via the aggregate parameter:
-    - daily: Currently does not process the input data beyond making it Portfolio Performance compatible.
+    - transaction: Currently does not process the input data beyond making it Portfolio Performance compatible.
+    - daily: This aggregates all bookings of the same type into one statement per type and day.
     - monthly: This aggregates all bookings of the same type into one statement per type and month. Sets
             the last day of the month as transaction date.
 
-Default behaviour for now is 'daily'.
+Default behaviour for now is 'transaction'.
 
 Copyright 2018-03-17 ChrisRBe
 """
@@ -50,14 +51,14 @@ def platform_factory(infile, operator_name="mintos"):
         return None
 
 
-def main(infile, p2p_operator_name="mintos", aggregate="daily"):
+def main(infile, p2p_operator_name="mintos", aggregate="transaction"):
     """
     Processes the provided input file with the rules defined for the given platform.
     Outputs a CSV file readable by Portfolio Performance
 
     :param infile: input file containing the account statements from a supported platform
     :param p2p_operator_name: name of the Peer-to-Peer lending platform, defaults to Mintos
-    :param aggregate: specifies the aggregation period. defaults to daily.
+    :param aggregate: specifies the aggregation period. defaults to transaction.
 
     :return: True, False if an error occurred.
     """
@@ -100,8 +101,8 @@ if __name__ == "__main__":
         "--aggregate",
         type=str,
         help="specify how account statements should be summarized",
-        choices=["daily", "monthly"],
-        default="daily",
+        choices=["transaction", "daily", "monthly"],
+        default="transaction",
     )
     ARG_PARSER.add_argument("--type", type=str, help="Specifies the p2p lending operator")
     ARG_PARSER.add_argument("--debug", action="store_true", help="enables debug level logging if set")
