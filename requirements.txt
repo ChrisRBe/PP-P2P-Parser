@@ -9,7 +9,7 @@ idna==3.1
 isort==5.7.0
 lazy-object-proxy==1.5.2
 mccabe==0.6.1
-more-itertools==8.6.0
+more-itertools==8.7.0
 pluggy==0.13.1
 py==1.10.0
 pylint==2.5.2
