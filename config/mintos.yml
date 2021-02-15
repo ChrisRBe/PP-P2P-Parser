@@ -1,9 +1,11 @@
 ---
 type_regex: !!map
-  deposit: "(Deposits)|(^Incoming client.*)|(^Incoming currency exchange.*)"
+  deposit: "(Deposits)|(^Incoming client.*)|(^Incoming currency exchange.*)|(^Affiliate partner bonus$)"
   withdraw: "(^Withdraw application.*)|(Outgoing currency.*)|(Withdrawal)"
-  interest: "(^Delayed interest.*)|(^Late payment.*)|(^Interest income.*)|(^Cashback.*)|(^.*interest received$)|(^.*late fees received$)"
-  fee: "(^FX commission.*)"
+  interest: "(^Delayed interest.*)|(^Late payment.*)|(^Interest income.*)|(^Cashback.*)|(^.*[Ii]nterest received.*)|(^.*late fees received$)"
+  fee: "(^FX commission.*)|(.*secondary market fee$)"
+  ignorable_entry: ".*investment in loan.*|.*[Pp]rincipal received.*|.*secondary market transaction.*"
+  special_entry: "(.*discount/premium.*)"
 
 csv_fieldnames:
   booking_date: 'Date'

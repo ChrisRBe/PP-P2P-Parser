@@ -21,10 +21,10 @@ class Config:
         self._relevant_invest_regex = re.compile(config["type_regex"]["deposit"])
         self._relevant_payment_regex = re.compile(config["type_regex"]["withdraw"])
         self._relevant_income_regex = re.compile(config["type_regex"]["interest"])
-        if "fee" in config["type_regex"]:
-            self._relevant_fee_regex = re.compile(config["type_regex"]["fee"])
-        else:
-            self._relevant_fee_regex = None
+
+        self._relevant_fee_regex = Config.__get_compiled_regex_or_none(config, ["type_regex", "fee"])
+        self._ignorable_entry_regex = Config.__get_compiled_regex_or_none(config, ["type_regex", "ignorable_entry"])
+        self._special_entry_regex = Config.__get_compiled_regex_or_none(config, ["type_regex", "special_entry"])
 
         self._booking_date = config["csv_fieldnames"]["booking_date"]
         self._booking_date_format = config["csv_fieldnames"]["booking_date_format"]
@@ -53,6 +53,14 @@ class Config:
         """ get the relevant_fee_regex """
         return self._relevant_fee_regex
 
+    def get_ignorable_entry_regex(self):
+        """ get the ignorable_entry regex """
+        return self._ignorable_entry_regex
+
+    def get_special_entry_regex(self):
+        """ get the special_entry regex """
+        return self._special_entry_regex
+
     def get_booking_date(self):
         """ get the booking_date """
         return self._booking_date
@@ -80,3 +88,19 @@ class Config:
     def get_booking_currency(self):
         """ get the booking_currency """
         return self._booking_currency
+
+    @staticmethod
+    def __get_element_or_none(obj, path):
+        for item in path:
+            if item in obj:
+                obj = obj[item]
+            else:
+                return None
+        return obj
+
+    @staticmethod
+    def __get_compiled_regex_or_none(obj, path):
+        regex_string = Config.__get_element_or_none(obj, path)
+        if regex_string:
+            return re.compile(regex_string)
+        return None

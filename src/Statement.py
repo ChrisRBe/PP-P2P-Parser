@@ -27,6 +27,7 @@ class Statement:
         :return: category of the statement; if unknown return the empty string
         """
         booking_type = self._statement[self._config.get_booking_type()]
+        value = self.get_value()
         category = ""
         if self._config.get_relevant_income_regex().match(booking_type):
             category = "Zinsen"
@@ -36,6 +37,15 @@ class Statement:
             category = "Entnahme"
         elif self.is_fee(booking_type):
             category = "Gebühren"
+        elif self._config.get_special_entry_regex() and self._config.get_special_entry_regex().match(booking_type):
+            if value > 0:
+                category = "Zinsen"
+            elif value < 0:
+                category = "Gebühren"
+            else:
+                logging.debug(self._statement)
+        elif self._config.get_ignorable_entry_regex() and self._config.get_ignorable_entry_regex().match(booking_type):
+            category = "Ignored"
         else:
             logging.debug(self._statement)
         return category
@@ -46,8 +56,11 @@ class Statement:
 
     def get_date(self):
         """ get the date of the statement """
+        date_to_parse = self._statement[self._config.get_booking_date()]
+        if date_to_parse == "":
+            return datetime(1970, 1, 1).date()
         return datetime.strptime(
-            self._statement[self._config.get_booking_date()],
+            date_to_parse,
             self._config.get_booking_date_format(),
         ).date()
 

@@ -108,6 +108,9 @@ class PeerToPeerPlatformParser(object):
         if not category:
             return
 
+        if category == "Ignored":
+            return
+
         formatted_account_entry = {
             PP_FIELDNAMES[0]: statement.get_date(),
             PP_FIELDNAMES[1]: round(statement.get_value(), 9),
