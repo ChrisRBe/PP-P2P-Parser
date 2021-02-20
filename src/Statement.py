@@ -30,30 +30,12 @@ class Statement:
         category = ""
 
         regex_to_category_mappings = [
-            {
-                "regex": self._config.get_relevant_income_regex(),
-                "category": "Zinsen"
-            },
-            {
-                "regex": self._config.get_relevant_invest_regex(),
-                "category": "Einlage"
-            },
-            {
-                "regex": self._config.get_relevant_payment_regex(),
-                "category": "Entnahme"
-            },
-            {
-                "regex": self._config.get_relevant_fee_regex(),
-                "category": "Gebühren"
-            },
-            {
-                "regex": self._config.get_special_entry_regex(),
-                "category": "Undecided"
-            },
-            {
-                "regex": self._config.get_ignorable_entry_regex(),
-                "category": "Ignored"
-            }
+            {"regex": self._config.get_relevant_income_regex(), "category": "Zinsen"},
+            {"regex": self._config.get_relevant_invest_regex(), "category": "Einlage"},
+            {"regex": self._config.get_relevant_payment_regex(), "category": "Entnahme"},
+            {"regex": self._config.get_relevant_fee_regex(), "category": "Gebühren"},
+            {"regex": self._config.get_special_entry_regex(), "category": "Undecided"},
+            {"regex": self._config.get_ignorable_entry_regex(), "category": "Ignored"},
         ]
 
         for mapping in regex_to_category_mappings:
