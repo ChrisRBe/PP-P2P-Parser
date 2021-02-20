@@ -83,10 +83,10 @@ class Statement:
     @staticmethod
     def __match_category(mapping, booking_type, value):
         """
-        takes a dict of format {"format": "regex format", "category": "category"} and returns the correct mapping for
+        takes a dict of format {"regex": "compiled regex", "category": "category"} and returns the correct mapping for
         the category.
 
-        :param mapping: dict of type {"format": "regex format", "category": "category"}
+        :param mapping: dict of type {regex": "compiled regex", "category": "category"}
         :param booking_type: string containing the relevant loan information to determine category of entry.
         :param value: value of the transaction, only required to handle special cases for mintos premium discount
 
@@ -107,6 +107,6 @@ class Statement:
         if value >= 0:
             return "Zinsen"
         elif value < 0:
-            return "Geühren"
+            return "Gebühren"
         else:
             return "Ignored"
