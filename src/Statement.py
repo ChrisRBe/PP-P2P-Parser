@@ -28,6 +28,7 @@ class Statement:
         """
         booking_type = self._statement[self._config.get_booking_type()]
         category = ""
+        value = self.get_value()
 
         regex_to_category_mappings = [
             {"regex": self._config.get_relevant_income_regex(), "category": "Zinsen"},
@@ -39,29 +40,13 @@ class Statement:
         ]
 
         for mapping in regex_to_category_mappings:
-            if mapping["regex"] and mapping["regex"].match(booking_type):
-                category = mapping["category"]
+            category = self.__match_category(mapping, booking_type, value)
+            if category:
                 break
-
-        if category == "Undecided":
-            category = Statement.__handle_special_case_mintos_discount_premium(self.get_value())
-
-        if category == "":
-            logging.debug("Unexpected statement: ", self._statement)
+            else:
+                logging.debug("Unexpected statement: ", self._statement)
 
         return category
-
-    @staticmethod
-    def __handle_special_case_mintos_discount_premium(value):
-        # This is currently a special case for the Mintos "discount/premium" secondary market transactions parsing,
-        # where an entry might be a fee or an income depending on its sign.
-
-        if value >= 0:
-            return "Zinsen"
-        elif value < 0:
-            return "Gebühren"
-        else:
-            return "Ignored"
 
     def get_date(self):
         """ get the date of the statement """
@@ -94,3 +79,34 @@ class Statement:
             return self._statement[self._config.get_booking_currency()]
         else:
             return "EUR"
+
+    @staticmethod
+    def __match_category(mapping, booking_type, value):
+        """
+        takes a dict of format {"format": "regex format", "category": "category"} and returns the correct mapping for
+        the category.
+
+        :param mapping: dict of type {"format": "regex format", "category": "category"}
+        :param booking_type: string containing the relevant loan information to determine category of entry.
+        :param value: value of the transaction, only required to handle special cases for mintos premium discount
+
+        :return: category
+        """
+        category = ""
+        if mapping["regex"] and mapping["regex"].match(booking_type):
+            category = mapping["category"]
+        if category == "Undecided":
+            category = Statement.__handle_special_case_mintos_discount_premium(value)
+        return category
+
+    @staticmethod
+    def __handle_special_case_mintos_discount_premium(value):
+        # This is currently a special case for the Mintos "discount/premium" secondary market transactions parsing,
+        # where an entry might be a fee or an income depending on its sign.
+
+        if value >= 0:
+            return "Zinsen"
+        elif value < 0:
+            return "Geühren"
+        else:
+            return "Ignored"
