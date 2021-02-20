@@ -87,7 +87,7 @@ class Statement:
         takes a dict of format {"regex": "compiled regex", "category": "category"} and returns the correct mapping for
         the category.
 
-        :param mapping: dict of type {regex": "compiled regex", "category": "category"}
+        :param mapping: dict of type {"regex": "compiled regex", "category": "category"}
         :param booking_type: string containing the relevant loan information to determine category of entry.
         :param value: value of the transaction, only required to handle special cases for mintos premium discount
 
