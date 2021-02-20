@@ -27,27 +27,54 @@ class Statement:
         :return: category of the statement; if unknown return the empty string
         """
         booking_type = self._statement[self._config.get_booking_type()]
-        value = self.get_value()
         category = ""
-        if self._config.get_relevant_income_regex().match(booking_type):
-            category = "Zinsen"
-        elif self._config.get_relevant_invest_regex().match(booking_type):
-            category = "Einlage"
-        elif self._config.get_relevant_payment_regex().match(booking_type):
-            category = "Entnahme"
-        elif self.is_fee(booking_type):
-            category = "Gebühren"
-        elif self._config.get_special_entry_regex() and self._config.get_special_entry_regex().match(booking_type):
-            if value > 0:
+
+        regex_to_category_mappings = [
+            {
+                "regex": self._config.get_relevant_income_regex(),
+                "category": "Zinsen"
+            },
+            {
+                "regex": self._config.get_relevant_invest_regex(),
+                "category": "Einlage"
+            },
+            {
+                "regex": self._config.get_relevant_payment_regex(),
+                "category": "Entnahme"
+            },
+            {
+                "regex": self._config.get_relevant_fee_regex(),
+                "category": "Gebühren"
+            },
+            {
+                "regex": self._config.get_special_entry_regex(),
+                "category": "Undecided"
+            },
+            {
+                "regex": self._config.get_ignorable_entry_regex(),
+                "category": "Ignored"
+            }
+        ]
+
+        for mapping in regex_to_category_mappings:
+            if mapping["regex"] and mapping["regex"].match(booking_type):
+                category = mapping["category"]
+                break
+
+        # This is currently a special case for the mintos "discount/premium" secondary market transactions parsing,
+        # where an entry might be a fee or an income depending on its sign.
+        if category == "Undecided":
+            if self.get_value() >= 0:
                 category = "Zinsen"
-            elif value < 0:
+            elif self.get_value() < 0:
                 category = "Gebühren"
             else:
-                logging.debug(self._statement)
-        elif self._config.get_ignorable_entry_regex() and self._config.get_ignorable_entry_regex().match(booking_type):
-            category = "Ignored"
-        else:
-            logging.debug(self._statement)
+                category = "Ignored"
+                logging.debug("Unexpected value: ", self._statement)
+
+        if category == "":
+            logging.debug("Unexpected statement: ", self._statement)
+
         return category
 
     def is_fee(self, booking_type):
@@ -56,13 +83,13 @@ class Statement:
 
     def get_date(self):
         """ get the date of the statement """
-        date_to_parse = self._statement[self._config.get_booking_date()]
-        if date_to_parse == "":
-            return datetime(1970, 1, 1).date()
-        return datetime.strptime(
-            date_to_parse,
-            self._config.get_booking_date_format(),
-        ).date()
+        if self._statement[self._config.get_booking_date()]:
+            statement_date = datetime.strptime(
+                self._statement[self._config.get_booking_date()], self._config.get_booking_date_format()
+            ).date()
+        else:
+            statement_date = datetime(1970, 1, 1).date()
+        return statement_date
 
     def get_value(self):
         """ get the value of the statement """

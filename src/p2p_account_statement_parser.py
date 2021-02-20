@@ -105,10 +105,8 @@ class PeerToPeerPlatformParser(object):
         """
         statement = Statement(self.config, statement)
         category = statement.get_category()
-        if not category:
-            return
 
-        if category == "Ignored":
+        if not category or category == "Ignored":
             return
 
         formatted_account_entry = {
