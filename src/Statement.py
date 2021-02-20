@@ -43,25 +43,25 @@ class Statement:
                 category = mapping["category"]
                 break
 
-        # This is currently a special case for the mintos "discount/premium" secondary market transactions parsing,
-        # where an entry might be a fee or an income depending on its sign.
         if category == "Undecided":
-            if self.get_value() >= 0:
-                category = "Zinsen"
-            elif self.get_value() < 0:
-                category = "Gebühren"
-            else:
-                category = "Ignored"
-                logging.debug("Unexpected value: ", self._statement)
+            category = Statement.__handle_special_case_mintos_discount_premium(self.get_value())
 
         if category == "":
             logging.debug("Unexpected statement: ", self._statement)
 
         return category
 
-    def is_fee(self, booking_type):
-        """ check if it is a statement with a fee"""
-        return self._config.get_relevant_fee_regex() and self._config.get_relevant_fee_regex().match(booking_type)
+    @staticmethod
+    def __handle_special_case_mintos_discount_premium(value):
+        # This is currently a special case for the Mintos "discount/premium" secondary market transactions parsing,
+        # where an entry might be a fee or an income depending on its sign.
+
+        if value >= 0:
+            return "Zinsen"
+        elif value < 0:
+            return "Gebühren"
+        else:
+            return "Ignored"
 
     def get_date(self):
         """ get the date of the statement """
