@@ -24,7 +24,7 @@ class Statement:
         """
         Check the category of the given statement.
 
-        :return: category of the statement; if unknown return the empty string
+        :return: category of the statement; if ignored on purpose return 'Ignored', if unknown return the empty string
         """
         booking_type = self._statement[self._config.get_booking_type()]
         category = ""
