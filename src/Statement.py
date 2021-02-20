@@ -102,8 +102,14 @@ class Statement:
 
     @staticmethod
     def __handle_special_case_mintos_discount_premium(value):
-        # This is currently a special case for the Mintos "discount/premium" secondary market transactions parsing,
-        # where an entry might be a fee or an income depending on its sign.
+        """
+        This is currently a special case for the Mintos "discount/premium" secondary market transactions parsing,
+        where an entry might be a fee or an income depending on its sign.
+
+        :param value: how much money was returned/paid
+
+        :return: Zinsen if value >= 0; Gebühren if < 0; Ignored in any other case
+        """
 
         if value >= 0:
             return "Zinsen"
