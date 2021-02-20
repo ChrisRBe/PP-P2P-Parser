@@ -43,8 +43,9 @@ class Statement:
             category = self.__match_category(mapping, booking_type, value)
             if category:
                 break
-            else:
-                logging.debug("Unexpected statement: ", self._statement)
+
+        if not category:
+            logging.debug("Unexpected statement: ", self._statement)
 
         return category
 
