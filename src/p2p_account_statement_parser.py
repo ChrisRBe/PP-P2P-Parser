@@ -53,8 +53,12 @@ class PeerToPeerPlatformParser(object):
         """config file property setter"""
         self._config_file = value
 
-    def __aggregate_statements_daily(self, formatted_account_entry):
+    def __aggregate_statements(self, formatted_account_entry, comment, monthly=True):
         entry_date = formatted_account_entry[PP_FIELDNAMES[0]]
+        if monthly:
+            last_day = calendar.monthrange(entry_date.year, entry_date.month)[1]
+            entry_date = entry_date.replace(day=last_day)
+
         entry_type = formatted_account_entry[PP_FIELDNAMES[3]]
         logging.debug("entry type is {}. new entry date is {}".format(entry_type, entry_date))
         if entry_date not in self.aggregation_data:
@@ -70,30 +74,14 @@ class PeerToPeerPlatformParser(object):
                 PP_FIELDNAMES[1]: formatted_account_entry[PP_FIELDNAMES[1]],
                 PP_FIELDNAMES[2]: formatted_account_entry[PP_FIELDNAMES[2]],
                 PP_FIELDNAMES[3]: entry_type,
-                PP_FIELDNAMES[4]: "Tageszusammenfassung",
+                PP_FIELDNAMES[4]: comment,
             }
 
+    def __aggregate_statements_daily(self, formatted_account_entry):
+        self.__aggregate_statements(formatted_account_entry, "Tageszusammenfassung", False)
+
     def __aggregate_statements_monthly(self, formatted_account_entry):
-        entry_date = formatted_account_entry[PP_FIELDNAMES[0]]
-        last_day = calendar.monthrange(entry_date.year, entry_date.month)[1]
-        entry_date = entry_date.replace(day=last_day)
-        entry_type = formatted_account_entry[PP_FIELDNAMES[3]]
-        logging.debug("entry type is {}. new entry date is {}".format(entry_type, entry_date))
-        if entry_date not in self.aggregation_data:
-            self.aggregation_data[entry_date] = {}
-        if entry_type in self.aggregation_data[entry_date]:
-            logging.debug("add to existing entry")
-            self.aggregation_data[entry_date][entry_type][PP_FIELDNAMES[1]] += formatted_account_entry[
-                PP_FIELDNAMES[1]
-            ]
-        else:
-            self.aggregation_data[entry_date][entry_type] = {
-                PP_FIELDNAMES[0]: entry_date,
-                PP_FIELDNAMES[1]: formatted_account_entry[PP_FIELDNAMES[1]],
-                PP_FIELDNAMES[2]: formatted_account_entry[PP_FIELDNAMES[2]],
-                PP_FIELDNAMES[3]: entry_type,
-                PP_FIELDNAMES[4]: "Monatszusammenfassung",
-            }
+        self.__aggregate_statements(formatted_account_entry, "Monatszusammenfassung", True)
 
     def __format_statement(self, statement):
         """
