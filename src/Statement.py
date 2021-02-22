@@ -108,12 +108,10 @@ class Statement:
 
         :param value: how much money was returned/paid
 
-        :return: Zinsen if value >= 0; Gebühren if < 0; Ignored in any other case
+        :return: Zinsen if value >= 0 Gebühren in any other case
         """
 
         if value >= 0:
             return "Zinsen"
-        elif value < 0:
-            return "Gebühren"
         else:
-            return "Ignored"
+            return "Gebühren"
