@@ -242,6 +242,27 @@ class TestBaseParser(unittest.TestCase):
                 "Typ": "Entnahme",
                 "Wert": -20.0,
             },
+            {
+                "Buchungswährung": "EUR",
+                "Datum": datetime.date(2020, 4, 10),
+                "Notiz": "178363724: Loan 28375000-01 - discount/premium for secondary market transaction 178363274.",
+                "Typ": "Gebühren",
+                "Wert": -0.145454545,
+            },
+            {
+                "Buchungswährung": "EUR",
+                "Datum": datetime.date(2020, 4, 10),
+                "Notiz": "178363725: Loan 28375000-01 - discount/premium for secondary market transaction 178363275.",
+                "Typ": "Zinsen",
+                "Wert": 0.505454545,
+            },
+            {
+                "Buchungswährung": "EUR",
+                "Datum": datetime.date(1970, 1, 1),
+                "Notiz": "127373922: Loan 35287609-01 - interest received (no date for testing)",
+                "Typ": "Zinsen",
+                "Wert": 0.5,
+            },
         ]
         self.assertEqual(expected_statement, self.base_parser.parse_account_statement())
 
@@ -296,6 +317,27 @@ class TestBaseParser(unittest.TestCase):
                 "Notiz": "Tageszusammenfassung",
                 "Typ": "Entnahme",
                 "Wert": -20.0,
+            },
+            {
+                "Buchungswährung": "EUR",
+                "Datum": datetime.date(2020, 4, 10),
+                "Notiz": "Tageszusammenfassung",
+                "Typ": "Gebühren",
+                "Wert": -0.145454545,
+            },
+            {
+                "Buchungswährung": "EUR",
+                "Datum": datetime.date(2020, 4, 10),
+                "Notiz": "Tageszusammenfassung",
+                "Typ": "Zinsen",
+                "Wert": 0.505454545,
+            },
+            {
+                "Buchungswährung": "EUR",
+                "Datum": datetime.date(1970, 1, 1),
+                "Notiz": "Tageszusammenfassung",
+                "Typ": "Zinsen",
+                "Wert": 0.5,
             },
         ]
         self.assertEqual(expected_statement, self.base_parser.parse_account_statement(aggregate="daily"))
@@ -360,6 +402,27 @@ class TestBaseParser(unittest.TestCase):
                 "Notiz": "115013710: Withdraw application",
                 "Typ": "Entnahme",
                 "Wert": -20.0,
+            },
+            {
+                "Buchungswährung": "EUR",
+                "Datum": datetime.date(2020, 4, 10),
+                "Notiz": "178363724: Loan 28375000-01 - discount/premium for secondary market transaction 178363274.",
+                "Typ": "Gebühren",
+                "Wert": -0.145454545,
+            },
+            {
+                "Buchungswährung": "EUR",
+                "Datum": datetime.date(2020, 4, 10),
+                "Notiz": "178363725: Loan 28375000-01 - discount/premium for secondary market transaction 178363275.",
+                "Typ": "Zinsen",
+                "Wert": 0.505454545,
+            },
+            {
+                "Buchungswährung": "EUR",
+                "Datum": datetime.date(1970, 1, 1),
+                "Notiz": "127373922: Loan 35287609-01 - interest received (no date for testing)",
+                "Typ": "Zinsen",
+                "Wert": 0.5,
             },
         ]
         self.assertEqual(expected_statement, self.base_parser.parse_account_statement(aggregate="transaction"))
