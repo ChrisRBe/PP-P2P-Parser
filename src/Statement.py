@@ -50,7 +50,11 @@ class Statement:
         return category
 
     def get_date(self):
-        """ get the date of the statement """
+        """
+        get the date of the statement
+
+        :return: statement date as datetime object
+        """
         if self._statement[self._config.get_booking_date()]:
             statement_date = datetime.strptime(
                 self._statement[self._config.get_booking_date()], self._config.get_booking_date_format()
@@ -60,11 +64,19 @@ class Statement:
         return statement_date
 
     def get_value(self):
-        """ get the value of the statement """
+        """
+        get the value of the statement
+
+        :return: value of the current statement as float.
+        """
         return float(self._statement[self._config.get_booking_value()].replace(",", "."))
 
     def get_note(self):
-        """ get the note of the statement """
+        """
+        get the note of the statement
+
+        :return: any note added in the original csv.
+        """
         return "{id}: {details}".format(
             id=self._statement[self._config.get_booking_id()],
             details=self._statement[self._config.get_booking_details()],
