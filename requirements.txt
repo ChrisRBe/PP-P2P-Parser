@@ -1,7 +1,7 @@
 appdirs==1.4.4
 astroid==2.5.6
 atomicwrites==1.4.0
-attrs==21.1.0
+attrs==21.2.0
 black==21.4b2
 certifi==2020.12.5
 cfgv==3.2.0
