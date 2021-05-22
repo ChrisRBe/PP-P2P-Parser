@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 An application to read account statement files from different peer to peer lending sites, e.g. Mintos.com and creates
