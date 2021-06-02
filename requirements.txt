@@ -3,7 +3,7 @@ astroid==2.5.7
 atomicwrites==1.4.0
 attrs==21.2.0
 black==21.4b2
-certifi==2020.12.5
+certifi==2021.5.30
 cfgv==3.3.0
 chardet==4.0.0
 click==8.0.1
