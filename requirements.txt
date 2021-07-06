@@ -33,7 +33,7 @@ pyparsing==2.4.7
 pytest==6.2.3
 pytest-cov==2.11.1
 PyYAML==5.4.1
-regex==2021.4.4
+regex==2021.7.6
 requests==2.25.1
 six==1.16.0
 toml==0.10.2
