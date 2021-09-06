@@ -7,6 +7,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/f3bad303efd4200ebee2/maintainability)](https://codeclimate.com/github/ChrisRBe/PP-P2P-Parser/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/f3bad303efd4200ebee2/test_coverage)](https://codeclimate.com/github/ChrisRBe/PP-P2P-Parser/test_coverage)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+[![Bors enabled](https://bors.tech/images/badge_small.svg)](https://app.bors.tech/repositories/37041)
 
 ## Introduction
 
