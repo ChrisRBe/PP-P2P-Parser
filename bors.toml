@@ -1,3 +1,3 @@
-status = ["build"]
+status = ["Build"]
 delete_merged_branches = true
 required_approvals = 0
