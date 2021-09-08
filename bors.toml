@@ -1,2 +1,2 @@
-status = ["Build"]
+status = ["build (3.9)"]
 delete_merged_branches = true
