@@ -7,7 +7,7 @@ verify_ssl = true
 black = "==21.4b2"
 codacy-coverage = "==1.3.11"
 coverage = "==6.0.2"
-flake8 = "==3.9.2"
+flake8 = "==4.0.1"
 pre-commit = "==2.15.0"
 pylint = "==2.11.1"
 pytest = "==6.2.5"
