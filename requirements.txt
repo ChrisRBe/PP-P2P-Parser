@@ -1,5 +1,5 @@
 appdirs==1.4.4
-astroid==2.8.3
+astroid==2.8.4
 atomicwrites==1.4.0
 attrs==21.2.0
 black==21.4b2
@@ -21,7 +21,7 @@ lazy-object-proxy==1.6.0
 mccabe==0.6.1
 mypy-extensions==0.4.3
 nodeenv==1.6.0
-packaging==21.0
+packaging==21.2
 pathspec==0.9.0
 pluggy==1.0.0
 pre-commit==2.12.1
