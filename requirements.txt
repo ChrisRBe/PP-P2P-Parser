@@ -13,7 +13,7 @@ coverage==5.5
 distlib==0.3.3
 filelock==3.3.2
 flake8==3.9.1
-identify==2.3.3
+identify==2.3.4
 idna==3.3
 iniconfig==1.1.1
 isort==5.10.0
