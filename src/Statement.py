@@ -96,15 +96,20 @@ class Statement:
     
     @staticmethod
     def _parse_value(value):
-        if value:
-            # Check order of . and , to replace in right order
-            if "." in value and "," in value:
-                if value.find(".") < value.find(","):
-                    value = value.replace(".", "")
-                else:
-                    value = value.replace(",", "")
-            return float(value.replace(",", "."))
-        return None
+        if not value:
+            return None
+
+        dot_pos = value.find(".")
+        comma_pos = value.find(",")
+
+        # Check position of . and , to replace them in the right order
+        if dot_pos != -1 and comma_pos != -1:
+            if dot_pos < comma_pos:
+                value = value.replace(".", "")
+            else:
+                value = value.replace(",", "")
+                
+        return float(value.replace(",", "."))
 
     @staticmethod
     def __match_category(mapping, booking_type, value):
