@@ -1,0 +1,14 @@
+---
+type_regex: !!map
+  deposit: "(Amount of funds deposited)"
+  withdraw: ""
+  interest: "(Amount of interest payment received)"
+  ignorable_entry: "(Amount invested in loan)|(Amount of principal repayment received)"
+
+csv_fieldnames:
+  booking_date: 'Value date'
+  booking_date_format: '%m/%d/%Y'
+  booking_details: 'Loan ID'
+  booking_id: 'Loan ID'
+  booking_type: 'Transaction type'
+  booking_value: 'Credit (€)'

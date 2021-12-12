@@ -34,6 +34,7 @@ List of currently supported providers:
     - Robocash
     - Swaper
     - Debitum Network
+    - Viainvest
 
 Control the way how account statements are processed via the aggregate parameter:
     - transaction: Currently does not process the input data beyond making it Portfolio Performance compatible.
@@ -80,6 +81,7 @@ parse-account-statements.py  --type mintos src/test/testdata/mintos.csv
 * bondora - Supports current account statement format (as of 2019-10-12); exported to csv
 * bondora go & grow - Supports current account statement format (as of 2019-10-12); exported to csv
 * debitumnetwork - Supports current account statement format (as of 2020-09-08) exported to csv
+* viainvest - Supports current account statement (as of 2021-12-12) exported as csv (Withdrawals do not work yet)
 
 ### Alternative solution for Auxmoney
 
@@ -96,9 +98,12 @@ Example:
 ```
 ---
 type_regex: !!map
-  deposit: "^Incoming client.*"
-  withdraw: "^Withdraw application.*"
-  interest: "(^Delayed interest.*)|(^Late payment.*)|(^Interest income.*)|(^Cashback.*)"
+  deposit: "(Deposits)|(^Incoming client.*)|(^Incoming currency exchange.*)|(^Affiliate partner bonus$)"
+  withdraw: "(^Withdraw application.*)|(Outgoing currency.*)|(Withdrawal)"
+  interest: "(^Delayed interest.*)|(^Late payment.*)|(^Interest income.*)|(^Cashback.*)|(^.*[Ii]nterest received.*)|(^.*late fees received$)"
+  fee: "(^FX commission.*)|(.*secondary market fee$)"
+  ignorable_entry: ".*investment in loan.*|.*[Pp]rincipal received.*|.*secondary market transaction.*"
+  special_entry: "(.*discount/premium.*)"
 
 csv_fieldnames:
   booking_date: 'Date'

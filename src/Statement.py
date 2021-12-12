@@ -27,7 +27,6 @@ class Statement:
         :return: category of the statement; if ignored on purpose return 'Ignored', if unknown return the empty string
         """
         booking_type = self._statement[self._config.get_booking_type()]
-        category = ""
         value = self.get_value()
 
         regex_to_category_mappings = [
@@ -39,6 +38,7 @@ class Statement:
             {"regex": self._config.get_ignorable_entry_regex(), "category": "Ignored"},
         ]
 
+        category = ""
         for mapping in regex_to_category_mappings:
             category = self.__match_category(mapping, booking_type, value)
             if category:
@@ -69,7 +69,8 @@ class Statement:
 
         :return: value of the current statement as float.
         """
-        return float(self._statement[self._config.get_booking_value()].replace(",", "."))
+        raw_value = self._statement[self._config.get_booking_value()]
+        return Statement._parse_value(raw_value)
 
     def get_note(self):
         """
@@ -92,6 +93,18 @@ class Statement:
             return self._statement[self._config.get_booking_currency()]
         else:
             return "EUR"
+    
+    @staticmethod
+    def _parse_value(value):
+        if value:
+            # Check order of . and , to replace in right order
+            if "." in value and "," in value:
+                if value.find(".") < value.find(","):
+                    value = value.replace(".", "")
+                else:
+                    value = value.replace(",", "")
+            return float(value.replace(",", "."))
+        return None
 
     @staticmethod
     def __match_category(mapping, booking_type, value):

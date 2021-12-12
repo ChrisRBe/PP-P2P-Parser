@@ -1,0 +1,7 @@
+Transaction date;Value date;Transaction type;Country;Loan ID;Loan Type;Credit (€);Debit (€)
+12/16/2020;12/16/2020;Amount invested in loan;PL;05-3248349;Short-term loan;;10,00
+12/14/2020;12/14/2020;Amount of principal repayment received;LV;04-1246342;Credit line;0,24;
+12/14/2020;12/14/2020;Amount of interest payment received;LV;04-1246342;Credit line;0,10;
+12/14/2020;12/14/2020;Amount of principal repayment received;PL;05-3233341;Short-term loan;10,00;
+12/14/2020;12/14/2020;Amount of interest payment received;PL;05-3233341;Short-term loan;0,09;
+12/13/2020;12/13/2020;Amount of funds deposited;;;;1.000,00;
