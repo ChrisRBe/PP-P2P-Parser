@@ -109,14 +109,21 @@ class Statement:
         dot_pos = value.find(".")
         comma_pos = value.find(",")
 
-        # Check position of . and , to replace them in the right order
-        if dot_pos != -1 and comma_pos != -1:
-            if dot_pos < comma_pos:
-                value = value.replace(".", "")
-            else:
-                value = value.replace(",", "")
+        if dot_pos == -1 or comma_pos == -1:
+            # Did not find both comma and dot, just replace comma with dot
+            value = value.replace(",", ".")
+            return float(value)
 
-        return float(value.replace(",", "."))
+        # Check position of . and , to replace them in the right order
+        if dot_pos < comma_pos:
+            # dot is used for digit grouping, comma for decimal
+            value = value.replace(".", "")
+            value = value.replace(",", ".")
+            return float(value)
+        else:
+            # comma is used for digit grouping, dot for decimal
+            value = value.replace(",", "")
+            return float(value)
 
     @staticmethod
     def __match_category(mapping, booking_type, value):
