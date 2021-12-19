@@ -6,7 +6,7 @@ Copyright 2021-12-12 AlexanderLill
 """
 import unittest
 
-from Statement import Statement
+from src.Statement import Statement
 
 
 class TestStatement(unittest.TestCase):
