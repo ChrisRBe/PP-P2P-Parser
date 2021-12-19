@@ -183,6 +183,10 @@ class TestBaseParser(unittest.TestCase):
 
     def test_mintos_parsing(self):
         """test parse_account_statement for mintos"""
+        self.base_parser.account_statement_file = os.path.join(os.path.dirname(__file__), "testdata", "mintos.csv")
+        self.base_parser.config_file = os.path.join(
+            os.path.dirname(__file__), os.pardir, os.pardir, "config", "mintos.yml"
+        )
         expected_statement = [
             {
                 "Buchungswährung": "EUR",
@@ -268,6 +272,10 @@ class TestBaseParser(unittest.TestCase):
 
     def test_mintos_parsing_daily_aggregation(self):
         """test parse_account_statement for mintos"""
+        self.base_parser.account_statement_file = os.path.join(os.path.dirname(__file__), "testdata", "mintos.csv")
+        self.base_parser.config_file = os.path.join(
+            os.path.dirname(__file__), os.pardir, os.pardir, "config", "mintos.yml"
+        )
         expected_statement = [
             {
                 "Buchungswährung": "EUR",
@@ -344,6 +352,10 @@ class TestBaseParser(unittest.TestCase):
 
     def test_mintos_parsing_transaction_aggregation(self):
         """test parse_account_statement for mintos"""
+        self.base_parser.account_statement_file = os.path.join(os.path.dirname(__file__), "testdata", "mintos.csv")
+        self.base_parser.config_file = os.path.join(
+            os.path.dirname(__file__), os.pardir, os.pardir, "config", "mintos.yml"
+        )
         expected_statement = [
             {
                 "Buchungswährung": "EUR",
@@ -473,6 +485,37 @@ class TestBaseParser(unittest.TestCase):
             },
         ]
         self.assertEqual(expected_statement, self.base_parser.parse_account_statement(aggregate="monthly"))
+
+    def test_viainvest_parsing_transaction_aggregation(self):
+        """test parse_account_statement for viainvest"""
+        self.base_parser.account_statement_file = os.path.join(os.path.dirname(__file__), "testdata", "viainvest.csv")
+        self.base_parser.config_file = os.path.join(
+            os.path.dirname(__file__), os.pardir, os.pardir, "config", "viainvest.yml"
+        )
+        expected_statement = [
+            {
+                "Buchungswährung": "EUR",
+                "Datum": datetime.date(2020, 12, 13),
+                "Notiz": ": ",
+                "Typ": "Einlage",
+                "Wert": 1000.0,
+            },
+            {
+                "Buchungswährung": "EUR",
+                "Datum": datetime.date(2020, 12, 14),
+                "Notiz": "04-1246342: 04-1246342",
+                "Typ": "Zinsen",
+                "Wert": 0.10,
+            },
+            {
+                "Buchungswährung": "EUR",
+                "Datum": datetime.date(2020, 12, 14),
+                "Notiz": "05-3233341: 05-3233341",
+                "Typ": "Zinsen",
+                "Wert": 0.09,
+            },
+        ]
+        self.assertEqual(expected_statement, self.base_parser.parse_account_statement(aggregate="transaction"))
 
     @unittest.skip("Currently not checking if infile exists.")
     def test_no_statement_file(self):

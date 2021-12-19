@@ -14,6 +14,7 @@ List of currently supported providers:
     - Robocash
     - Swaper
     - Debitum Network
+    - Viainvest
 
 Control the way how account statements are processed via the aggregate parameter:
     - transaction: Currently does not process the input data beyond making it Portfolio Performance compatible.

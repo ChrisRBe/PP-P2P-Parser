@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Module for holding the coniguration of a platform.
+Module for holding the configuration of a platform.
 
 Copyright 2018-04-29 ChrisRBe
 """
@@ -18,9 +18,9 @@ class Config:
         Constructor for Config
         """
         logging.info("Config ini")
-        self._relevant_invest_regex = re.compile(config["type_regex"]["deposit"])
-        self._relevant_payment_regex = re.compile(config["type_regex"]["withdraw"])
-        self._relevant_income_regex = re.compile(config["type_regex"]["interest"])
+        self._relevant_invest_regex = Config.__get_compiled_regex_or_none(config, ["type_regex", "deposit"])
+        self._relevant_payment_regex = Config.__get_compiled_regex_or_none(config, ["type_regex", "withdraw"])
+        self._relevant_income_regex = Config.__get_compiled_regex_or_none(config, ["type_regex", "interest"])
 
         self._relevant_fee_regex = Config.__get_compiled_regex_or_none(config, ["type_regex", "fee"])
         self._ignorable_entry_regex = Config.__get_compiled_regex_or_none(config, ["type_regex", "ignorable_entry"])

@@ -27,7 +27,6 @@ class Statement:
         :return: category of the statement; if ignored on purpose return 'Ignored', if unknown return the empty string
         """
         booking_type = self._statement[self._config.get_booking_type()]
-        category = ""
         value = self.get_value()
 
         regex_to_category_mappings = [
@@ -39,6 +38,7 @@ class Statement:
             {"regex": self._config.get_ignorable_entry_regex(), "category": "Ignored"},
         ]
 
+        category = ""
         for mapping in regex_to_category_mappings:
             category = self.__match_category(mapping, booking_type, value)
             if category:
@@ -69,7 +69,8 @@ class Statement:
 
         :return: value of the current statement as float.
         """
-        return float(self._statement[self._config.get_booking_value()].replace(",", "."))
+        raw_value = self._statement[self._config.get_booking_value()]
+        return Statement._parse_value(raw_value)
 
     def get_note(self):
         """
@@ -92,6 +93,39 @@ class Statement:
             return self._statement[self._config.get_booking_currency()]
         else:
             return "EUR"
+
+    @staticmethod
+    def _parse_value(value):
+        """
+        Parse statement value from string to float.
+        Includes handling of commas and dots for decimal separators and
+        digit grouping, such as 1.000,00 and 1,000.00.
+
+        :param value: the statement value as string
+
+        :return: parsed value of the statement as float.
+        """
+        if not value:
+            return None
+
+        dot_pos = value.find(".")
+        comma_pos = value.find(",")
+
+        if dot_pos == -1 or comma_pos == -1:
+            # Did not find both comma and dot, just replace comma with dot
+            value = value.replace(",", ".")
+            return float(value)
+
+        # Check position of . and , to replace them in the right order
+        if dot_pos < comma_pos:
+            # dot is used for digit grouping, comma for decimal
+            value = value.replace(".", "")
+            value = value.replace(",", ".")
+            return float(value)
+        else:
+            # comma is used for digit grouping, dot for decimal
+            value = value.replace(",", "")
+            return float(value)
 
     @staticmethod
     def __match_category(mapping, booking_type, value):
