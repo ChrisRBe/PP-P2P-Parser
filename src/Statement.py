@@ -96,6 +96,13 @@ class Statement:
 
     @staticmethod
     def _parse_value(value):
+        """
+        Parse statement value from string to float.
+        Includes handling of commas and dots for decimal separators and
+        digit grouping, such as 1.000,00 and 1,000.00.
+
+        :return: parsed value of the statement as float.
+        """
         if not value:
             return None
 
