@@ -502,17 +502,17 @@ class TestBaseParser(unittest.TestCase):
             },
             {
                 "Buchungswährung": "EUR",
-                "Datum": datetime.date(2020, 12, 13),
-                "Notiz": "05-3233341: 05-3233341",
-                "Typ": "Zinsen",
-                "Wert": 0.09,
-            },
-            {
-                "Buchungswährung": "EUR",
                 "Datum": datetime.date(2020, 12, 14),
                 "Notiz": "04-1246342: 04-1246342",
                 "Typ": "Zinsen",
                 "Wert": 0.10,
+            },
+            {
+                "Buchungswährung": "EUR",
+                "Datum": datetime.date(2020, 12, 14),
+                "Notiz": "05-3233341: 05-3233341",
+                "Typ": "Zinsen",
+                "Wert": 0.09,
             },
         ]
         self.assertEqual(expected_statement, self.base_parser.parse_account_statement(aggregate="transaction"))
