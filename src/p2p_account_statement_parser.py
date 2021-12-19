@@ -11,9 +11,9 @@ import logging
 
 from yaml import safe_load
 
-from src.Config import Config
+from src.p2p_parser_config import Config
 from src.portfolio_performance_writer import PP_FIELDNAMES
-from src.Statement import Statement
+from src.statement import Statement
 
 
 class PeerToPeerPlatformParser(object):
