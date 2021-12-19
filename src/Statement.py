@@ -93,7 +93,7 @@ class Statement:
             return self._statement[self._config.get_booking_currency()]
         else:
             return "EUR"
-    
+
     @staticmethod
     def _parse_value(value):
         if not value:
@@ -108,7 +108,7 @@ class Statement:
                 value = value.replace(".", "")
             else:
                 value = value.replace(",", "")
-                
+
         return float(value.replace(",", "."))
 
     @staticmethod

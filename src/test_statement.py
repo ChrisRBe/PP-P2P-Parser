@@ -26,10 +26,8 @@ class TestStatement(unittest.TestCase):
         for item in test_data:
             test_input = item[0]
             expected_output = item[1]
-            self.assertEqual(
-                expected_output,
-                Statement._parse_value(test_input)
-            )
+            self.assertEqual(expected_output, Statement._parse_value(test_input))
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     unittest.main()

@@ -473,7 +473,7 @@ class TestBaseParser(unittest.TestCase):
             },
         ]
         self.assertEqual(expected_statement, self.base_parser.parse_account_statement(aggregate="monthly"))
-    
+
     def test_viainvest_parsing_transaction_aggregation(self):
         """test parse_account_statement for viainvest"""
         expected_statement = [
