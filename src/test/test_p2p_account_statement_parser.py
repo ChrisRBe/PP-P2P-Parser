@@ -183,6 +183,10 @@ class TestBaseParser(unittest.TestCase):
 
     def test_mintos_parsing(self):
         """test parse_account_statement for mintos"""
+        self.base_parser.account_statement_file = os.path.join(os.path.dirname(__file__), "testdata", "mintos.csv")
+        self.base_parser.config_file = os.path.join(
+            os.path.dirname(__file__), os.pardir, os.pardir, "config", "mintos.yml"
+        )
         expected_statement = [
             {
                 "Buchungswährung": "EUR",
@@ -268,6 +272,10 @@ class TestBaseParser(unittest.TestCase):
 
     def test_mintos_parsing_daily_aggregation(self):
         """test parse_account_statement for mintos"""
+        self.base_parser.account_statement_file = os.path.join(os.path.dirname(__file__), "testdata", "mintos.csv")
+        self.base_parser.config_file = os.path.join(
+            os.path.dirname(__file__), os.pardir, os.pardir, "config", "mintos.yml"
+        )
         expected_statement = [
             {
                 "Buchungswährung": "EUR",
@@ -344,6 +352,10 @@ class TestBaseParser(unittest.TestCase):
 
     def test_mintos_parsing_transaction_aggregation(self):
         """test parse_account_statement for mintos"""
+        self.base_parser.account_statement_file = os.path.join(os.path.dirname(__file__), "testdata", "mintos.csv")
+        self.base_parser.config_file = os.path.join(
+            os.path.dirname(__file__), os.pardir, os.pardir, "config", "mintos.yml"
+        )
         expected_statement = [
             {
                 "Buchungswährung": "EUR",
@@ -476,6 +488,10 @@ class TestBaseParser(unittest.TestCase):
 
     def test_viainvest_parsing_transaction_aggregation(self):
         """test parse_account_statement for viainvest"""
+        self.base_parser.account_statement_file = os.path.join(os.path.dirname(__file__), "testdata", "viainvest.csv")
+        self.base_parser.config_file = os.path.join(
+            os.path.dirname(__file__), os.pardir, os.pardir, "config", "viainvest.yml"
+        )
         expected_statement = [
             {
                 "Buchungswährung": "EUR",
