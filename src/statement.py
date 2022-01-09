@@ -8,6 +8,9 @@ import logging
 from datetime import datetime
 
 
+logger = logging.getLogger(__name__)
+
+
 class Statement:
     """
     Implementation of the statement
@@ -45,7 +48,7 @@ class Statement:
                 break
 
         if not category:
-            logging.debug("Unexpected statement: ", self._statement)
+            logger.debug("Unexpected statement: %s", self._statement)
 
         return category
 

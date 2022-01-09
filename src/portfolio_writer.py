@@ -10,6 +10,7 @@ import io
 import logging
 
 PP_FIELDNAMES = ["Datum", "Wert", "Buchungswährung", "Typ", "Notiz"]
+logger = logging.getLogger(__name__)
 
 
 class PortfolioPerformanceWriter(object):
@@ -62,5 +63,5 @@ class PortfolioPerformanceWriter(object):
         """
         with codecs.open(outfile, "w", encoding="utf-8") as csv_output:
             stream_content = self.out_string_stream.getvalue()
-            logging.debug(stream_content)
+            logger.debug(stream_content)
             csv_output.write(stream_content.strip())
