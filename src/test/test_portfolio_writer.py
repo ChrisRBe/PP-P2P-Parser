@@ -9,8 +9,8 @@ import os
 import tempfile
 from unittest import TestCase
 
-from src.portfolio_performance_writer import PortfolioPerformanceWriter
-from src.portfolio_performance_writer import PP_FIELDNAMES
+from src.portfolio_writer import PortfolioPerformanceWriter
+from src.portfolio_writer import PP_FIELDNAMES
 
 
 class TestPortfolioPerformanceWriter(TestCase):

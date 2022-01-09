@@ -8,6 +8,9 @@ import logging
 import re
 
 
+logger = logging.getLogger(__name__)
+
+
 class Config:
     """
     Implementation of the configuration
@@ -17,7 +20,8 @@ class Config:
         """
         Constructor for Config
         """
-        logging.info("Config ini")
+        logger.info("Setup config for statement parser. Run with --debug to see config values")
+        logger.debug("Config settings: %s", config)
         self._relevant_invest_regex = Config.__get_compiled_regex_or_none(config, ["type_regex", "deposit"])
         self._relevant_payment_regex = Config.__get_compiled_regex_or_none(config, ["type_regex", "withdraw"])
         self._relevant_income_regex = Config.__get_compiled_regex_or_none(config, ["type_regex", "interest"])
@@ -36,6 +40,7 @@ class Config:
             self._booking_currency = config["csv_fieldnames"]["booking_currency"]
         else:
             self._booking_currency = ""
+        logger.info("Config done.")
 
     def get_relevant_invest_regex(self):
         """get the relevant_invest_regex"""

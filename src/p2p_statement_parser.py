@@ -11,9 +11,12 @@ import logging
 
 from yaml import safe_load
 
-from src.p2p_parser_config import Config
-from src.portfolio_performance_writer import PP_FIELDNAMES
+from src.p2p_config import Config
+from src.portfolio_writer import PP_FIELDNAMES
 from src.statement import Statement
+
+
+logger = logging.getLogger(__name__)
 
 
 class PeerToPeerPlatformParser(object):
@@ -60,11 +63,11 @@ class PeerToPeerPlatformParser(object):
             entry_date = entry_date.replace(day=last_day)
 
         entry_type = formatted_account_entry[PP_FIELDNAMES[3]]
-        logging.debug("entry type is {}. new entry date is {}".format(entry_type, entry_date))
+        logger.debug("entry type is %s. new entry date is %s", entry_type, entry_date)
         if entry_date not in self.aggregation_data:
             self.aggregation_data[entry_date] = {}
         if entry_type in self.aggregation_data[entry_date]:
-            logging.debug("add to existing entry")
+            logger.debug("add to existing entry")
             self.aggregation_data[entry_date][entry_type][PP_FIELDNAMES[1]] += formatted_account_entry[
                 PP_FIELDNAMES[1]
             ]
@@ -162,13 +165,14 @@ class PeerToPeerPlatformParser(object):
         :return: list of account statement entries ready for use in Portfolio Performance
         """
         if aggregate == "transaction" or aggregate == "daily" or aggregate == "monthly":
-            logging.info("Aggregating data on a {} basis".format(aggregate))
+            logger.info("Aggregating data on a {} basis".format(aggregate))
         else:
-            logging.error("Aggregating data on a {} basis not supported.".format(aggregate))
+            logger.error("Aggregating data on a {} basis not supported.".format(aggregate))
             return
 
         self.__parse_service_config()
 
+        logger.info("Loading account statement")
         with codecs.open(self._account_statement_file, "r", encoding="utf-8-sig") as infile:
             dialect = csv.Sniffer().sniff(infile.readline())
             infile.seek(0)
