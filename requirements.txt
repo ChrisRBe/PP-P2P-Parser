@@ -13,12 +13,12 @@ coverage==5.5
 distlib==0.3.4
 filelock==3.4.2
 flake8==3.9.1
-identify==2.4.4
+identify==2.4.5
 idna==3.3
 iniconfig==1.1.1
 isort==5.10.1
 lazy-object-proxy==1.7.1
-mccabe==0.6.1
+mccabe==0.7.0
 mypy-extensions==0.4.3
 nodeenv==1.6.0
 packaging==21.3
