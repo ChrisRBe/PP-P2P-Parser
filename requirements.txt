@@ -29,7 +29,7 @@ py==1.11.0
 pycodestyle==2.8.0
 pyflakes==2.4.0
 pylint==2.8.2
-pyparsing==3.0.6
+pyparsing==3.0.7
 pytest==6.2.3
 pytest-cov==2.11.1
 PyYAML==5.4.1
@@ -37,7 +37,7 @@ regex==2022.1.18
 requests==2.27.1
 six==1.16.0
 toml==0.10.2
-typed-ast==1.5.1
+typed-ast==1.5.2
 typing-extensions==4.0.1
 urllib3==1.26.8
 virtualenv==20.13.0
