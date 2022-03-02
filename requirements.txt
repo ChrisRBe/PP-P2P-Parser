@@ -1,5 +1,5 @@
 appdirs==1.4.4
-astroid==2.9.3
+astroid==2.10.0
 atomicwrites==1.4.0
 attrs==21.4.0
 black==21.4b2
@@ -33,7 +33,7 @@ pyparsing==3.0.7
 pytest==6.2.3
 pytest-cov==2.11.1
 PyYAML==5.4.1
-regex==2022.1.18
+regex==2022.3.2
 requests==2.27.1
 six==1.16.0
 toml==0.10.2
