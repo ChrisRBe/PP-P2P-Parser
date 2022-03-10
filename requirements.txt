@@ -41,4 +41,4 @@ typed-ast==1.5.2
 typing-extensions==4.1.1
 urllib3==1.26.8
 virtualenv==20.13.3
-wrapt==1.13.3
+wrapt==1.14.0
