@@ -28,7 +28,7 @@ class TestPortfolioPerformanceWriter(TestCase):
 
     def test_update_output(self):
         """test update_output"""
-        locale.setlocale(locale.LC_ALL, "de_DE")
+        locale.setlocale(locale.LC_ALL, "de_DE.utf-8")
         test_entry = {
             PP_FIELDNAMES[0]: "date",
             PP_FIELDNAMES[1]: 123.456789,
@@ -44,7 +44,7 @@ class TestPortfolioPerformanceWriter(TestCase):
 
     def test_update_output_umlaut(self):
         """test update_output with umlauts"""
-        locale.setlocale(locale.LC_ALL, "de_DE")
+        locale.setlocale(locale.LC_ALL, "de_DE.utf-8")
         test_entry = {
             PP_FIELDNAMES[0]: "date",
             PP_FIELDNAMES[1]: 0.123456789,
@@ -60,7 +60,7 @@ class TestPortfolioPerformanceWriter(TestCase):
 
     def test_update_output_umlaut_en_us(self):
         """test update_output with umlauts"""
-        locale.setlocale(locale.LC_ALL, "en_us")
+        locale.setlocale(locale.LC_ALL, "en_US.utf-8")
         test_entry = {
             PP_FIELDNAMES[0]: "date",
             PP_FIELDNAMES[1]: 0.123456789,
