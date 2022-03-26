@@ -5,6 +5,7 @@ Unit test for the portfolio performance writer module
 Copyright 2018-04-29 ChrisRBe
 """
 import codecs
+import locale
 import os
 import tempfile
 from unittest import TestCase
@@ -27,31 +28,49 @@ class TestPortfolioPerformanceWriter(TestCase):
 
     def test_update_output(self):
         """test update_output"""
+        locale.setlocale(locale.LC_ALL, "de_DE")
         test_entry = {
             PP_FIELDNAMES[0]: "date",
-            PP_FIELDNAMES[1]: 0,
+            PP_FIELDNAMES[1]: 123.456789,
             PP_FIELDNAMES[2]: "currency",
             PP_FIELDNAMES[3]: "category",
             PP_FIELDNAMES[4]: "note",
         }
         self.pp_writer.update_output(test_entry)
         self.assertEqual(
-            'Datum,Wert,Buchungswährung,Typ,Notiz\r\ndate,"0,00000000",currency,category,note',
+            'Datum,Wert,Buchungswährung,Typ,Notiz\r\ndate,"123,45679",currency,category,note',
             self.pp_writer.out_string_stream.getvalue().strip(),
         )
 
     def test_update_output_umlaut(self):
         """test update_output with umlauts"""
+        locale.setlocale(locale.LC_ALL, "de_DE")
         test_entry = {
             PP_FIELDNAMES[0]: "date",
-            PP_FIELDNAMES[1]: 0,
+            PP_FIELDNAMES[1]: 0.123456789,
             PP_FIELDNAMES[2]: "currency",
             PP_FIELDNAMES[3]: "category",
             PP_FIELDNAMES[4]: "Laiamäe Pärnaõie Užutekio",
         }
         self.pp_writer.update_output(test_entry)
         self.assertEqual(
-            'Datum,Wert,Buchungswährung,Typ,Notiz\r\ndate,"0,00000000",currency,category,Laiamäe Pärnaõie Užutekio',
+            'Datum,Wert,Buchungswährung,Typ,Notiz\r\ndate,"0,12345679",currency,category,Laiamäe Pärnaõie Užutekio',
+            self.pp_writer.out_string_stream.getvalue().strip(),
+        )
+
+    def test_update_output_umlaut_en_us(self):
+        """test update_output with umlauts"""
+        locale.setlocale(locale.LC_ALL, "en_us")
+        test_entry = {
+            PP_FIELDNAMES[0]: "date",
+            PP_FIELDNAMES[1]: 0.123456789,
+            PP_FIELDNAMES[2]: "currency",
+            PP_FIELDNAMES[3]: "category",
+            PP_FIELDNAMES[4]: "Laiamäe Pärnaõie Užutekio",
+        }
+        self.pp_writer.update_output(test_entry)
+        self.assertEqual(
+            "Datum,Wert,Buchungswährung,Typ,Notiz\r\ndate,0.12345679,currency,category,Laiamäe Pärnaõie Užutekio",
             self.pp_writer.out_string_stream.getvalue().strip(),
         )
 

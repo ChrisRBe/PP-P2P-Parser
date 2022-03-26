@@ -7,7 +7,10 @@ Copyright 2018-04-29 ChrisRBe
 import codecs
 import csv
 import io
+import locale
 import logging
+from decimal import Decimal
+
 
 PP_FIELDNAMES = ["Datum", "Wert", "Buchungswährung", "Typ", "Notiz"]
 logger = logging.getLogger(__name__)
@@ -49,8 +52,10 @@ class PortfolioPerformanceWriter(object):
         key value pair
         :return:
         """
+        logger.debug("Current locale: %s", locale.getlocale())
         if statement_dict:
-            statement_dict[PP_FIELDNAMES[1]] = "{0:.8f}".format(statement_dict[PP_FIELDNAMES[1]]).replace(".", ",")
+            value = Decimal(statement_dict[PP_FIELDNAMES[1]])
+            statement_dict[PP_FIELDNAMES[1]] = f"{value:.8n}"
             self.out_csv_writer.writerow(statement_dict)
 
     def write_pp_csv_file(self, outfile="portfolio_performance.csv"):
