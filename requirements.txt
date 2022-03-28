@@ -1,5 +1,5 @@
 appdirs==1.4.4
-astroid==2.11.0
+astroid==2.11.2
 atomicwrites==1.4.0
 attrs==21.4.0
 black==21.4b2
