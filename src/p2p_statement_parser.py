@@ -63,19 +63,20 @@ class PeerToPeerPlatformParser(object):
             entry_date = entry_date.replace(day=last_day)
 
         entry_type = formatted_account_entry[PP_FIELDNAMES[3]]
-        logger.debug("entry type is %s. new entry date is %s", entry_type, entry_date)
+        entry_value = formatted_account_entry[PP_FIELDNAMES[1]]
+        entry_currency = formatted_account_entry[PP_FIELDNAMES[2]]
+
+        logger.debug("entry type is %s. new entry date is %s. value of entry: %s", entry_type, entry_date, entry_value)
         if entry_date not in self.aggregation_data:
             self.aggregation_data[entry_date] = {}
         if entry_type in self.aggregation_data[entry_date]:
             logger.debug("add to existing entry")
-            self.aggregation_data[entry_date][entry_type][PP_FIELDNAMES[1]] += formatted_account_entry[
-                PP_FIELDNAMES[1]
-            ]
+            self.aggregation_data[entry_date][entry_type][PP_FIELDNAMES[1]] += entry_value
         else:
             self.aggregation_data[entry_date][entry_type] = {
                 PP_FIELDNAMES[0]: entry_date,
-                PP_FIELDNAMES[1]: formatted_account_entry[PP_FIELDNAMES[1]],
-                PP_FIELDNAMES[2]: formatted_account_entry[PP_FIELDNAMES[2]],
+                PP_FIELDNAMES[1]: entry_value,
+                PP_FIELDNAMES[2]: entry_currency,
                 PP_FIELDNAMES[3]: entry_type,
                 PP_FIELDNAMES[4]: comment,
             }

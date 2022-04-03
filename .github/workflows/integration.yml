@@ -28,6 +28,17 @@ jobs:
         python -m pip install --upgrade pip
         pip install -U pipenv
         pipenv install --system --skip-lock --dev --site-packages
+    - name: Install additional locale
+      run: |
+        sudo apt-get update && sudo apt-get install tzdata locales -y && sudo locale-gen de_DE.UTF-8
+        sudo update-locale
+        echo "Testing language settings"
+        echo "All languages..."
+        locale -a
+        echo "Actual locale"
+        locale
+        echo "Actual numeric settings"
+        locale -c -k LC_NUMERIC
     - name: Format with black
       run: |
         black -l 119 --check --diff .
