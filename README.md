@@ -1,4 +1,4 @@
-<h1 style="text-align: center;">PP-P2P-Parser</h1>
+<h1 align="center">PP-P2P-Parser</h1>
 
 ## Code Status
 
