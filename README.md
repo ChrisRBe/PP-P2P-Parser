@@ -1,13 +1,13 @@
 <h1 align="center">PP-P2P-Parser</h1>
 
-## Code Status
-
-![](https://github.com/ChrisRBe/PP-P2P-Parser/workflows/Integration/badge.svg?branch=master)<br>
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)<br>
-[![Maintainability](https://api.codeclimate.com/v1/badges/f3bad303efd4200ebee2/maintainability)](https://codeclimate.com/github/ChrisRBe/PP-P2P-Parser/maintainability)<br>
-[![Test Coverage](https://api.codeclimate.com/v1/badges/f3bad303efd4200ebee2/test_coverage)](https://codeclimate.com/github/ChrisRBe/PP-P2P-Parser/test_coverage)<br>
-[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)<br>
-[![Bors enabled](https://bors.tech/images/badge_small.svg)](https://app.bors.tech/repositories/37041)
+<p align="center">
+<a href="https://github.com/ChrisRBe/PP-P2P-Parser/actions"><img alt="Action Status" src="https://github.com/ChrisRBe/PP-P2P-Parser/workflows/Integration/badge.svg?branch=master"></a>
+<a href="https://codeclimate.com/github/ChrisRBe/PP-P2P-Parser/test_coverage"><img alt="Test Coverage" src="https://api.codeclimate.com/v1/badges/f3bad303efd4200ebee2/test_coverage"/></a>
+<a href="https://codeclimate.com/github/ChrisRBe/PP-P2P-Parser/maintainability"><img alt="Maintainability" src="https://api.codeclimate.com/v1/badges/f3bad303efd4200ebee2/maintainability"/></a>
+<a href="https://github.com/pre-commit/pre-commit"><img alt="pre-commit: enabled" src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white" style="max-width:100%;"></a>
+<a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
+<a href="https://app.bors.tech/repositories/37041"><img alt="Bors enabled" src="https://bors.tech/images/badge_small.svg"></a>
+</p>
 
 ## Introduction
 
@@ -57,8 +57,10 @@ optional arguments:
   --debug               enables debug level logging if set
 ```
 
+### Example
+
 ```shell
-parse-account-statements.py  --type mintos src/test/testdata/mintos.csv
+./parse-account-statements.py  --type mintos src/test/testdata/mintos.csv
 ```
 
 > &#x26a0; If you are using the --aggregate=monthly option, please note that this application aggregates always on the
