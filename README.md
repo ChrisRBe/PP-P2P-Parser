@@ -1,12 +1,12 @@
-# PP-P2P-Parser
+<h1 style="text-align: center;">PP-P2P-Parser</h1>
 
 ## Code Status
 
-![](https://github.com/ChrisRBe/PP-P2P-Parser/workflows/Integration/badge.svg?branch=master)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![Maintainability](https://api.codeclimate.com/v1/badges/f3bad303efd4200ebee2/maintainability)](https://codeclimate.com/github/ChrisRBe/PP-P2P-Parser/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/f3bad303efd4200ebee2/test_coverage)](https://codeclimate.com/github/ChrisRBe/PP-P2P-Parser/test_coverage)
-[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
+![](https://github.com/ChrisRBe/PP-P2P-Parser/workflows/Integration/badge.svg?branch=master)<br>
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)<br>
+[![Maintainability](https://api.codeclimate.com/v1/badges/f3bad303efd4200ebee2/maintainability)](https://codeclimate.com/github/ChrisRBe/PP-P2P-Parser/maintainability)<br>
+[![Test Coverage](https://api.codeclimate.com/v1/badges/f3bad303efd4200ebee2/test_coverage)](https://codeclimate.com/github/ChrisRBe/PP-P2P-Parser/test_coverage)<br>
+[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)<br>
 [![Bors enabled](https://bors.tech/images/badge_small.svg)](https://app.bors.tech/repositories/37041)
 
 ## Introduction
@@ -18,7 +18,7 @@ Input format needs to be a csv file as well!
 
 ## Usage
 
-```
+```text
 parse-account-statements.py --help
 usage:
 An application to read account statement files from different peer to peer lending sites, e.g. Mintos.com and creates
@@ -57,7 +57,7 @@ optional arguments:
   --debug               enables debug level logging if set
 ```
 
-```
+```shell
 parse-account-statements.py  --type mintos src/test/testdata/mintos.csv
 ```
 
@@ -95,7 +95,7 @@ The content directly reflects the format of the source account statement files.
 
 Example:
 
-```
+```yaml
 ---
 type_regex: !!map
   deposit: "(Deposits)|(^Incoming client.*)|(^Incoming currency exchange.*)|(^Affiliate partner bonus$)"
@@ -123,16 +123,19 @@ CSV file format compatible with Performance Portfolio (German language setting).
 
 To use this application the following dependencies need to be installed:
 
-* Python 3.6+ (unit test are run against Python 3.6, 3.7, 3.8, 3.9)
-* PyYaml
+* Python 3.7+ (unit test are run against Python 3.7, 3.8, 3.9, 3.10)
+* virtualenv
+* pipenv
 
 Installation of Python dependencies can be handled in two ways:
 
 *   Install dependencies via `pip install -r requirements.txt`
-*   Create a virtual environment using pipenv
+*   Create a virtual environment using pipenv (**preferred way**)
 
-        pipenv install
-        pipenv shell
+    ```shell
+    pipenv install
+    pipenv shell
+    ```
 
 ## Legal
 
