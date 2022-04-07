@@ -63,16 +63,18 @@ optional arguments:
 ./parse-account-statements.py  --type mintos src/test/testdata/mintos.csv
 ```
 
-> &#x26a0; If you are using the --aggregate=monthly option, please note that this application aggregates always on the
-> last day of the month. This can lead to import issues in Portfolio Performance when importing data for
-> the current month.
->
-> E.g. import date is the 15th of a July, the account statement contains data with a date of 31st of July.
->
-> Account activity for a "future date" will be ignored/ not imported by Portfolio Performance.
->
-> Please note, that this behaviour on this application side is intentional to avoid importing account activity multiple
-> times in Portfolio Performance.
+## &#x26a0; Information
+
+&#x26a0; If you are using the --aggregate=monthly option, please note that this aggregates account activities
+always on then last day of the month. This can lead to import issues in Portfolio Performance when importing
+data for the current month.
+
+E.g. import date is the 15th of a July, the account statement contains data with a date of 31st of July.
+
+Account activity for a "future date" will be ignored/ not imported by Portfolio Performance.
+
+Please note, that this behaviour on application side is intentional to avoid importing account activity
+multiple times in Portfolio Performance.
 
 ## Currently supported formats
 
