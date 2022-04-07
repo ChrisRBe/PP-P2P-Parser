@@ -57,8 +57,10 @@ optional arguments:
   --debug               enables debug level logging if set
 ```
 
+Example
+
 ```
-parse-account-statements.py  --type mintos src/test/testdata/mintos.csv
+./parse-account-statements.py  --type mintos src/test/testdata/mintos.csv
 ```
 
 > &#x26a0; If you are using the --aggregate=monthly option, please note that this application aggregates always on the
