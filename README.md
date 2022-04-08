@@ -1,13 +1,13 @@
-# PP-P2P-Parser
+<h1 align="center">PP-P2P-Parser</h1>
 
-## Code Status
-
-![](https://github.com/ChrisRBe/PP-P2P-Parser/workflows/Integration/badge.svg?branch=master)
-[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
-[![Maintainability](https://api.codeclimate.com/v1/badges/f3bad303efd4200ebee2/maintainability)](https://codeclimate.com/github/ChrisRBe/PP-P2P-Parser/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/f3bad303efd4200ebee2/test_coverage)](https://codeclimate.com/github/ChrisRBe/PP-P2P-Parser/test_coverage)
-[![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
-[![Bors enabled](https://bors.tech/images/badge_small.svg)](https://app.bors.tech/repositories/37041)
+<p align="center">
+<a href="https://github.com/ChrisRBe/PP-P2P-Parser/actions"><img alt="Action Status" src="https://github.com/ChrisRBe/PP-P2P-Parser/workflows/Integration/badge.svg?branch=master"></a>
+<a href="https://codeclimate.com/github/ChrisRBe/PP-P2P-Parser/test_coverage"><img alt="Test Coverage" src="https://api.codeclimate.com/v1/badges/f3bad303efd4200ebee2/test_coverage"/></a>
+<a href="https://codeclimate.com/github/ChrisRBe/PP-P2P-Parser/maintainability"><img alt="Maintainability" src="https://api.codeclimate.com/v1/badges/f3bad303efd4200ebee2/maintainability"/></a>
+<a href="https://github.com/pre-commit/pre-commit"><img alt="pre-commit: enabled" src="https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white" style="max-width:100%;"></a>
+<a href="https://github.com/psf/black"><img alt="Code style: black" src="https://img.shields.io/badge/code%20style-black-000000.svg"></a>
+<a href="https://app.bors.tech/repositories/37041"><img alt="Bors enabled" src="https://bors.tech/images/badge_small.svg"></a>
+</p>
 
 ## Introduction
 
@@ -18,7 +18,7 @@ Input format needs to be a csv file as well!
 
 ## Usage
 
-```
+```text
 parse-account-statements.py --help
 usage:
 An application to read account statement files from different peer to peer lending sites, e.g. Mintos.com and creates
@@ -57,22 +57,24 @@ optional arguments:
   --debug               enables debug level logging if set
 ```
 
-Example
+### Example
 
-```
+```shell
 ./parse-account-statements.py  --type mintos src/test/testdata/mintos.csv
 ```
 
-> &#x26a0; If you are using the --aggregate=monthly option, please note that this application aggregates always on the
-> last day of the month. This can lead to import issues in Portfolio Performance when importing data for
-> the current month.
->
-> E.g. import date is the 15th of a July, the account statement contains data with a date of 31st of July.
->
-> Account activity for a "future date" will be ignored/ not imported by Portfolio Performance.
->
-> Please note, that this behaviour on this application side is intentional to avoid importing account activity multiple
-> times in Portfolio Performance.
+## &#x26a0; Information
+
+&#x26a0; If you are using the --aggregate=monthly option, please note that this aggregates account activities
+always on then last day of the month. This can lead to import issues in Portfolio Performance when importing
+data for the current month.
+
+E.g. import date is the 15th of a July, the account statement contains data with a date of 31st of July.
+
+Account activity for a "future date" will be ignored/ not imported by Portfolio Performance.
+
+Please note, that this behaviour on application side is intentional to avoid importing account activity
+multiple times in Portfolio Performance.
 
 ## Currently supported formats
 
@@ -97,7 +99,7 @@ The content directly reflects the format of the source account statement files.
 
 Example:
 
-```
+```yaml
 ---
 type_regex: !!map
   deposit: "(Deposits)|(^Incoming client.*)|(^Incoming currency exchange.*)|(^Affiliate partner bonus$)"
@@ -125,16 +127,19 @@ CSV file format compatible with Performance Portfolio (German language setting).
 
 To use this application the following dependencies need to be installed:
 
-* Python 3.6+ (unit test are run against Python 3.6, 3.7, 3.8, 3.9)
-* PyYaml
+* Python 3.7+ (unit test are run against Python 3.7, 3.8, 3.9, 3.10)
+* virtualenv
+* pipenv
 
 Installation of Python dependencies can be handled in two ways:
 
 *   Install dependencies via `pip install -r requirements.txt`
-*   Create a virtual environment using pipenv
+*   Create a virtual environment using pipenv (**preferred way**)
 
-        pipenv install
-        pipenv shell
+    ```shell
+    pipenv install
+    pipenv shell
+    ```
 
 ## Legal
 
