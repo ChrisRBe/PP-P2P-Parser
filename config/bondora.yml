@@ -1,7 +1,7 @@
 ---
 type_regex: !!map
-  deposit: "(^TransferDeposit.*)"
-  withdraw: "(^Withdraw.*)|(^TransferGoGrow.*)"
+  deposit: "(^TransferDeposit.*)|(^TransferGoGrowMainRepaiment.*)"
+  withdraw: "(^Withdraw.*)|(^TransferGoGrow$)"
   interest: "(^TransferInterestRepaiment.*)|(^TransferExtraInterestRepaiment.*)"
   fee: "(^FX commission.*)"
 
