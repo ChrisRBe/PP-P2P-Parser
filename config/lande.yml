@@ -1,0 +1,13 @@
+---
+type_regex: !!map
+  deposit: "^Bank transfer deposit$"
+  withdraw: "^Withdraw.*"
+  interest: "(.*Interest$)|(^Affiliate-Bonus$)"
+
+csv_fieldnames:
+  booking_date: 'Date'
+  booking_date_format: '%d.%m.%Y'
+  booking_details: 'Loan ID'
+  booking_id: 'Transaction ID'
+  booking_type: 'Type'
+  booking_value: 'Amount'
