@@ -130,7 +130,7 @@ CSV file format compatible with Performance Portfolio (German language setting).
 
 To use this application the following dependencies need to be installed:
 
-* Python 3.7+ (unit test are run against Python 3.7, 3.8, 3.9, 3.10)
+* Python 3.8+ (unit test are run against Python 3.8, 3.9, 3.10, 3.11, 3.12)
 * virtualenv
 * pipenv
 
