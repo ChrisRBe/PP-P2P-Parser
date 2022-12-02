@@ -620,6 +620,104 @@ class TestBaseParser(unittest.TestCase):
         ]
         self.assertEqual(expected_statement, self.base_parser.parse_account_statement())
 
+    def test_lande_parsing(self):
+        """test parse_account_statement for lande.finance"""
+        self.base_parser.account_statement_file = os.path.join(os.path.dirname(__file__), "testdata", "lande.csv")
+        self.base_parser.config_file = os.path.join(
+            os.path.dirname(__file__),
+            os.pardir,
+            os.pardir,
+            "config",
+            "lande.yml",
+        )
+        expected_statement = [
+            {
+                "Buchungswährung": "EUR",
+                "Datum": datetime.date(2022, 11, 8),
+                "Notiz": "97b1a146-1c3f-47e5-8ac3-10ade56765ec: ",
+                "Typ": "Einlage",
+                "Wert": 500.0,
+            },
+            {
+                "Buchungswährung": "EUR",
+                "Datum": datetime.date(2022, 11, 8),
+                "Notiz": "97b20fa6-c6cd-4c08-8f4a-b25f120ec583: 221108-366978",
+                "Typ": "Zinsen",
+                "Wert": 0.5,
+            },
+            {
+                "Buchungswährung": "EUR",
+                "Datum": datetime.date(2022, 11, 11),
+                "Notiz": "97b7d986-c414-427f-90a2-c05e98641900: 221109-297724",
+                "Typ": "Zinsen",
+                "Wert": 0.5,
+            },
+            {
+                "Buchungswährung": "EUR",
+                "Datum": datetime.date(2022, 11, 11),
+                "Notiz": "97b8289e-fd86-4312-84de-f50631fb571f: 221108-142849",
+                "Typ": "Zinsen",
+                "Wert": 0.5,
+            },
+            {
+                "Buchungswährung": "EUR",
+                "Datum": datetime.date(2022, 11, 11),
+                "Notiz": "97b833cf-9d9f-4ff2-a800-a2b1ebaea865: 221101-847953",
+                "Typ": "Zinsen",
+                "Wert": 0.5,
+            },
+            {
+                "Buchungswährung": "EUR",
+                "Datum": datetime.date(2022, 11, 14),
+                "Notiz": "97be0c4f-a4d1-4e7d-aeff-f07e7c446d7e: 220929-309009",
+                "Typ": "Zinsen",
+                "Wert": 0.5,
+            },
+            {
+                "Buchungswährung": "EUR",
+                "Datum": datetime.date(2022, 11, 14),
+                "Notiz": "97be0ca1-0c64-498f-9a47-bc2c7f1ca1ed: 220926-944705",
+                "Typ": "Zinsen",
+                "Wert": 0.5,
+            },
+            {
+                "Buchungswährung": "EUR",
+                "Datum": datetime.date(2022, 11, 14),
+                "Notiz": "97be0cfb-3ceb-4bdc-9411-b25acae80a6e: 221011-882308",
+                "Typ": "Zinsen",
+                "Wert": 0.5,
+            },
+            {
+                "Buchungswährung": "EUR",
+                "Datum": datetime.date(2022, 11, 14),
+                "Notiz": "97be0d40-9237-4683-a6d9-be836ba90580: 221012-476486",
+                "Typ": "Zinsen",
+                "Wert": 0.5,
+            },
+            {
+                "Buchungswährung": "EUR",
+                "Datum": datetime.date(2022, 11, 14),
+                "Notiz": "97be0d93-81a0-428b-9ea3-23be8ff7cfca: 221101-842051",
+                "Typ": "Zinsen",
+                "Wert": 0.5,
+            },
+            {
+                "Buchungswährung": "EUR",
+                "Datum": datetime.date(2022, 11, 14),
+                "Notiz": "97be48c7-c79d-4a35-a440-4048b74b17c8: 221114-968949",
+                "Typ": "Zinsen",
+                "Wert": 0.5,
+            },
+            {
+                "Buchungswährung": "EUR",
+                "Datum": datetime.date(2022, 12, 1),
+                "Notiz": "97e065db-dcad-4a29-8738-5adbfc74fc49: 221011-882308",
+                "Typ": "Zinsen",
+                "Wert": 0.5,
+            },
+        ]
+        self.assertEqual(expected_statement, self.base_parser.parse_account_statement())
+
     def test_aggregation_not_supported(self):
         """test if unsopported aggregation is correctly handled"""
         self.assertFalse(self.base_parser.parse_account_statement(aggregate="yearly"))

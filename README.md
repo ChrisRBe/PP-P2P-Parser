@@ -30,6 +30,7 @@ List of currently supported providers:
     - Bondora
     - Bondora Grow Go
     - Estateguru
+    - Lande
     - Mintos
     - Robocash
     - Swaper
@@ -60,7 +61,7 @@ optional arguments:
 ### Example
 
 ```shell
-./parse-account-statements.py  --type mintos src/test/testdata/mintos.csv
+./parse-account-statements.py --type mintos src/test/testdata/mintos.csv
 ```
 
 ## &#x26a0; Information
@@ -78,14 +79,16 @@ multiple times in Portfolio Performance.
 
 ## Currently supported formats
 
-* mintos - Supports current account-statement.csv file format
-* estateguru - Supports current German layout account statement csv file format
-* robocash - Supports current account statement format (as of 2018-05-01) exported to csv
-* swaper - Supports current account statement format (as of 2018-05-01) exported to csv
-* bondora - Supports current account statement format (as of 2019-10-12); exported to csv
-* bondora go & grow - Supports current account statement format (as of 2019-10-12); exported to csv
-* debitumnetwork - Supports current account statement format (as of 2020-09-08) exported to csv
-* viainvest - Supports current account statement (as of 2021-12-12) exported as csv (Withdrawals do not work yet)
+* `mintos` - Supports current account-statement.csv file format
+* `estateguru` - Supports current German layout account statement csv file format
+* `estateguru_en` - Adaptation for the English account statement csv file format
+* `robocash` - Supports current account statement format (as of 2018-05-01) exported to csv
+* `swaper` - Supports current account statement format (as of 2018-05-01) exported to csv
+* `bondora` - Supports current account statement format (as of 2019-10-12); exported to csv
+* `bondora_go_grow` - Supports current account statement format (as of 2019-10-12); exported to csv
+* `debitumnetwork` - Supports current account statement format (as of 2020-09-08) exported to csv
+* `viainvest` - Supports current account statement (as of 2021-12-12) exported as csv (Withdrawals do not work yet)
+* `lande` - Supports current account statement (as of 2022-12-01) exported as csv (Withdrawals not tested yet)
 
 ### Alternative solution for Auxmoney
 

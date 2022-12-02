@@ -111,6 +111,8 @@ class Statement:
         if not value:
             return None
 
+        value = value.strip("€")
+
         dot_pos = value.find(".")
         comma_pos = value.find(",")
 
