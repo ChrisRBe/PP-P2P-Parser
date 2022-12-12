@@ -14,7 +14,7 @@ distlib==0.3.4
 filelock==3.6.0
 flake8==4.0.1
 identify==2.4.12
-idna==3.3
+idna==3.4
 iniconfig==1.1.1
 isort==5.10.1
 lazy-object-proxy==1.7.1
