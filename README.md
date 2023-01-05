@@ -130,7 +130,7 @@ CSV file format compatible with Performance Portfolio (German language setting).
 
 To use this application the following dependencies need to be installed:
 
-* Python 3.8+ (unit test are run against Python 3.8, 3.9, 3.10, 3.11)
+* Python 3.8+ (unit tests are run against Python 3.8, 3.9, 3.10, 3.11)
 * virtualenv
 * pipenv
 
@@ -141,6 +141,24 @@ Installation of Python dependencies can be handled in two ways:
 
     ```shell
     pipenv install
+    pipenv shell
+    ```
+
+## Development
+
+To set up a local development environment for this project please use either
+of these two options:
+
+*   Using plain pip
+
+    ```shell
+    pip install -r dev-requirements.txt
+    ```
+
+*   Using pipenv
+
+    ```shell
+    pipenv install --dev
     pipenv shell
     ```
 
