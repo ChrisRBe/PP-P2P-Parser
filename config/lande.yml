@@ -2,7 +2,7 @@
 type_regex: !!map
   deposit: "^Bank transfer deposit$"
   withdraw: "^Withdraw.*"
-  interest: "(.*Interest$)|(^Affiliate-Bonus$)"
+  interest: "(.*Interest$)|(^Affiliate-Bonus$)|(^Empfehlungsbonus$)"
 
 csv_fieldnames:
   booking_date: 'Date'
