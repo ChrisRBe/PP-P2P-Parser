@@ -36,6 +36,7 @@ List of currently supported providers:
     - Swaper
     - Debitum Network
     - Viainvest
+    - Lendermarket
 
 Control the way how account statements are processed via the aggregate parameter:
     - transaction: Currently does not process the input data beyond making it Portfolio Performance compatible.
@@ -89,6 +90,7 @@ multiple times in Portfolio Performance.
 * `debitumnetwork` - Supports current account statement format (as of 2020-09-08) exported to csv
 * `viainvest` - Supports current account statement (as of 2021-12-12) exported as csv (Withdrawals do not work yet)
 * `lande` - Supports current account statement (as of 2022-12-01) exported as csv (Withdrawals not tested yet)
+* `lendermarket` - Supports current account statement (as of 2022-12-01) exported as csv (Withdrawals not tested yet)
 
 ### Alternative solution for Auxmoney
 
