@@ -2,12 +2,12 @@
 type_regex: !!map
   deposit: "^Deposit.*"
   withdraw: "^Withdrawal.*"
-  interest: "(^Interest.*)|(^Indemnity.*)|(^Referral.*)|(^EG Bonus.*)|(^Secondary Market Profit.*)"
+  interest: "(^Interest.*)|(^Indemnity.*)|(^Referral.*)|(^EG Bonus.*)|(^Secondary Market Profit.*)|(^Penalty.*)"
   fee: "(^Secondary Market Loss.*)|(^Fee.*)"
 
 csv_fieldnames: !!map
-  booking_date: 'Payment Date'
-  booking_date_format: '%d/%m/%Y %H:%M'
+  booking_date: 'Confirmation Date'
+  booking_date_format: '%d.%m.%Y %H:%M'
   booking_details: 'Loan Code'
   booking_id: 'ID'
   booking_type: 'Cash Flow Type'
