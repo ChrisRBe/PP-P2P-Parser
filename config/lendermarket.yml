@@ -1,0 +1,14 @@
+---
+type_regex: !!map
+  deposit: "^Einzahlung$"
+  withdraw: "^Auszahlung.*"
+  interest: "(.*Erhaltene Zinsen$)|(^Verspätete Zinseingänge$)|(^Aktionsbelohnungen und Boni$)"
+
+csv_fieldnames:
+  booking_date: 'Datum'
+  booking_date_format: '%Y-%m-%d'
+  booking_details: 'Kredit-ID'
+  booking_id: 'Kredit-ID'
+  booking_type: 'Transaktionsdetails'
+  booking_value: 'Umsatz'
+  booking_currency: 'Währung'
