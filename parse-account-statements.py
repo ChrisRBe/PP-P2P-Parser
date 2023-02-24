@@ -85,6 +85,7 @@ def parse_args():
             "mintos",
             "robocash",
             "swaper",
+            "lande",
             "viainvest",
             "estateguru_en",
         ],
