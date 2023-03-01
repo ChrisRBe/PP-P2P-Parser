@@ -38,7 +38,8 @@ class Statement:
             {"regex": self._config.get_relevant_payment_regex(), "category": "Entnahme"},
             {"regex": self._config.get_relevant_fee_regex(), "category": "Gebühren"},
             {"regex": self._config.get_special_entry_regex(), "category": "Undecided"},
-            {"regex": self._config.get_ignorable_entry_regex(), "category": "Ignored"},
+            {"regex": self._config.get_special_entry_regex(), "category": "Undecided"},
+            {"regex": self._config.get_tax_regex(), "category": "Steuern"},
         ]
 
         category = ""
