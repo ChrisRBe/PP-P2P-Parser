@@ -6,6 +6,7 @@ type_regex: !!map
   fee: "(^FX commission.*)|(.*secondary market fee$)"
   ignorable_entry: ".*investment in loan.*|.*[Pp]rincipal received.*|.*secondary market transaction.*"
   special_entry: "(.*discount/premium.*)"
+  tax: "(.*Tax.*)"
 
 csv_fieldnames:
   booking_date: 'Date'
