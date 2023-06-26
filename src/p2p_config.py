@@ -29,6 +29,7 @@ class Config:
         self._relevant_fee_regex = Config.__get_compiled_regex_or_none(config, ["type_regex", "fee"])
         self._ignorable_entry_regex = Config.__get_compiled_regex_or_none(config, ["type_regex", "ignorable_entry"])
         self._special_entry_regex = Config.__get_compiled_regex_or_none(config, ["type_regex", "special_entry"])
+        self._tax = Config.__get_compiled_regex_or_none(config, ["type_regex", "tax"])
 
         self._booking_date = config["csv_fieldnames"]["booking_date"]
         self._booking_date_format = config["csv_fieldnames"]["booking_date_format"]
@@ -65,6 +66,10 @@ class Config:
     def get_special_entry_regex(self):
         """get the special_entry regex"""
         return self._special_entry_regex
+
+    def get_tax_regex(self):
+        """get the tax regex"""
+        return self._tax
 
     def get_booking_date(self):
         """get the booking_date"""
