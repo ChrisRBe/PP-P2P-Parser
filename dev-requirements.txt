@@ -14,7 +14,7 @@ distlib==0.3.6
 exceptiongroup==1.1.0 ; python_version < '3.11'
 filelock==3.9.0 ; python_version >= '3.7'
 flake8==6.0.0
-identify==2.5.12 ; python_version >= '3.7'
+identify==2.5.27 ; python_version >= '3.7'
 idna==3.4 ; python_version >= '3.5'
 iniconfig==1.1.1
 isort==5.11.4 ; python_full_version >= '3.7.0'
