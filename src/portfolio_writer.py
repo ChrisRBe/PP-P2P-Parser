@@ -11,7 +11,6 @@ import locale
 import logging
 from decimal import Decimal
 
-
 PP_FIELDNAMES = ["Datum", "Wert", "Buchungswährung", "Typ", "Notiz"]
 logger = logging.getLogger(__name__)
 

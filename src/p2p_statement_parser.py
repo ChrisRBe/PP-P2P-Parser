@@ -15,7 +15,6 @@ from src.p2p_config import Config
 from src.portfolio_writer import PP_FIELDNAMES
 from src.statement import Statement
 
-
 logger = logging.getLogger(__name__)
 
 
