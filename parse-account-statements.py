@@ -34,7 +34,6 @@ import sys
 from src import p2p_statement_parser
 from src import portfolio_writer
 
-
 root_logger = logging.getLogger()
 logger = logging.getLogger("parse-account-statements")
 

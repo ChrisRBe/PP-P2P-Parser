@@ -7,7 +7,6 @@ Copyright 2018-04-29 ChrisRBe
 import logging
 import re
 
-
 logger = logging.getLogger(__name__)
 
 
